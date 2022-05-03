@@ -63,6 +63,70 @@ header {
 
 .cart {
     width: 100%;
-    background: yellowgreen;
     margin-top: 70px;
+}
+
+.product {
+	background: yellowgreen;
+	display: flex;
+	border-radius: 10px;
+}
+
+.product-image {
+	background: wheat;
+	width: 200px;
+	height: 150px;
+	background: url("./public/product.png") no-repeat;
+	background-size: cover;
+	background-position: 50%;
+	border-radius: 10px;
+	margin-right: 15px;
+}
+
+
+.total-value {
+	margin-top: 50px;
+	display: flex;
+}
+
+.quant {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	background: #DDDDDD;
+	border-radius: 4px;
+	font-family: 'Lato', sans-serif;
+	width: 55%;
+	padding: 5px 10px 10px 5px;
+}
+
+select {
+	margin: none;
+	border: none;
+	width: 100%;
+	padding: 13px 0px 11px 20px;
+	appearance: none;
+	cursor: pointer;
+	background: none;
+	font-family: 'Lato', sans-serif;
+
+	background-image:
+		linear-gradient(45deg, transparent 50%, #8B8B8B 50%),
+		linear-gradient(135deg, #8B8B8B 50%, transparent 50%);
+
+	background-position:
+		calc(100% - 20px) calc(1em + 6px),
+		calc(100% - 15.1px) calc(1em + 6px),
+		calc(100% - 2.5em) 0.8em;
+
+	background-size:
+		5px 5px,
+		5px 5px,
+		1px 1.5em;
+
+	background-repeat: no-repeat;
+}
+
+option {
+	color: #000;
 }
