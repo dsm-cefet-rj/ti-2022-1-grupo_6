@@ -71,6 +71,7 @@ header img:first-child {
 
 header img:last-child {
 	width: 30px;
+	cursor: pointer;
 }
 
 .cart {
@@ -111,8 +112,22 @@ header img:last-child {
 	margin-top: 30px;
 }
 
+.product .remove-button-session {
+	display: flex;
+	flex: 1;
+	align-items: baseline;
+	justify-content: flex-end;
+	padding-right: 25px;
+	height: 135px;
+}
+
+.product .remove-button-session .remove-button {
+	margin-left: 15px;
+	width: 15px;
+	cursor: pointer;
+}
+
 .product-image {
-	background: wheat;
 	min-width: 150px;
 	height: 180px;
 	background: url("../../public/product.png") no-repeat;
@@ -125,16 +140,16 @@ header img:last-child {
 .product-info {
 	display: flex;
 	flex-direction: column;
-	max-width: 60%;
+	width: 50%;
+	max-width: 50%;
 	gap: 10px;
 	margin-left: 15px;
 	
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 
 .product-info span {
+	display: inline-block;
+	max-width: 100%;
 	font-weight: 800;
 	white-space: nowrap;
 	overflow: hidden;
