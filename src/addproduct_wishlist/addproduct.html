@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>TechBuy</title>
+  </head>
+  <body>
+    <body>
+        <nav>
+          <img src="../../public/techbuy.svg" alt="TechBuy" />
+          <img src="../../public/hamburguer.svg" alt="menu" />
+        </nav>
+        <div class="container">
+            <h1>Adicionar Item</h1>
+            <div>
+                <label for="produtoimg">
+                    <div class="imgaddborder">
+                        <p class="imgplus">+</p>
+                        <p class="imgplustext">Subir Imagem</p>
+                    </div>
+                </label>
+                <input type="file" id="produtoimg" accept="image/png, image/jpeg">
+                <div>
+                    <div>
+                        <label for="anuncio">Nome do Anúncio</label><br>
+                        <input type="text" id="anuncio" placeholder="Meu Produto"> <br>
+                    </div>
+                    <div>
+                        <label for="preco">Preço (BRL)</label><br>
+                        <input type="number" data-t id="preco" placeholder="100,00" min="1" step="any"> <br>
+                    </div>
+                    <div>
+                        <label for="disponivel">Quantidade Disponível</label><br>
+                        <input type="number" id="disponivel" placeholder="10" min="1"> <br>
+                    </div>
+                    <div>
+                        <label>Estado do produto</label><br>
+                        <input type="radio" id="novo" name="estado">
+                        <label for="novo">Novo</label><br>
+                        <input type="radio" id="usado" name="estado">
+                        <label for="usado">Usado</label><br>
+                    </div>
+                    <div>
+                        <textarea id="descricao" name="descricao" placeholder="Meu produto é..."></textarea>
+                    </div>
+                    <div>
+                        <input type="submit" value="Enviar" id="submitproduto">
+                    </div>
+            </div>
+        </div>
+  </body>
