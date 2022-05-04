@@ -45,10 +45,10 @@ table {
 body {
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
     font-family: 'Lato', sans-serif;
-    background: tomato;
+    background: #fff;
 }
 
 .container {
@@ -62,20 +62,47 @@ header {
 }
 
 .cart {
+	min-height: 100%;
+	min-height: calc(100vh - 375px);
     width: 100%;
     margin-top: 70px;
 }
 
+.session-title {
+	display: flex;
+	align-items: flex-end;
+}
+
+.session-title .bottom-line {
+	border-bottom: 2px solid #F0F0F0;
+	width: 100%;
+	margin-left: 10px;
+}
+
+.session-title img {
+	width: 65px;
+}
+
+.session-title h1 {
+	font-weight: 800;
+	margin-left: 15px;
+	color: #1596B1;
+	font-size: 2rem;
+}
+
 .product {
-	background: yellowgreen;
+	display: flex;
+	align-items: center;
+	background: #F1F3F1;
 	display: flex;
 	border-radius: 10px;
+	margin-top: 30px;
 }
 
 .product-image {
 	background: wheat;
-	width: 200px;
-	height: 150px;
+	min-width: 150px;
+	height: 180px;
 	background: url("./public/product.png") no-repeat;
 	background-size: cover;
 	background-position: 50%;
@@ -83,10 +110,81 @@ header {
 	margin-right: 15px;
 }
 
+.product-info {
+	display: flex;
+	flex-direction: column;
+	max-width: 60%;
+	gap: 10px;
+	margin-left: 15px;
+	
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.product-info span {
+	font-weight: 800;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.product strong {
+	color: #495057;
+	font-weight: 600;
+	font-size: 1.2rem;
+}
+
+.product p {
+	color: #495057;
+	font-weight: 600;
+	font-size: .8rem;
+}
 
 .total-value {
-	margin-top: 50px;
+	max-width: calc(100%);
+	background: #F8F8F8;
 	display: flex;
+	margin-top: 50px;
+    padding: 35px 25px;
+	flex-direction: column;
+	align-items: center;
+}
+
+.total-value .value {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.total-value .value span {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+
+.total-value .value p {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.2rem;
+}
+
+.total-value button {
+	cursor: pointer;
+    font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	width: 100%;
+	border: none;
+	padding: 15px;
+	margin-top: 20px;
+	color: #fff;
+	font-size: 1rem;
+	background: #1596B1;
+}
+
+.total-value button:hover {
+	background: #138da5;
 }
 
 .quant {
@@ -96,15 +194,17 @@ header {
 	background: #DDDDDD;
 	border-radius: 4px;
 	font-family: 'Lato', sans-serif;
-	width: 55%;
-	padding: 5px 10px 10px 5px;
+	width: 120px;
+	margin-top: 5px;
+	padding: 5px 10px 10px 15px;
 }
 
 select {
 	margin: none;
 	border: none;
 	width: 100%;
-	padding: 13px 0px 11px 20px;
+	padding: 13px 0px 11px 5px;
+	margin-left: 15px;
 	appearance: none;
 	cursor: pointer;
 	background: none;
