@@ -78,10 +78,8 @@ p {
 .question p:last-child {
   padding: 1rem;
 }
-<<<<<<< HEAD
-=======
 
-.imgaddborder{
+.imgaddborder {
   margin-top: 2rem;
   margin-bottom: 2rem;
   width: 50%;
@@ -92,14 +90,14 @@ p {
   border-radius: 15%;
 }
 
-.imgplus{
+.imgplus {
   font-weight: bold;
   font-size: 4rem;
-  text-align:center;
+  text-align: center;
   color: lightgray;
 }
 
-.imgplustext{
+.imgplustext {
   margin-top: -20%;
   margin-bottom: 10%;
   font-weight: bold;
@@ -107,34 +105,39 @@ p {
   color: lightgray;
 }
 
-#produtoimg{
-display: none;
+#produtoimg {
+  display: none;
 }
 
-#anuncio, #descricao{
-  width:100%;
+#anuncio,
+#descricao {
+  width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
 }
 
-#anuncio, #preco, #disponivel, #usado{
-margin-bottom: 8px;
+#anuncio,
+#preco,
+#disponivel,
+#usado {
+  margin-bottom: 8px;
 }
 
-#preco, #disponivel{
+#preco,
+#disponivel {
   width: 25%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
 }
-#descricao{
+#descricao {
   height: 200px;
 }
 
-#submitproduto{
+#submitproduto {
   font-size: larger;
   font-weight: bold;
   width: 100%;
@@ -147,49 +150,48 @@ margin-bottom: 8px;
   margin: 4px 2px;
 }
 
-.favorite{
-padding:12px;
+.favorite {
+  padding: 12px;
 }
 
-.favorite img{
-float: left;
-margin-right: 6px;
+.favorite img {
+  float: left;
+  margin-right: 6px;
 }
 
-.favorite p{
+.favorite p {
   font-size: larger;
   font-weight: bold;
-  color: #1596B1;
+  color: #1596b1;
 }
 
-.product-fav{
-background: #F1F3F1;
-height:99px;
-border-radius: 7px;
-margin-bottom: 16px;
+.product-fav {
+  background: #f1f3f1;
+  height: 99px;
+  border-radius: 7px;
+  margin-bottom: 16px;
 }
 
-.product-fav img{
-width: 99px;
-height: 99px;
-border-radius: 7px;
-float: left;
-margin-right: 8px;
+.product-fav img {
+  width: 99px;
+  height: 99px;
+  border-radius: 7px;
+  float: left;
+  margin-right: 8px;
 }
 
-.title-fav{
-font-size: 15px;
-font-weight: bold;
-padding-top: 16px;
+.title-fav {
+  font-size: 15px;
+  font-weight: bold;
+  padding-top: 16px;
 }
 
-.price-fav{
-font-size: 12px;
-color: #495057;
+.price-fav {
+  font-size: 12px;
+  color: #495057;
 }
 
-.date-fav{
-font-size: 10px;
-color:#495057;
+.date-fav {
+  font-size: 10px;
+  color: #495057;
 }
->>>>>>> Gabriel
