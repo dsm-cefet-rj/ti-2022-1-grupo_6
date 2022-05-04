@@ -39,46 +39,6 @@ p {
   margin: auto;
 }
 
-.product-showcase {
-  display: flex;
-}
-
-.product-showcase .checkout {
-  margin-left: 1.5rem;
-}
-
-.product-showcase .checkout button {
-  border: none;
-  background-color: #0493b5;
-  font-weight: bold;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  padding: 1rem 3rem;
-  margin-top: 2rem;
-}
-
-.product-showcase img {
-  width: 250px;
-}
-
-.questions ul {
-  list-style: none;
-}
-
-.question {
-  margin: 2rem;
-  border-bottom: 1px solid #eaeaea;
-}
-
-.question p:first-child span {
-  font-weight: bold;
-}
-
-.question p:last-child {
-  padding: 1rem;
-}
-
 .imgaddborder {
   margin-top: 2rem;
   margin-bottom: 2rem;
