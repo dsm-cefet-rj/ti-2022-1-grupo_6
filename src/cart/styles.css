@@ -1,0 +1,259 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+    background: #fff;
+}
+
+.container {
+    padding: 0 25px;
+}
+
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+    background: #fff;
+    max-width: 100%;
+	padding: 15px 30px;
+	box-shadow: 0px 1px 12px rgba(0, 0, 0, 0.2);
+}
+
+header img:first-child {
+	width: 90px;
+}
+
+header img:last-child {
+	width: 30px;
+	cursor: pointer;
+}
+
+.cart {
+	min-height: 100%;
+	min-height: calc(100vh - 385px);
+    width: 100%;
+    margin-top: 70px;
+}
+
+.session-title {
+	display: flex;
+	align-items: flex-end;
+}
+
+.session-title .bottom-line {
+	border-bottom: 2px solid #F0F0F0;
+	width: 100%;
+	margin-left: 10px;
+}
+
+.session-title img {
+	width: 65px;
+}
+
+.session-title h1 {
+	font-weight: 800;
+	margin-left: 15px;
+	color: #1596B1;
+	font-size: 2rem;
+}
+
+.product {
+	display: flex;
+	align-items: center;
+	background: #F1F3F1;
+	display: flex;
+	border-radius: 10px;
+	margin-top: 30px;
+}
+
+.product .remove-button-session {
+	display: flex;
+	flex: 1;
+	align-items: baseline;
+	justify-content: flex-end;
+	padding-right: 25px;
+	height: 135px;
+}
+
+.product .remove-button-session .remove-button {
+	margin-left: 15px;
+	width: 15px;
+	cursor: pointer;
+}
+
+.product-image {
+	min-width: 150px;
+	height: 180px;
+	background: url("../../public/product.png") no-repeat;
+	background-size: cover;
+	background-position: 50%;
+	border-radius: 10px;
+	margin-right: 15px;
+}
+
+.product-info {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	max-width: 50%;
+	gap: 10px;
+	margin-left: 15px;
+	
+}
+
+.product-info span {
+	display: inline-block;
+	max-width: 100%;
+	font-weight: 800;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.product strong {
+	color: #495057;
+	font-weight: 600;
+	font-size: 1.2rem;
+}
+
+.product p {
+	color: #495057;
+	font-weight: 600;
+	font-size: .8rem;
+}
+
+.total-value {
+	max-width: calc(100%);
+	background: #F8F8F8;
+	display: flex;
+	margin-top: 50px;
+    padding: 35px 25px;
+	flex-direction: column;
+	align-items: center;
+}
+
+.total-value .value {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.total-value .value span {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+
+.total-value .value p {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.2rem;
+}
+
+.total-value button {
+	cursor: pointer;
+    font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	width: 100%;
+	border: none;
+	padding: 15px;
+	margin-top: 20px;
+	color: #fff;
+	font-size: 1rem;
+	background: #1596B1;
+}
+
+.total-value button:hover {
+	background: #138da5;
+}
+
+.quant {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	background: #DDDDDD;
+	border-radius: 4px;
+	font-family: 'Lato', sans-serif;
+	width: 120px;
+	margin-top: 5px;
+	padding: 5px 10px 10px 15px;
+}
+
+select {
+	margin: none;
+	border: none;
+	width: 100%;
+	padding: 13px 0px 11px 5px;
+	margin-left: 15px;
+	appearance: none;
+	cursor: pointer;
+	background: none;
+	font-family: 'Lato', sans-serif;
+
+	background-image:
+		linear-gradient(45deg, transparent 50%, #8B8B8B 50%),
+		linear-gradient(135deg, #8B8B8B 50%, transparent 50%);
+
+	background-position:
+		calc(100% - 20px) calc(1em + 6px),
+		calc(100% - 15.1px) calc(1em + 6px),
+		calc(100% - 2.5em) 0.8em;
+
+	background-size:
+		5px 5px,
+		5px 5px,
+		1px 1.5em;
+
+	background-repeat: no-repeat;
+}
+
+option {
+	color: #000;
+}
