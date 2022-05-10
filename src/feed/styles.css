@@ -4,7 +4,7 @@
   margin: 0;
 }
 
-header {
+.header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -14,12 +14,8 @@ header {
 	box-shadow: 0px 1px 12px rgba(0, 0, 0, 0.2);
 }
 
-header img:first-child {
+.header img:first-child {
 	width: 90px;
-}
-
-header img:last-child {
-	width: 30px;
 }
 
 body {
