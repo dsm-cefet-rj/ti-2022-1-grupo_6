@@ -1,108 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="styles.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <title>TechBuy - Feed</title>
   </head>
   <body>
     <header>
-      <img src="../../public/logo.png" alt="TechBuy" />
-      <img src="../../public/hamburguer.svg" alt="menu" />
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"
+            ><img src="../../public/logo.png" alt="TechBuy"
+          /></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="../feed/index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../favorites/index.html">Favoritos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../cart/index.html"
+                  >Carrinho <i class="fa-solid fa-cart-shopping"></i
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../addproduct/index.html">Anunciar</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
-    <div id="content">
-      <div class="product-card">
-        <img src="../../public/ryzen.png" />
-        <div class="product-info-wrapper">
-          <p>Vendo Processador Ryzen 3 3200g</p>
-          <div class="product-main-info-section">
-            <div class="price-favorite-section">
-              <p class="price">R$ 600</p>
-              <div class="favorite-button">
-                <img width="20px" height="20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAABmJLR0QA/wD/AP+gvaeTAAAD+UlEQVRYhe3YW2wUVRwG8O/MbWd2dnd2WzS11iqEBqKiiEpMREBLjdYLYBEsYNLiC608VClGqQE12mhISDBIHxSKASVqYqIhxgiNUKBECcYa3kiI0dqWBNu90Z3d7szxYdZtt5ndmb10hwe+p5mz55z5zezMZP6HUEpxI4VxGjAzN0FWuQmyCmfdhep6MKiN/0vDISJJbFU1owRszq6HxrXRYRqLEZ/CBioZfwCEFA5K/PGbeqZP/eWsPj42vZ2trpEeqxdXNHB33Gk6MPn3n+rpk7H+Pm1kaHo7U1EpLl0mLq8XFj2Q7aDE9D00eeVy5NAnicGLuc6FEGlVo7eljfEp6TY9HIoc7omd/AE5X2/C4oe9rW38vDpboNiJ4+EDe2lyMpfm/zBeRdn+tuvBRwAkBi8GP9qlR8J2BhKe97V3SqsaLUDRY73RLw/ZmXEqLOvv3E0kd7C7iybieQ31bHrF81JLVlDs1E+hve/nvtqmIRwPAjpp66JmjiT+zt3i8noTkHZ15Fr7ZppI5D1pcSGCa07PUfbWKmN36j0UOfJp+TUAaCIePfpZejcF0kaG1P6+8muMxE6d0EaHM0DqQD+o7hQIVFfP92eA4hcGHNMYgF/PGRspUHLoL+cwAJD8JwVgACCZ1MMhJzmAHgxC01IgGo87eQMZoTpV1RSISJLDGgCEELeE1F/GMIxXsRgwy2F8CgiD9E3N1d7lqAdc7VxjIwXi6xY6h8kApEDCkqXOYQDA+IBBGuRatISpqHRKwwQqhLvvywCB46QnnnYKJDU8A47LBAHymg1EdOD5J6IkP/9iencKxCh+efX68oPkpo3Ty5iMukxe/zJ7W005NdzttXLTpuktGSAiuPxvvkdcYnk0RHApnbsIz2cFAeDn1fm27SgPyNe+nZ+/YEajSSktrXxSXrNhtjXy2map3uS5Nq/tvVtedT/XNHsa91Orva1bTX8yr1wBgNLIwf3Xv/u69JrGtb6tr2Ur8rODAADRLw5Gv/q8gErNPIR4mls9za25uliuMapnfw7t6za+norCiKLS0SU+utKim51Fz8krl4PdXdrVkYI1bFV1YOcH3Nz5lj1tgQDQieuR3gMTP35fgEZc9rhv2xuM7LHT2S7IiDpwOrx/jx6xWxEwssfX9rq4osH+IfIDAdCDY6GPP4xfOG/ZU1j8kNKxk628Ja/58wYBAKUTx7+NHO7JtvhCBJe3pc397AuWC3glAgEAtNHh0L7uxKXBGe38gnuUjre4GvPVvlkEAYCuR785Ej3Wa9R4YFnPxi2edZvBFL64WxwIAJC49Htwz7sA/DveEe69v8jZSgACoI9dA8BUzCl+qtKASpgbbiX/P+mjXyeY+SCRAAAAAElFTkSuQmCC">
-                <p>3</p>
-              </div>
-            </div>
-            <a href="">
-              <div class="visit-section">
-                <div style="margin-right: 5px;">Visitar</div>
-                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
-              </div>
-            </a>
+
+    <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button
+          type="button"
+          data-bs-target="#carouselCaptions"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+          aria-label="Slide 1"
+        ></button>
+        <button
+          type="button"
+          data-bs-target="#carouselCaptions"
+          data-bs-slide-to="1"
+          aria-label="Slide 2"
+        ></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="../../public/mouse.jpg"
+            class="w-100 h-100 d-block"
+            alt="..."
+          />
+          <div class="carousel-caption h-100">
+            <h2 class="text-light">First slide label</h2>
+            <p class="text-light">
+              Some representative placeholder content for the first slide.
+            </p>
           </div>
-          <div class="product-subinfo-section">
-            <span>01 de maio 22:10</span>
-            <span>, Rio de Janeiro</span>
+        </div>
+        <div class="carousel-item">
+          <img
+            src="../../public/ryzen.png"
+            class="w-100 h-100 d-block"
+            alt="..."
+          />
+          <div class="carousel-caption h-100">
+            <h2 class="text-light">Second slide label</h2>
+            <p class="text-light">
+              Some representative placeholder content for the second slide.
+            </p>
           </div>
-          <div class="separation-line"></div>
         </div>
       </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselCaptions"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselCaptions"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
 
-      <div class="product-card">
-        <img src="../../public/placa-de-video.png" />
-        <div class="product-info-wrapper">
-          <p>Placa de vídeo gtx 960 pronta pra mandar bala</p>
-          <div class="product-main-info-section">
-            <div class="price-favorite-section">
-              <p class="price">R$ 600</p>
-              <div class="favorite-button">
-                <img width="20px" height="20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAABmJLR0QA/wD/AP+gvaeTAAAD+UlEQVRYhe3YW2wUVRwG8O/MbWd2dnd2WzS11iqEBqKiiEpMREBLjdYLYBEsYNLiC608VClGqQE12mhISDBIHxSKASVqYqIhxgiNUKBECcYa3kiI0dqWBNu90Z3d7szxYdZtt5ndmb10hwe+p5mz55z5zezMZP6HUEpxI4VxGjAzN0FWuQmyCmfdhep6MKiN/0vDISJJbFU1owRszq6HxrXRYRqLEZ/CBioZfwCEFA5K/PGbeqZP/eWsPj42vZ2trpEeqxdXNHB33Gk6MPn3n+rpk7H+Pm1kaHo7U1EpLl0mLq8XFj2Q7aDE9D00eeVy5NAnicGLuc6FEGlVo7eljfEp6TY9HIoc7omd/AE5X2/C4oe9rW38vDpboNiJ4+EDe2lyMpfm/zBeRdn+tuvBRwAkBi8GP9qlR8J2BhKe97V3SqsaLUDRY73RLw/ZmXEqLOvv3E0kd7C7iybieQ31bHrF81JLVlDs1E+hve/nvtqmIRwPAjpp66JmjiT+zt3i8noTkHZ15Fr7ZppI5D1pcSGCa07PUfbWKmN36j0UOfJp+TUAaCIePfpZejcF0kaG1P6+8muMxE6d0EaHM0DqQD+o7hQIVFfP92eA4hcGHNMYgF/PGRspUHLoL+cwAJD8JwVgACCZ1MMhJzmAHgxC01IgGo87eQMZoTpV1RSISJLDGgCEELeE1F/GMIxXsRgwy2F8CgiD9E3N1d7lqAdc7VxjIwXi6xY6h8kApEDCkqXOYQDA+IBBGuRatISpqHRKwwQqhLvvywCB46QnnnYKJDU8A47LBAHymg1EdOD5J6IkP/9iencKxCh+efX68oPkpo3Ty5iMukxe/zJ7W005NdzttXLTpuktGSAiuPxvvkdcYnk0RHApnbsIz2cFAeDn1fm27SgPyNe+nZ+/YEajSSktrXxSXrNhtjXy2map3uS5Nq/tvVtedT/XNHsa91Orva1bTX8yr1wBgNLIwf3Xv/u69JrGtb6tr2Ur8rODAADRLw5Gv/q8gErNPIR4mls9za25uliuMapnfw7t6za+norCiKLS0SU+utKim51Fz8krl4PdXdrVkYI1bFV1YOcH3Nz5lj1tgQDQieuR3gMTP35fgEZc9rhv2xuM7LHT2S7IiDpwOrx/jx6xWxEwssfX9rq4osH+IfIDAdCDY6GPP4xfOG/ZU1j8kNKxk628Ja/58wYBAKUTx7+NHO7JtvhCBJe3pc397AuWC3glAgEAtNHh0L7uxKXBGe38gnuUjre4GvPVvlkEAYCuR785Ej3Wa9R4YFnPxi2edZvBFL64WxwIAJC49Htwz7sA/DveEe69v8jZSgACoI9dA8BUzCl+qtKASpgbbiX/P+mjXyeY+SCRAAAAAElFTkSuQmCC">
-                <p>3</p>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <img src="../../public/ryzen2.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <div class="row g-4">
+                <div class="col">
+                  <h5 class="card-title">Ryzen 3 3200G</h5>
+                </div>
+                <div class="col">
+                  <i class="fa-solid fa-heart text-danger"></i> 3
+                </div>
               </div>
+
+              <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
+                esse illum ex totam incidunt ipsam.
+              </p>
+              <p class="card-text">
+                <button class="btn btn-outline-primary">
+                  Ver detalhes <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </p>
+              <p class="card-text fw-bold">Preço: R$ 1200,00</p>
+              <p class="card-text">
+                <small class="text-muted"
+                  >01 de maio 22:10, Rio de Janeiro</small
+                >
+              </p>
             </div>
-            <a href="">
-              <div class="visit-section">
-                <div style="margin-right: 5px;">Visitar</div>
-                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
-              </div>
-            </a>
           </div>
-          <div class="product-subinfo-section">
-            <span>01 de maio 22:10</span>
-            <span>, Rio de Janeiro</span>
-          </div>
-          <div class="separation-line"></div>
         </div>
-      </div>
 
-      <div class="product-card">
-        <img src="../../public/ryzen.png" />
-        <div class="product-info-wrapper">
-          <p>Vendo Processador Ryzen 3 3200g</p>
-          <div class="product-main-info-section">
-            <div class="price-favorite-section">
-              <p class="price">R$ 600</p>
-              <div class="favorite-button">
-                <img width="20px" height="20px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAABmJLR0QA/wD/AP+gvaeTAAAD+UlEQVRYhe3YW2wUVRwG8O/MbWd2dnd2WzS11iqEBqKiiEpMREBLjdYLYBEsYNLiC608VClGqQE12mhISDBIHxSKASVqYqIhxgiNUKBECcYa3kiI0dqWBNu90Z3d7szxYdZtt5ndmb10hwe+p5mz55z5zezMZP6HUEpxI4VxGjAzN0FWuQmyCmfdhep6MKiN/0vDISJJbFU1owRszq6HxrXRYRqLEZ/CBioZfwCEFA5K/PGbeqZP/eWsPj42vZ2trpEeqxdXNHB33Gk6MPn3n+rpk7H+Pm1kaHo7U1EpLl0mLq8XFj2Q7aDE9D00eeVy5NAnicGLuc6FEGlVo7eljfEp6TY9HIoc7omd/AE5X2/C4oe9rW38vDpboNiJ4+EDe2lyMpfm/zBeRdn+tuvBRwAkBi8GP9qlR8J2BhKe97V3SqsaLUDRY73RLw/ZmXEqLOvv3E0kd7C7iybieQ31bHrF81JLVlDs1E+hve/nvtqmIRwPAjpp66JmjiT+zt3i8noTkHZ15Fr7ZppI5D1pcSGCa07PUfbWKmN36j0UOfJp+TUAaCIePfpZejcF0kaG1P6+8muMxE6d0EaHM0DqQD+o7hQIVFfP92eA4hcGHNMYgF/PGRspUHLoL+cwAJD8JwVgACCZ1MMhJzmAHgxC01IgGo87eQMZoTpV1RSISJLDGgCEELeE1F/GMIxXsRgwy2F8CgiD9E3N1d7lqAdc7VxjIwXi6xY6h8kApEDCkqXOYQDA+IBBGuRatISpqHRKwwQqhLvvywCB46QnnnYKJDU8A47LBAHymg1EdOD5J6IkP/9iencKxCh+efX68oPkpo3Ty5iMukxe/zJ7W005NdzttXLTpuktGSAiuPxvvkdcYnk0RHApnbsIz2cFAeDn1fm27SgPyNe+nZ+/YEajSSktrXxSXrNhtjXy2map3uS5Nq/tvVtedT/XNHsa91Orva1bTX8yr1wBgNLIwf3Xv/u69JrGtb6tr2Ur8rODAADRLw5Gv/q8gErNPIR4mls9za25uliuMapnfw7t6za+norCiKLS0SU+utKim51Fz8krl4PdXdrVkYI1bFV1YOcH3Nz5lj1tgQDQieuR3gMTP35fgEZc9rhv2xuM7LHT2S7IiDpwOrx/jx6xWxEwssfX9rq4osH+IfIDAdCDY6GPP4xfOG/ZU1j8kNKxk628Ja/58wYBAKUTx7+NHO7JtvhCBJe3pc397AuWC3glAgEAtNHh0L7uxKXBGe38gnuUjre4GvPVvlkEAYCuR785Ej3Wa9R4YFnPxi2edZvBFL64WxwIAJC49Htwz7sA/DveEe69v8jZSgACoI9dA8BUzCl+qtKASpgbbiX/P+mjXyeY+SCRAAAAAElFTkSuQmCC">
-                <p>3</p>
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <img src="../../public/mouse.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <div class="row g-4">
+                <div class="col">
+                  <h5 class="card-title">Mouse Gamer</h5>
+                </div>
+                <div class="col">
+                  <i class="fa-solid fa-heart text-danger"></i> 3
+                </div>
               </div>
+
+              <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
+                esse illum ex totam incidunt ipsam.
+              </p>
+              <p class="card-text">
+                <button class="btn btn-outline-primary">
+                  Ver detalhes <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </p>
+              <p class="card-text fw-bold">Preço: R$ 600,00</p>
+              <p class="card-text">
+                <small class="text-muted"
+                  >01 de maio 22:10, Rio de Janeiro</small
+                >
+              </p>
             </div>
-            <a href="">
-              <div class="visit-section">
-                <div style="margin-right: 5px;">Visitar</div>
-                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/></svg>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <img src="../../public/ryzen2.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <div class="row g-4">
+                <div class="col">
+                  <h5 class="card-title">Ryzen 3 3200G</h5>
+                </div>
+                <div class="col">
+                  <i class="fa-solid fa-heart text-danger"></i> 3
+                </div>
               </div>
-            </a>
+
+              <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
+                esse illum ex totam incidunt ipsam.
+              </p>
+              <p class="card-text">
+                <button class="btn btn-outline-primary">
+                  Ver detalhes <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </p>
+              <p class="card-text fw-bold">Preço: R$ 600,00</p>
+              <p class="card-text">
+                <small class="text-muted"
+                  >01 de maio 22:10, Rio de Janeiro</small
+                >
+              </p>
+            </div>
           </div>
-          <div class="product-subinfo-section">
-            <span>01 de maio 22:10</span>
-            <span>, Rio de Janeiro</span>
-          </div>
-          <div class="separation-line"></div>
         </div>
       </div>
     </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
