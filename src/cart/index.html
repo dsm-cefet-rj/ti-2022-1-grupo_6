@@ -23,61 +23,59 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#"
-              ><img src="../../public/logo.png" alt="TechBuy"
-            /></a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    aria-current="page"
-                    href="../feed/index.html"
-                    >Home</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link active" href="../favorites/index.html"
-                    >Favoritos</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../cart/index.html"
-                    >Carrinho <i class="fa-solid fa-cart-shopping"></i
-                  ></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../addproduct/index.html">Anunciar</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"
+          ><img src="../../public/logo.png" alt="TechBuy"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="../feed/index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="../favorites/index.html"
+                >Favoritos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../cart/index.html"
+                >Carrinho <i class="fa-solid fa-cart-shopping"></i
+              ></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../addproduct/index.html">Anunciar</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <div class="container">
-        <section class="cart">
-            <div class="session-title">
+    <div class="container d-flex align-items-center justify-content-center">
+        <section class="cart col d-flex align-items-center justify-content-center">
+            <div class="session-title line">
                 <img src="../../public/Cart.svg" alt="carrinho imagem">
                 <h1>Carrinho</h1>
                 <div class="bottom-line"></div>
             </div>
 
-            <div class="product">
+            <div class="product line">
                 
                 <div class="product-image"></div>
                 
@@ -87,14 +85,16 @@
                     <p>01 de maio 22:10, Rio de Janeiro</p>
                     
                     <div class="quant">
-                        <p>
-                            Quant:
-                        </p>
-                        <select> setCourse(event.target.value)}>
-                            <option key={idx} value={course}>1</option>
-                            <option key={idx} value={course}>2</option>
-                            <option key={idx} value={course}>3</option>
-                        </select>
+                      <p>
+                        Quant:
+                      </p>
+                                            
+                      <select class="form-select bg-transparent" id="quant" required>
+                        <option selected>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="product">
+            <div class="product line">
                 
                 <div class="product-image"></div>
                 
@@ -116,10 +116,12 @@
                         <p>
                             Quant:
                         </p>
-                        <select> setCourse(event.target.value)}>
-                            <option key={idx} value={course}>1</option>
-                            <option key={idx} value={course}>2</option>
-                            <option key={idx} value={course}>3</option>
+
+                        <select class="form-select bg-transparent" id="quant" required>
+                          <option selected>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
                         </select>
                     </div>
                 </div>
@@ -131,15 +133,15 @@
         </section>
     </div>
 
-    <div class="container">
-        <article class="total-value">
+    <div class="value-container d-flex align-items-center justify-content-center">
+        <section class="total-value container">
             <div class="value">
                 <span>Total</span>
                 <p>R$ 1100,00</p>
             </div>
     
             <button class="buy-button">Continuar a compra</button>
-        </article>
+        </section>
     </div>
 
     <script

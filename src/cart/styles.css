@@ -48,59 +48,59 @@ body {
     min-height: 100vh;
     font-family: 'Lato', sans-serif;
     background: #fff;
+    overflow-x: hidden;
 }
 
 nav {
 	box-shadow: 0 8px 6px -6px rgb(167, 164, 164);
-  }
+}
   
-  .navbar-brand img {
+.navbar-brand img {
 	width: 4rem;
-  }
+}
   
-  .description-text {
+.description-text {
 	text-align: justify;
-  }
+}
   
-  .navbar-nav {
+.navbar-nav {
 	width: 100%;
 	justify-content: flex-end;
-  }
+}
+  
+h1 {
+	font-size: 1.7rem;
+}
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
-  }
-  
-  h1 {
-    font-size: 1.7rem;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    margin: 1rem 0;
-  }
-  
-  p {
-    font-size: 0.9rem;
-  }
-  
-  .container {
-    max-width: 1120px;
-    padding: 2rem;
-    margin: auto;
-  }
+h2 {
+	font-size: 1.5rem;
+	margin: 1rem 0;
+}
+
+p {
+	font-size: 0.9rem;
+}
+
+.container {
+	max-width: 1120px;
+	padding: 0;
+}
 
 .cart {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	min-height: 100%;
 	min-height: calc(100vh - 385px);
     width: 100%;
     margin-top: 70px;
+	padding: 2rem;
 }
 
 .session-title {
 	display: flex;
 	align-items: flex-end;
+	width: 75%;
 }
 
 .session-title .bottom-line {
@@ -127,6 +127,7 @@ nav {
 	display: flex;
 	border-radius: 10px;
 	margin-top: 30px;
+	width: 75%;
 }
 
 .product .remove-button-session {
@@ -158,7 +159,7 @@ nav {
 	display: flex;
 	flex-direction: column;
 	width: 50%;
-	max-width: 50%;
+	max-width: 40%;
 	gap: 10px;
 	margin-left: 15px;
 	
@@ -185,14 +186,19 @@ nav {
 	font-size: .8rem;
 }
 
-.total-value {
-	max-width: calc(100%);
+.value-container {
+	width: 100;
 	background: #F8F8F8;
+}
+
+.total-value {
 	display: flex;
 	margin-top: 50px;
     padding: 35px 25px;
 	flex-direction: column;
 	align-items: center;
+	width: 70%;
+	max-width: 850px;
 }
 
 .total-value .value {
@@ -231,6 +237,20 @@ nav {
 	background: #138da5;
 }
 
+@media (max-width: 800px) {
+	.session-title {
+		width: 100%;
+	}
+	
+	.product {
+		width: 100%;
+	}
+
+	.total-value {
+		width: 100%;
+	}
+}
+
 .quant {
 	display: flex;
 	justify-content: start;
@@ -238,37 +258,18 @@ nav {
 	background: #DDDDDD;
 	border-radius: 4px;
 	font-family: 'Lato', sans-serif;
-	width: 120px;
+	width: fit-content;
 	margin-top: 5px;
-	padding: 5px 10px 10px 15px;
+	padding: 10px 10px 10px 15px;
 }
 
 select {
-	margin: none;
-	border: none;
-	width: 100%;
-	padding: 13px 0px 11px 5px;
-	margin-left: 15px;
-	appearance: none;
-	cursor: pointer;
-	background: none;
+	margin-left: 5px;
+}
+
+.form-select {
+	border: none;	
 	font-family: 'Lato', sans-serif;
-
-	background-image:
-		linear-gradient(45deg, transparent 50%, #8B8B8B 50%),
-		linear-gradient(135deg, #8B8B8B 50%, transparent 50%);
-
-	background-position:
-		calc(100% - 20px) calc(1em + 6px),
-		calc(100% - 15.1px) calc(1em + 6px),
-		calc(100% - 2.5em) 0.8em;
-
-	background-size:
-		5px 5px,
-		5px 5px,
-		1px 1.5em;
-
-	background-repeat: no-repeat;
 }
 
 option {
