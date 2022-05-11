@@ -1,3 +1,7 @@
+nav {
+  box-shadow: 0 8px 6px -6px rgb(167, 164, 164);
+}
+
 .navbar-brand img {
   width: 4rem;
 }
