@@ -1,28 +1,16 @@
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
-  
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-      background: #fff;
-      max-width: 100%;
-    padding: 15px 30px;
-    box-shadow: 0px 1px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  header img:first-child {
-    width: 90px;
-  }
-  
-  header img:last-child {
-    width: 30px;
-    cursor: pointer;
-  }
-  
+.navbar-brand img {
+  width: 4rem;
+}
+
+.description-text {
+  text-align: justify;
+}
+
+.navbar-nav {
+  width: 100%;
+  justify-content: flex-end;
+}
+
   body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
@@ -47,76 +35,6 @@
     margin: auto;
   }
   
-  .imgaddborder {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 50%;
-    padding-left: 10%;
-    padding-right: 10%;
-    border-style: dashed;
-    border-color: lightgray;
-    border-radius: 15%;
-  }
-  
-  .imgplus {
-    font-weight: bold;
-    font-size: 4rem;
-    text-align: center;
-    color: lightgray;
-  }
-  
-  .imgplustext {
-    margin-top: -20%;
-    margin-bottom: 10%;
-    font-weight: bold;
-    text-align: center;
-    color: lightgray;
-  }
-  
-  #produtoimg {
-    display: none;
-  }
-  
-  #anuncio,
-  #descricao {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-  }
-  
-  #anuncio,
-  #preco,
-  #disponivel,
-  #usado {
-    margin-bottom: 8px;
-  }
-  
-  #preco,
-  #disponivel {
-    width: 25%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-  }
-  #descricao {
-    height: 200px;
-  }
-  
-  #submitproduto {
-    font-size: larger;
-    font-weight: bold;
-    width: 100%;
-    background-color: #0493b5;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin: 4px 2px;
-  }
   
   .favorite {
     padding: 12px;
@@ -133,11 +51,16 @@
     color: #1596b1;
   }
   
+  .fav-redirect{
+  text-decoration: none;
+  color:#000000;
+  }
+
   .product-fav {
     background: #f1f3f1;
     height: 99px;
     border-radius: 7px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
   
   .product-fav img {
@@ -160,6 +83,7 @@
   }
   
   .date-fav {
+    margin-top: -7px;
     font-size: 10px;
     color: #495057;
   }
