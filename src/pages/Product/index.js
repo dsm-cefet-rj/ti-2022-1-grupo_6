@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Header } from '../../components/Header'
+import { ProductDetail } from '../../components/ProductDetail'
 import { Question } from '../../components/Question'
 
 import './style.css'
@@ -94,31 +95,12 @@ export const Product = () => {
 
   return (
     <>
-      <Header />
+      <div className="border border-danger">
+        <Header />
+      </div>
       <div className="container p-5">
-        <div className="card border-0 mb-3 w-100">
-          <div className="row g-4 center">
-            <div className="col-md-4 h-100">
-              <img
-                src={product.image}
-                className="img-fluid rounded-start"
-                alt={product.name}
-              />
-            </div>
-            <div className="col-md-8">
-              <div className="card-body">
-                <h2 className="card-header">{product.name}</h2>
-                <form className="mt-3">
-                  <p className="card-text">Preço {product.price}</p>
-                  <p className="card-text">Local: {product.local}</p>
-                  <p className="card-text">
-                    Quantidade disponível: {product.amount}
-                  </p>
-                  <button className="btn btn-primary">Comprar</button>
-                </form>
-              </div>
-            </div>
-          </div>
+        <div className="border border-danger">
+          <ProductDetail product={product} />
         </div>
 
         <div className="description">
@@ -132,12 +114,14 @@ export const Product = () => {
           <ul className="list-group list-group-flush">
             {product.questions.map((question) => (
               <li key={question.id} className="list-group-item question">
-                <Question
-                  user={question.user}
-                  question={question.question}
-                  owner={product.owner}
-                  answer={question.answer}
-                />
+                <div className="border border-danger">
+                  <Question
+                    user={question.user}
+                    question={question.question}
+                    owner={product.owner}
+                    answer={question.answer}
+                  />
+                </div>
               </li>
             ))}
           </ul>
