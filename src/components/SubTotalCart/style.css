@@ -1,0 +1,77 @@
+.value-container {
+	width: 100%;
+	background: #F8F8F8;
+    margin-top: 50px;
+}
+
+.total-value {
+	display: flex;
+	margin-top: 50px;
+    padding: 35px 25px;
+	flex-direction: column;
+	align-items: center;
+	width: 80%;
+	max-width: 1000px;
+}
+
+.total-value .value {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.total-value .value span {
+	font-style: normal;
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+
+.total-value .value p {
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.2rem;
+}
+
+.total-value .buy-button {
+	cursor: pointer;
+    font-family: 'Lato', sans-serif;
+	font-weight: 700;
+	width: 100%;
+	border: none;
+	padding: 15px;
+	margin-top: 20px;
+	color: #fff;
+	font-size: 1rem;
+	background: #1596B1;
+}
+
+.total-value button:hover {
+	background: #138da5;
+}
+
+@media (max-width: 800px) {
+	.session-title {
+		width: 100%;
+	}
+	
+	.product {
+		width: 100%;
+	}
+
+	.total-value {
+		width: 100%;
+	}
+}
+
+.quant {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	background: #e2e2e2;
+	border-radius: 4px;
+	font-family: 'Lato', sans-serif;
+	width: fit-content;
+	margin-top: 5px;
+	padding: 10px 10px 10px 15px;
+}

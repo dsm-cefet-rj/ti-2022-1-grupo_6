@@ -1,6 +1,8 @@
 import { Header } from './components/Header'
+import { ProductCart } from './components/ProductCart'
 import { ProductDetail } from './components/ProductDetail'
 import { Question } from './components/Question'
+import { SubTotalCart } from './components/SubTotalCart'
 import { Product } from './pages/Product'
 import { ProductCard } from './components/ProductCard'
 import { Carousel } from './components/Carousel'
@@ -15,6 +17,7 @@ const product = {
     currency: 'BRL',
   }).format('399'),
   local: 'Rio de Janeiro',
+  dateTime: '01 de maio 22:10',
   amount: 320,
   description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
   consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto
@@ -33,7 +36,7 @@ const product = {
       id: 2,
       questionByUser: 'John Doe',
       question: 'Entrega no Rio de Janeiro?',
-      answer: 'Entregamos sim, também é possivel retirar na loja',
+      answer: 'Entregamos sim, também é possível retirar na loja',
     },
   ],
 }
@@ -111,7 +114,17 @@ function App() {
           <ProductCard productData={data.products} />
         </div>
 
-        
+        <div className='mt-5 mb-5'>
+          <h5 className="alert alert-info">
+            A página de carrinho faz uso desses componente:
+          </h5>
+
+          <section className='d-flex align-items-center justify-content-center'>
+            <ProductCart product={product} />
+          </section>
+
+          <SubTotalCart />
+        </div>
       </div>
     </>
   )
