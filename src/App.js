@@ -2,6 +2,9 @@ import { Header } from './components/Header'
 import { ProductDetail } from './components/ProductDetail'
 import { Question } from './components/Question'
 import { Product } from './pages/Product'
+import { ProductCard } from './components/ProductCard'
+import { Carousel } from './components/Carousel'
+import { Feed } from './pages/Feed'
 
 const product = {
   owner: 'Jhenny Doe',
@@ -33,6 +36,18 @@ const product = {
       answer: 'Entregamos sim, também é possivel retirar na loja',
     },
   ],
+}
+
+const data = {
+  products: {
+      "title": 'Ryzen 3 3200G',
+      'imageUrl': 'ryzen2.jpg',
+      'likes': 3,
+      'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam',
+      'price': 60000,
+      'createdAt': '2022-05-18T12:12:50.686Z',
+      'state': 'Rio de Janeiro'
+  }
 }
 
 function App() {
@@ -81,6 +96,22 @@ function App() {
           </h5>
           <Product />
         </div>
+
+        <div className="mt-5 mb-5">
+          <h5 className="alert alert-info">
+            Esse é o componente do Carrosel que irá aparecer no feed
+          </h5>
+          <Carousel />
+        </div>
+
+        <div className="mt-5 mb-5">
+          <h5 className="alert alert-info">
+            Esse é um elemento importante de se realizar a componentização pois é o componente que irá aparecer no feed. Ele irá se repetir para todos os produtos que serão listados
+          </h5>
+          <ProductCard productData={data.products} />
+        </div>
+
+        
       </div>
     </>
   )
