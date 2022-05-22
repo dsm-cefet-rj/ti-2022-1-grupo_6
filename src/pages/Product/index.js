@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Header } from '../../components/Header'
 import { ProductDetail } from '../../components/ProductDetail'
 import { Question } from '../../components/Question'
@@ -8,12 +9,14 @@ import './style.css'
 export const Product = () => {
   const [product, setProduct] = useState(null)
 
+  const { id } = useParams();
+
   useEffect(() => {
     // get data from MongoDB
     setTimeout(() => {
       setProduct({
         owner: 'Jhenny Doe',
-        image: 'ryzen2.jpg',
+        image: `${window.location.origin}/ryzen2.jpg`,
         name: 'Ryzen 3 3200G',
         price: new Intl.NumberFormat('pt-BR', {
           style: 'currency',

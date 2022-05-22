@@ -7,7 +7,7 @@ export const Header = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            <img src="logo.png" alt="TechBuy" />
+            <img src={`${window.location.origin}/logo.png`} alt="TechBuy" />
           </a>
           <button
             className="navbar-toggler"
