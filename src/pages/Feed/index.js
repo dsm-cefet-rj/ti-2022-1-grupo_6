@@ -6,7 +6,7 @@ const data = {
     products: [
         {
             "title": 'Ryzen 3 3200G',
-            'imageUrl': 'ryzen2.jpg',
+            'imageUrl': `${window.location.origin}/ryzen2.jpg`,
             'likes': 3,
             'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam',
             'price': 60000,
@@ -15,7 +15,7 @@ const data = {
         },
         {
             "title": 'Ryzen 3 3200G',
-            'imageUrl': 'ryzen2.jpg',
+            'imageUrl': `${window.location.origin}/ryzen2.jpg`,
             'likes': 3,
             'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam',
             'price': 60000,
@@ -24,7 +24,7 @@ const data = {
         },
         {
             "title": 'Ryzen 3 3200G',
-            'imageUrl': 'ryzen2.jpg',
+            'imageUrl': `${window.location.origin}/ryzen2.jpg`,
             'likes': 3,
             'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam',
             'price': 60000,
@@ -33,8 +33,8 @@ const data = {
         },
         {
             "title": 'Ryzen 3 3200G',
-            'imageUrl': 'ryzen2.jpg',
-            'likes': 3,
+            'imageUrl': `${window.location.origin}/ryzen2.jpg`,
+            'likes': 0,
             'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam',
             'price': 60000,
             'createdAt': '2022-05-18T12:12:50.686Z',

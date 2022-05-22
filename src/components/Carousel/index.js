@@ -21,7 +21,7 @@ export const Carousel = () => {
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img
-          src="ryzen2.jpg"
+          src={`${window.location.origin}/ryzen2.jpg`}
           class="w-100 h-100 d-block"
           alt="..."
         />
@@ -32,9 +32,9 @@ export const Carousel = () => {
           </p>
         </div>
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item">        
         <img
-          src="ryzen2.jpg"
+          src={`${window.location.origin}/ryzen2.jpg`}
           class="w-100 h-100 d-block"
           alt="..."
         />

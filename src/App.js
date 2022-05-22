@@ -1,133 +1,22 @@
-import { Header } from './components/Header'
-import { ProductCart } from './components/ProductCart'
-import { ProductDetail } from './components/ProductDetail'
-import { Question } from './components/Question'
-import { SubTotalCart } from './components/SubTotalCart'
-import { Product } from './pages/Product'
-import { ProductCard } from './components/ProductCard'
-import { Carousel } from './components/Carousel'
-import { Feed } from './pages/Feed'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Feed } from "./pages/Feed";
 
-const product = {
-  owner: 'Jhenny Doe',
-  image: 'ryzen2.jpg',
-  name: 'Ryzen 3 3200G',
-  price: new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  }).format('399'),
-  local: 'Rio de Janeiro',
-  dateTime: '01 de maio 22:10',
-  amount: 320,
-  description: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
-  consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto
-  consequuntur quisquam, labore inventore maiores sed nobis asperiores
-  unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum
-  labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa
-  totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.`,
-  questions: [
-    {
-      id: 1,
-      questionByUser: 'Felipe Nieto',
-      question: 'Qual é o preço?',
-      answer: 'O preço é 399,00 R$',
-    },
-    {
-      id: 2,
-      questionByUser: 'John Doe',
-      question: 'Entrega no Rio de Janeiro?',
-      answer: 'Entregamos sim, também é possível retirar na loja',
-    },
-  ],
-}
-
-const data = {
-  products: {
-      "title": 'Ryzen 3 3200G',
-      'imageUrl': 'ryzen2.jpg',
-      'likes': 3,
-      'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam',
-      'price': 60000,
-      'createdAt': '2022-05-18T12:12:50.686Z',
-      'state': 'Rio de Janeiro'
-  }
-}
 
 function App() {
   return (
-    <>
-      <div className="container">
-        <h1 className="pb-5">Componentizando a aplicação</h1>
-
-        <div className="mt-5 mb-5">
-          <h5 className="alert alert-info">
-            Componente Header, visto que a barra de navegação está presente em
-            todas as páginas:
-          </h5>
-          <Header />
-        </div>
-
-        <div className="mt-5 mb-5">
-          <h5 className="alert alert-info">
-            Na página de produto existe um componente ProductDetail, apesar de
-            apenas existir um componente desse em cada tela de produto, foi
-            criado um componente para melhorar a legibilidade do código:
-          </h5>
-          <ProductDetail product={product} />
-        </div>
-
-        <div className="mt-5 mb-5">
-          <h5 className="alert alert-info">
-            Também dentro da página de um produto existe uma seção de perguntas
-            e respostas, como é algo que se repete, é criado o componente
-            Question, no qual é passado as informações (props) do componente pai
-            (no caso Product) para o componente filho (Question)
-          </h5>
-          <Question
-            user="John Doe"
-            question="Isso é um componente?"
-            owner="Felipe"
-            answer="Sim isso é um componente"
-          />
-        </div>
-
-        <div className="mt-5 mb-5">
-          <h5 className="alert alert-info">
-            A página de um produto faz uso desses componentes e também é um
-            componente (Product) e faz uso dos componentes citados, destacados
-            em vermelho:
-          </h5>
-          <Product />
-        </div>
-
-        <div className="mt-5 mb-5">
-          <h5 className="alert alert-info">
-            Esse é o componente do Carrosel que irá aparecer no feed
-          </h5>
-          <Carousel />
-        </div>
-
-        <div className="mt-5 mb-5">
-          <h5 className="alert alert-info">
-            Esse é um elemento importante de se realizar a componentização pois é o componente que irá aparecer no feed. Ele irá se repetir para todos os produtos que serão listados
-          </h5>
-          <ProductCard productData={data.products} />
-        </div>
-
-        <div className='mt-5 mb-5'>
-          <h5 className="alert alert-info">
-            A página de carrinho faz uso desses componente:
-          </h5>
-
-          <section className='d-flex align-items-center justify-content-center'>
-            <ProductCart product={product} />
-          </section>
-
-          <SubTotalCart />
-        </div>
-      </div>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Feed/>}>
+          <Route path="/favorites" element={<Feed/>}/>
+          <Route path="/cart" element={<Feed/>}/>
+          <Route path="/addProduct" element={<Feed/>}/>
+          <Route path="/product" element={<></>}>
+            <Route path=":id" element={<Feed/>}/>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
