@@ -50,7 +50,7 @@ export const Wishlist = () =>{
               {
                 id: 1,
                 image:'/headset.jpg',
-                name:"Headset Genérico",
+                name:"Headset",
                 price: new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
