@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Favorite } from '../../components/Favorite';
 import { AiOutlineStar, AiOutlinePlusSquare } from 'react-icons/ai';
 import { Header } from '../../components/Header';
-import { AddFavorite } from '../../components/AddFavorite';
 
 export const Wishlist = () => {
   const [wishlist, setWishlist] = useState(null);
@@ -24,6 +22,7 @@ export const Wishlist = () => {
               id: 1,
               image: '/ryzen2.jpg',
               name: 'Ryzen 3 3200G',
+              slug: 'ryzen-3-3200G-felipe',
               price: new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
