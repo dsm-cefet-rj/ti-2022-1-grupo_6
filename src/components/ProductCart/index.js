@@ -1,35 +1,62 @@
-import "./style.css"
-import { formatDate } from '../../utils/date'
+import './style.css';
+import { formatDate } from '../../utils/date';
 
-export function ProductCart({product}) {
-    var formatterBRL = new Intl.NumberFormat('pt-BR');
+export function ProductCart({ product, setCart }) {
+  const formatterBRL = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
 
-    return (
-        <div className="product line">                
-            <img src={product.imageUrl} alt="imagem do produto" className="product-image"/>
+  function handleRemoveCart(e, id) {
+    setCart((cart) => {
+      const newCart = cart.filter((item) => item.id !== id);
 
-            <div className="product-info">
-                <span>{product.title}</span>
-                <strong>{formatterBRL.format(product.price)}</strong>
-                <p>{formatDate(product.createdAt)}, {product.state}</p>
-                
-                <div className="quant">
-                    <p>
-                    Quant:
-                    </p>
-                                        
-                    <select className="form-select bg-transparent" id="quant" required>
-                        <option selected>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
-                </div>
-            </div>
+      localStorage.setItem('TechBuy.cart', JSON.stringify(newCart));
 
-            <div className="remove-button-session">
-                <img src="remove.svg" alt="remover produto" className="remove-button"/>
-            </div>
+      return newCart;
+    });
+  }
+
+  return (
+    <div className="product line">
+      <img
+        src={product.imageUrl}
+        alt="imagem do produto"
+        className="product-image"
+      />
+
+      <div className="product-info">
+        <span>{product.title}</span>
+        <strong>{formatterBRL.format(product.price / 100)}</strong>
+        <p>
+          {formatDate(product.createdAt)}, {product.state}
+        </p>
+
+        <div className="quant">
+          <p>Quant:</p>
+
+          <select className="form-select bg-transparent" id="quant" required>
+            {Array.from({ length: 4 }, (el, i) => i + 1).map((element) => (
+              <option selected={element == product.quantity ? true : false}>
+                {element}
+              </option>
+            ))}
+          </select>
         </div>
-    );
-} 
+      </div>
+
+      <div className="remove-button-session">
+        <button
+          className="btn p-0"
+          onClick={(e) => handleRemoveCart(e, product.id)}
+        >
+          <img
+            src="remove.svg"
+            alt="remover produto"
+            className="remove-button"
+          />
+        </button>
+      </div>
+    </div>
+  );
+}
