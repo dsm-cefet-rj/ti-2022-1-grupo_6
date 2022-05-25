@@ -1,14 +1,17 @@
 import "./style.css"
+import { formatDate } from '../../utils/date'
 
 export function ProductCart({product}) {
+    var formatterBRL = new Intl.NumberFormat('pt-BR');
+
     return (
         <div className="product line">                
-            <div className="product-image"></div>
-            
+            <img src={product.imageUrl} alt="imagem do produto" className="product-image"/>
+
             <div className="product-info">
-                <span>{product.name}</span>
-                <strong>{product.price}</strong>
-                <p>{product.dateTime}, {product.local}</p>
+                <span>{product.title}</span>
+                <strong>{formatterBRL.format(product.price)}</strong>
+                <p>{formatDate(product.createdAt)}, {product.state}</p>
                 
                 <div className="quant">
                     <p>
