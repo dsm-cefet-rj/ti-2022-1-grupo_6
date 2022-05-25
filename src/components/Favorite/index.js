@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AiFillStar } from 'react-icons/ai'
 
@@ -8,7 +7,7 @@ export const Favorite = ({favorite}) =>{
 
     return(
 
-      <Link to={`/product/${favorite.id}`} style={{textDecoration:"none", color:"#000000"}}>
+      <Link to={`/product/${favorite.slug}`} style={{textDecoration:"none", color:"#000000"}}>
       <div className="product-fav">
       <img src={favorite.image} alt="Imagem"/>
            <form className = "text-fav">
