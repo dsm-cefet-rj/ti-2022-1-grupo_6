@@ -1,8 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Outlet, Link } from "react-router-dom";
 import {FaFileUpload} from 'react-icons/fa'
+import { Header } from '../../components/Header';
 
 export function AddProduct() {
   const [inputs, setInputs] = useState("")
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [imageUrl, setImageUrl] = useState(null)
+    const [newProduct, setNewProduct] = useState(null)
 
   const handleChange = (event) => {
     const name = event.target.name
@@ -10,13 +15,44 @@ export function AddProduct() {
     setInputs(values => ({...values, [name]: value}))
   }
 
+ useEffect(() => {
+    if (selectedImage) {
+     setImageUrl(URL.createObjectURL(selectedImage))
+    }
+  }, [selectedImage]);
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(inputs);
+    createProduct();
   }
+
+  const twoCalls = (event) => {
+    setSelectedImage(event.target.files[0])
+    handleChange(event)
+  }
+
+    const createProduct = () => {
+        var now = new Date;
+        setNewProduct({
+            id: now.getTime(),
+            image: imageUrl,
+            name: inputs.name,
+            price: inputs.price,
+            amount: inputs.amount,
+            local: inputs.local,
+            dateTime: now.getDate() +'/'+ (now.getMonth()+1) +'/'+ now.getFullYear(),
+            description: inputs.description
+        })
+
+    }
 
   return(
     <>
+
+    <Header/>
+
     <div className = "container">
         <div className='p-4'>
             <h1 className="p-3"> Adicionar Item</h1>
@@ -24,17 +60,24 @@ export function AddProduct() {
             <form onSubmit={handleSubmit}>
                 
             <div className="p-2">
+            <div className="p-2">
+                    <img src={imageUrl} 
+                    style={{ 
+                    borderRadius:'10px',
+                    maxWidth:'200px'}} />
+                </div>
                  <div className="m-2 ">
                     <input type = "file"
                     accept='image/*'
-                    style={{ display: 'none' }}
-                    id = "produtoimg"/>
-
-                    <label htmlFor = "produtoimg">
-                        <button className="btn btn-secondary btn-lg">
-                            <FaFileUpload/> Subir Imagem
+                    style={{ display:'none' }}
+                    id = "produtoimg"
+                    name = "image"
+                    value = {inputs.image || ""}
+                    onChange = {twoCalls}/>
+                    
+                        <button type="button" className="btn btn-secondary btn-lg">
+                            <label htmlFor = "produtoimg" style={{cursor:'pointer', display:'block'}}><FaFileUpload/> Subir Imagem</label>
                         </button>
-                    </label>
                 </div>
             </div>
 
@@ -42,9 +85,9 @@ export function AddProduct() {
                  <div className="m-2">
                     <p className="fw-bold mb-0">Nome do Anúncio</p>
                     <input type = "text"
-                    name = "anuncio"
+                    name = "name"
                     placeholder="Meu Produto"
-                    value = {inputs.anuncio || ""}
+                    value = {inputs.name || ""}
                     onChange = {handleChange}
                     className="form-control"
                     style={{height:50}}/>
@@ -57,12 +100,13 @@ export function AddProduct() {
                     <div className="input-group" style={{width:200}}>
                         <span className="input-group-text">R$</span>
                             <input type = "number"
-                            name = "preco"
+                            name = "price"
                             placeholder = "99"
-                            value = {inputs.preco || ""}
+                            value = {inputs.price || ""}
                             prefix = {"R$"}
                             step = "any"
                             onChange = {handleChange}
+                            min = '0'
                             className = "form-control w-25"/>
                         <span className="input-group-text">.00</span>
                     </div>
@@ -73,12 +117,26 @@ export function AddProduct() {
                 <div className="m-2 w-25">
                     <p className="fw-bold mb-0">Quantidade Disponível</p>
                     <input type = "number"
-                    name = "disponivel"
+                    name = "amount"
                     placeholder = "10"
-                    value = {inputs.disponivel || ""}
+                    value = {inputs.amount || ""}
                     onChange = {handleChange}
+                    min = '0'
                     className ="form-control"
                     style={{width:200}}/>
+                </div>
+            </div>
+
+            <div className="p-2">
+                 <div className="m-2">
+                    <p className="fw-bold mb-0">Local de Envio</p>
+                    <input type = "text"
+                    name = "local"
+                    placeholder="Sua Cidade"
+                    value = {inputs.local || ""}
+                    onChange = {handleChange}
+                    className="form-control"
+                    style={{height:50}}/>
                 </div>
             </div>
 
@@ -86,7 +144,7 @@ export function AddProduct() {
             <div className="p-2">
                 <div className="m-2">
                     <p className="fw-bold mb-0">Estado do Produto</p>
-                        <select className="form-select" value = {inputs} onChange ={handleChange} style={{width:200}}>
+                        <select className="form-select" name = "used" value = {inputs.used || ""} onChange ={handleChange} style={{width:200}}>
                             <option value="novo">Novo</option>
                             <option value="usado">Usado</option>
                         </select>
@@ -97,9 +155,9 @@ export function AddProduct() {
                 <div className="m-2">
                     <p className="fw-bold mb-0"> Descreva Seu Produto</p>
                         <textarea
-                        name ="descricao"
+                        name ="description"
                         placeholder = "Meu produto é..."
-                        value = {inputs.descricao || ""}
+                        value = {inputs.description || ""}
                         onChange = {handleChange}
                         className ="form-control w-100"
                         style={{height:200}}/>
@@ -107,14 +165,13 @@ export function AddProduct() {
             </div>
 
             <div className="d-grid gap-2">
-                <input type = "submit" value="Enviar"  className="btn btn-primary fs-2"/>
+                    <input type = "submit" value="Enviar"  className="btn btn-primary fs-2"/>
             </div>
-
         
         </form>
       </div>
     </div>
       </>
   )
-
+ 
 }

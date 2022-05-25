@@ -35,7 +35,7 @@ font-size: 15px;
 font-weight: bold;
 padding-top: 16px;
 white-space: nowrap;
-width: 90%;
+width: 200px;
 overflow: hidden;
 text-overflow: ellipsis;
 }
