@@ -55,11 +55,13 @@ export const Product = ({ setCart }) => {
   useEffect(() => {
     // get data from MongoDB
     setTimeout(() => {
-      const productData = data.products.find((product) => product.slug == slug);
+      const productData = data.products.find(
+        (product) => product.slug === slug
+      );
 
       setProduct(productData);
     }, 1000);
-  }, []);
+  }, [slug]);
 
   if (!product) {
     return (
@@ -118,6 +120,10 @@ export const Product = ({ setCart }) => {
     <>
       <div className="container p-5">
         <ProductDetail product={product} setCart={setCart} />
+
+        <div class="d-flex justify-content-center align-items-center mb-4">
+          <div className="dropdown-divider w-75"></div>
+        </div>
 
         <div className="description">
           <h3>Descrição do produto</h3>

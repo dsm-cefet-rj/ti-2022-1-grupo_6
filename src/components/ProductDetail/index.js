@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
+import { AddFavorite } from '../AddFavorite';
 
 export const ProductDetail = ({ product, setCart }) => {
   const [itemCardAdded, setItemCardAdded] = useState(false);
@@ -8,11 +9,11 @@ export const ProductDetail = ({ product, setCart }) => {
     e.preventDefault();
 
     setCart((cart) => {
-      const hasItem = cart.find((item) => item.id == product.id);
+      const hasItem = cart.find((item) => item.id === product.id);
 
       if (hasItem) {
         const newCart = cart.map((item) => {
-          if (item.id == product.id) {
+          if (item.id === product.id) {
             return {
               ...item,
               quantity: item.quantity + 1,
@@ -46,13 +47,13 @@ export const ProductDetail = ({ product, setCart }) => {
   useEffect(() => {
     let timeoutRef;
     if (itemCardAdded)
-      timeoutRef = setTimeout(() => setItemCardAdded(false), 2500);
+      timeoutRef = setTimeout(() => setItemCardAdded(false), 1500);
 
     return () => clearTimeout(timeoutRef);
   }, [itemCardAdded]);
 
   return (
-    <div className="card border-0 mb-3 w-100">
+    <div className="card border-0 w-100">
       <div className="row center align-items-center">
         <div className="col-md-4">
           <img
@@ -77,22 +78,30 @@ export const ProductDetail = ({ product, setCart }) => {
                 Quantidade disponível: {product.amount}
               </p>
 
-              <button className="btn btn-primary mb-3 d-block">Comprar</button>
-              <button
-                className={`btn btn-outline-primary ${
-                  itemCardAdded ? 'btn-outline-success' : ''
-                }`}
-                style={{ transition: '0.5s' }}
-                onClick={handleAddCart}
-              >
-                {itemCardAdded ? (
-                  <div>
-                    Adicionado <FaCheckCircle className="icon-animated" />
-                  </div>
-                ) : (
-                  <div>Colocar no carrinho</div>
-                )}
-              </button>
+              <div>
+                <button className="btn btn-primary mb-3 d-block">
+                  Comprar
+                </button>
+                <button
+                  className={`btn btn-outline-primary ${
+                    itemCardAdded ? 'btn-outline-success' : ''
+                  }`}
+                  style={{ transition: '0.5s' }}
+                  onClick={handleAddCart}
+                >
+                  {itemCardAdded ? (
+                    <div>
+                      Adicionado <FaCheckCircle className="icon-animated" />
+                    </div>
+                  ) : (
+                    <div>Colocar no carrinho</div>
+                  )}
+                </button>
+              </div>
+
+              <div className="mt-4">
+                <AddFavorite />
+              </div>
             </form>
           </div>
         </div>

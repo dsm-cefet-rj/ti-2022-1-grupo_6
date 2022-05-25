@@ -36,8 +36,11 @@ export function ProductCart({ product, setCart }) {
           <p>Quant:</p>
 
           <select className="form-select bg-transparent" id="quant" required>
-            {Array.from({ length: 4 }, (el, i) => i + 1).map((element) => (
-              <option selected={element == product.quantity ? true : false}>
+            {Array.from({ length: 4 }, (el, i) => i + 1).map((element, idx) => (
+              <option
+                key={idx}
+                selected={element === product.quantity ? true : false}
+              >
                 {element}
               </option>
             ))}

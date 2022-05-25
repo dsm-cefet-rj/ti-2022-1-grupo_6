@@ -1,65 +1,55 @@
-import {Component} from 'react';
 import { useState } from 'react';
-import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 
+export const AddFavorite = ({ product, wishlist }) => {
+  const [favorites, setFavorites] = useState([]);
+  const [selected, setSelected] = useState(null);
 
+  const listaFavoritos = [
+    { id: 1, value: 'Hardware' },
+    { id: 2, value: 'Periféricos' },
+  ];
 
-
-export const AddFavorite = ({product, wishlist}) =>{
-    const [favIcon, setFavIcon] = useState(false)
-    const [favList, setFavList] = useState("")
-
-    const listaFavoritos = 
-        [{id:1, listName: 'Meus Favoritos'},
-        {id:2, listName: 'Peças'},
-        {id:3, listName: 'Periféricos'}
-        ]
-
-
-    const handleChange = (event) => {
-        setFavList(event.target.value)
-        changeIcon()
+  const handleChange = (event) => {
+    if (event.target.value === 'default') {
+      setSelected(null);
+      return;
     }
 
-    const ShowStar = () =>{
-        if(favIcon){
-            return(
-                <>
-                    <p className="fs-5 fw-bold mb-0">
-                        <AiFillStar className="fs-3" style={{color:"limegreen", cursor:"pointer"}}/>
-                        Adicionado a '{listaFavoritos[listaFavoritos.findIndex((lista)=> lista.id==favList)].listName}'!
-                    </p>
-                </>
-            )
-        }else{
-            return(
-                <>
-                    <p className="fs-5 fw-bold mb-0">
-                        <AiOutlineStar className="fs-3" style={{color:"limegreen", cursor:"pointer"}}/>
-                        Adicione aos Favoritos
-                    </p>
-                    <div>
-                    <select className="form-select" onChange={handleChange} style={{maxWidth:'50%', width:"200px", textAlign:"center"}} >
-                        <option defaultValue={""}>- - -</option>
-                        {listaFavoritos.map((lista)=> (
-                            <option key={lista.id} value={lista.id}  >{lista.listName}</option>
-                        ))}
-                    </select>
-                    </div>
-                </>
-            )
-        }
-    }
+    setSelected(event.target.value);
+  };
 
-    const changeIcon = () => setFavIcon(!favIcon)
+  return (
+    <>
+      <div className="d-flex align-items-center g-2">
+        <h5 className="fw-bold m-0">
+          {!selected ? 'Adicione nos Favoritos' : `Adicionado em ${selected}`}
+        </h5>
+        <div className="paddingLeft-2" style={{ transition: '2s' }}>
+          {!selected ? (
+            <AiOutlineStar className="fs-3 text-warning" />
+          ) : (
+            <AiFillStar className="fs-3 text-warning" />
+          )}
+        </div>
+      </div>
 
-    return(
-        <>
-            <div>
-                <div>
-                    <ShowStar/>
-                </div>
-            </div>
-        </>
-    )
-    }
+      {!selected ? (
+        <select className="form-select m-0 w-auto" onChange={handleChange}>
+          <option value="default">Selecione uma seção</option>
+          {listaFavoritos.map((item) => (
+            <option
+              key={item.id}
+              value={item.value}
+              selected={selected === item.value ? true : false}
+            >
+              {item.value}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <div className="placeholder" style={{ height: '2.4rem' }}></div>
+      )}
+    </>
+  );
+};

@@ -1,16 +1,16 @@
 import './style.css';
 import { FaShoppingCart } from 'react-icons/fa';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
   return (
     <header>
-      {/* <Link to="/cart">cart</Link> */}
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="/">
             <img src={`${window.location.origin}/logo.png`} alt="TechBuy" />
           </NavLink>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -23,6 +23,21 @@ export const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <form class="d-flex align-items-center my-2 my-lg-0">
+              <input
+                class="form-control search-input"
+                type="search"
+                placeholder="Busque aqui"
+                aria-label="Search"
+              />
+              <button
+                class="btn btn-outline-primary my-2 my-sm-0"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
