@@ -5,27 +5,11 @@ import { Question } from '../../components/Question';
 
 import './style.css';
 
-const questions = [
-  {
-    id: 1,
-    questionByUser: 'Felipe Nieto',
-    question: 'Qual é o preço?',
-    answer: 'O preço é 399,00 R$',
-  },
-  {
-    id: 2,
-    questionByUser: 'John Doe',
-    question: 'Entrega no Rio de Janeiro?',
-    answer: 'Entregamos sim, também é possivel retirar na loja',
-  },
-];
-
 const data = {
   products: [
     {
       id: 1,
       owner: 'Felipe',
-      local: 'Rio de Janeiro',
       slug: 'ryzen-3-3200G-felipe',
       title: 'Ryzen 3 3200G',
       imageUrl: `${window.location.origin}/ryzen2.jpg`,
@@ -42,7 +26,20 @@ const data = {
       unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum
       labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa
       totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.`,
-      questions,
+      questions: [
+        {
+          id: 1,
+          questionByUser: 'Felipe Nieto',
+          question: 'Qual é o preço?',
+          answer: 'O preço é 399,00 R$',
+        },
+        {
+          id: 2,
+          questionByUser: 'John Doe',
+          question: 'Entrega no Rio de Janeiro?',
+          answer: 'Entregamos sim, também é possivel retirar na loja',
+        },
+      ],
     },
   ],
 };
@@ -121,7 +118,7 @@ export const Product = ({ setCart }) => {
       <div className="container p-5">
         <ProductDetail product={product} setCart={setCart} />
 
-        <div class="d-flex justify-content-center align-items-center mb-4">
+        <div className="d-flex justify-content-center align-items-center mb-4">
           <div className="dropdown-divider w-75"></div>
         </div>
 

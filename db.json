@@ -1,0 +1,116 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "owner": "Felipe",
+      "slug": "felipe-ryzen-3-3200G",
+      "title": "Ryzen 3 3200G",
+      "imageUrl": "http://localhost:3333/ryzen2.jpg",
+      "likes": 3,
+      "descriptionShort": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
+      "price": 40000,
+      "createdAt": "2022-05-18T12:12:50.686Z",
+      "state": "Rio de Janeiro",
+      "amount": 320,
+      "descriptionDetailed": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "questions": [
+        {
+          "id": 1,
+          "questionByUser": "Felipe Nieto",
+          "question": "Qual é o preço?",
+          "answer": "O preço é 399,00 R$"
+        },
+        {
+          "id": 2,
+          "questionByUser": "John Doe",
+          "question": "Entrega no Rio de Janeiro?",
+          "answer": "Entregamos sim, também é possivel retirar na loja"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "owner": "Thiago",
+      "slug": "thiago-mouse-gamer",
+      "title": "Mouse Gamer",
+      "imageUrl": "http://localhost:3333/mouse.jpg",
+      "likes": 2,
+      "descriptionShort": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
+      "price": 20000,
+      "createdAt": "2022-05-18T12:12:50.686Z",
+      "state": "São Paulo",
+      "amount": 120,
+      "descriptionDetailed": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "questions": [
+        {
+          "id": 1,
+          "questionByUser": "Felipe Nieto",
+          "question": "Qual é o preço?",
+          "answer": "O preço é 200,00 R$"
+        },
+        {
+          "id": 2,
+          "questionByUser": "John Doe",
+          "question": "Entrega em São Paulo?",
+          "answer": "Sim"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "owner": "Gabriel",
+      "slug": "gabriel-placa-de-video",
+      "title": "Placa de video",
+      "imageUrl": "http://localhost:3333/placa-de-video.png",
+      "likes": 4,
+      "descriptionShort": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
+      "price": 80000,
+      "createdAt": "2022-05-18T12:12:50.686Z",
+      "state": "São Paulo",
+      "amount": 120,
+      "descriptionDetailed": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "questions": [
+        {
+          "id": 1,
+          "questionByUser": "Felipe Nieto",
+          "question": "Qual é o preço?",
+          "answer": "O preço é 200,00 R$"
+        },
+        {
+          "id": 2,
+          "questionByUser": "John Doe",
+          "question": "Entrega em São Paulo?",
+          "answer": "Sim"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "owner": "Thiago",
+      "slug": "thiago-headset",
+      "title": "Headset",
+      "imageUrl": "http://localhost:3333/headset.jpg",
+      "likes": 4,
+      "descriptionShort": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
+      "price": 80000,
+      "createdAt": "2022-05-18T12:12:50.686Z",
+      "state": "São Paulo",
+      "amount": 120,
+      "descriptionDetailed": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "questions": [
+        {
+          "id": 1,
+          "questionByUser": "Felipe Nieto",
+          "question": "Qual é o preço?",
+          "answer": "O preço é 200,00 R$"
+        },
+        {
+          "id": 2,
+          "questionByUser": "John Doe",
+          "question": "Entrega em São Paulo?",
+          "answer": "Sim"
+        }
+      ]
+    }
+  ]
+}

@@ -23,15 +23,15 @@ export const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex align-items-center my-2 my-lg-0">
+            <form className="d-flex align-items-center my-2 my-lg-0">
               <input
-                class="form-control search-input"
+                className="form-control search-input"
                 type="search"
                 placeholder="Busque aqui"
                 aria-label="Search"
               />
               <button
-                class="btn btn-outline-primary my-2 my-sm-0"
+                className="btn btn-outline-primary my-2 my-sm-0"
                 type="submit"
               >
                 Search
