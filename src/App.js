@@ -4,7 +4,7 @@ import { Feed } from './pages/Feed';
 import { Product } from './pages/Product';
 import { Wishlist } from './pages/Wishlist';
 import { AddProduct } from './pages/AddProduct';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Header } from './components/Header';
 
 function App() {

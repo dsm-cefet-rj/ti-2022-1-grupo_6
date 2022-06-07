@@ -17,6 +17,20 @@ export function ProductCart({ product, setCart }) {
     });
   }
 
+  function handleChangeQuant(e, id) {
+    setCart((cart) => {
+      const newCart = cart.filter((item) => item.id !== id);
+      
+      product.quantity = "" + e.target.value;
+
+      newCart.push(product);
+
+      localStorage.setItem('TechBuy.cart', JSON.stringify(newCart));
+
+      return newCart;
+    })
+  }
+
   return (
     <div className="product line">
       <img
@@ -35,7 +49,13 @@ export function ProductCart({ product, setCart }) {
         <div className="quant">
           <p>Quant:</p>
 
-          <select className="form-select bg-transparent" id="quant" required>
+          <select 
+            className="form-select bg-transparent" 
+            id="quant" 
+            onChange={(e) => handleChangeQuant(e, product.id)}
+            defaultValue={product.quantity}
+            required
+          >
             {Array.from({ length: 4 }, (el, i) => i + 1).map((element, idx) => (
               <option
                 key={idx}
