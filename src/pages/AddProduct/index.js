@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Outlet, Link } from 'react-router-dom';
 import { FaFileUpload } from 'react-icons/fa';
-import { Header } from '../../components/Header';
+import { useCreateProductMutation } from '../../redux/features/productsApiSlice';
 
 export function AddProduct() {
   const [inputs, setInputs] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [newProduct, setNewProduct] = useState(null);
+
+  //const [createNewProduct] = useCreateProductMutation();
+
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -23,7 +25,8 @@ export function AddProduct() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs);
+    //console.log(inputs);
+    //console.log(newProduct)
     createProduct();
   };
 
@@ -32,19 +35,28 @@ export function AddProduct() {
     handleChange(event);
   };
 
+  const convertToSlug = (name) => {
+    return name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+  }
+
   const createProduct = () => {
     var now = new Date();
+    var user = 'Gabriel';
     setNewProduct({
       id: now.getTime(),
-      image: imageUrl,
-      name: inputs.name,
+      owner:user,
+      imageUrl: imageUrl,
+      title: inputs.name,
       price: inputs.price,
       amount: inputs.amount,
-      local: inputs.local,
-      dateTime:
-        now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear(),
-      description: inputs.description,
+      used: inputs.used,
+      state: inputs.local,
+      slug: convertToSlug(user) + '-' + convertToSlug(inputs.name),
+      createdAt:
+        now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear(),
+      descriptionDetailed: inputs.description,
     });
+    //createNewProduct(newProduct)
   };
 
   return (

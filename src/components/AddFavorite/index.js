@@ -1,29 +1,34 @@
 import { useState } from 'react';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {addWishlist} from '../../redux/features/favoriteSlice';
 
-export const AddFavorite = ({ product, wishlist }) => {
-  const [favorites, setFavorites] = useState([]);
+export const AddFavorite = (product) => {
+  const [favorites, setFavorites] = useState(null);
   const [selected, setSelected] = useState(null);
 
-  const listaFavoritos = [
-    { id: 1, value: 'Hardware' },
-    { id: 2, value: 'Periféricos' },
-  ];
+  //const { slug } = useParams();
+
+  const listaFavoritos = useSelector((state) => state.favorite);
+  //const dispatch = useDispatch();
+
 
   const handleChange = (event) => {
     if (event.target.value === 'default') {
       setSelected(null);
       return;
     }
-
     setSelected(event.target.value);
   };
+  
+
 
   return (
     <>
       <div className="d-flex align-items-center g-2">
         <h5 className="fw-bold m-0">
-          {!selected ? 'Adicione nos Favoritos' : `Adicionado em ${selected}`}
+          {!selected ? `Adicione nos Favoritos` : `Adicionado em ${selected}`}
         </h5>
         <div className="paddingLeft-2" style={{ transition: '2s' }}>
           {!selected ? (
@@ -40,10 +45,10 @@ export const AddFavorite = ({ product, wishlist }) => {
           {listaFavoritos.map((item) => (
             <option
               key={item.id}
-              value={item.value}
-              selected={selected === item.value ? true : false}
+              value={item.listName}
+              selected={selected === item.listName ? true : false}
             >
-              {item.value}
+              {item.listName}
             </option>
           ))}
         </select>

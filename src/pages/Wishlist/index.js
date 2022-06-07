@@ -1,68 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Favorite } from '../../components/Favorite';
 import { AiOutlineStar, AiOutlinePlusSquare } from 'react-icons/ai';
-import { Header } from '../../components/Header';
+import { useSelector } from 'react-redux';
 
 export const Wishlist = () => {
-  const [wishlist, setWishlist] = useState(null);
+  const [favProduct, setFavProduct] = useState(null);
   const [favList, setFavList] = useState(0);
+
+  const wishlist = useSelector((state) => state.favorite);
 
   const handleChange = (event) => {
     setFavList(event.target.value);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     setTimeout(() => {
-      setWishlist([
-        {
-          id: 1,
-          listName: 'Meus Favoritos',
-          favorites: [
-            {
-              id: 1,
-              image: '/ryzen2.jpg',
-              name: 'Ryzen 3 3200G',
-              slug: 'ryzen-3-3200G-felipe',
-              price: new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format('399.99'),
-              dateTime: '2022-05-18', //new Date ("2022-05-18")
-              local: 'Rio de Janeiro',
-            },
-            {
-              id: 2,
-              image: '/placa-de-video.png',
-              name: 'Placa de Vídeo - GIGABYTE',
-              price: new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format('209.99'),
-              dateTime: '2012-12-12',
-              local: 'Santos',
-            },
-          ],
-        },
-        {
-          id: 2,
-          listName: 'Periféricos',
-          favorites: [
-            {
-              id: 1,
-              image: '/headset.jpg',
-              name: 'Headset',
-              price: new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format('199.99'),
-              dateTime: '2021-04-05',
-              local: 'Maranhão',
-            },
-          ],
-        },
-      ]);
+
     }, 1000);
-  }, []);
+  }, []);*/
 
   if (!wishlist) {
     return (
@@ -108,10 +63,11 @@ export const Wishlist = () => {
           </div>
           <ul className="list-group list-group-flush">
             {wishlist[favList].favorites.map((favorito) => (
-              <li key={favorito.id} className="list-group-item question">
-                <Favorite favorite={favorito} />
-              </li>
+              <li key={favorito.slug} className="list-group-item question">
+                <Favorite Fav={favorito.slug} />
+              </li>  
             ))}
+
           </ul>
         </div>
       </div>
