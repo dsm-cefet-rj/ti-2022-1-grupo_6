@@ -7,7 +7,7 @@ import { useFetchProductQuery } from '../../redux/features/productsApiSlice';
 
 import './style.css';
 
-export const Product = ({ setCart }) => {
+export const Product = () => {
   const { slug } = useParams();
   const { data, isFetching } = useFetchProductQuery(slug);
 
@@ -18,7 +18,7 @@ export const Product = ({ setCart }) => {
   return (
     <>
       <div className="container p-5">
-        <ProductDetail product={product} setCart={setCart} />
+        <ProductDetail product={product}/>
 
         <div className="d-flex justify-content-center align-items-center mb-4">
           <div className="dropdown-divider w-75"></div>

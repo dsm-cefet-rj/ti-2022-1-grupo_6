@@ -46,7 +46,6 @@ export const AddFavorite = (product) => {
             <option
               key={item.id}
               value={item.listName}
-              selected={selected === item.listName ? true : false}
             >
               {item.listName}
             </option>

@@ -2,24 +2,23 @@ import './style.css';
 import { ProductCart } from '../../components/ProductCart';
 import { useEffect, useState } from 'react';
 import { SubTotalCart } from '../../components/SubTotalCart';
-import { useDispatch, useSelector } from 'react-redux';
-import { addProduct } from '../../redux/features/cartSlice';
+import { useSelector } from 'react-redux';
 
 export function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
-  
+
   const cart = useSelector((state) => state.cart.products);
-  const setCart = useDispatch();
 
   useEffect(() => {
-    console.log(cart.length);
-    // if (cart.length !== 0) {
-    //   const sum = cart
-    //     .map((product) => product.price * product.quantity)
-    //     .reduce((total, current) => total + current, 0);
+    if (cart.length !== 0) {
+      const sum = cart
+        .map((product) => product.price * product.quantity)
+        .reduce((total, current) => total + current, 0);
   
-    //   setTotalPrice(sum);
-    // }
+      setTotalPrice(sum);
+    } else {
+      setTotalPrice(0);
+    }
   }, [cart]);
 
   return (
@@ -41,7 +40,6 @@ export function Cart() {
                 <ProductCart
                   key={product.id}
                   product={product}
-                  setCart={setCart(addProduct())}
                 />
               );
             })
