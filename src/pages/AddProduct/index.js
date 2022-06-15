@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Outlet, Link } from 'react-router-dom';
 import { FaFileUpload } from 'react-icons/fa';
-import { Header } from '../../components/Header';
+import { useNavigate } from 'react-router-dom';
+import { useCreateProductMutation } from '../../redux/features/productsApiSlice';
 
 export function AddProduct() {
   const [inputs, setInputs] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const [newProduct, setNewProduct] = useState(null);
+
+  const [createNewProduct] = useCreateProductMutation();
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -23,7 +26,7 @@ export function AddProduct() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs);
+    
     createProduct();
   };
 
@@ -32,19 +35,42 @@ export function AddProduct() {
     handleChange(event);
   };
 
-  const createProduct = () => {
-    var now = new Date();
-    setNewProduct({
-      id: now.getTime(),
-      image: imageUrl,
-      name: inputs.name,
-      price: inputs.price,
+  const convertToSlug = (name) => {
+    return name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+  }
+
+  const convertToUrl = (image) => {
+    return "http://localhost:3333/" + image.substring(12, image.length);
+  } 
+
+  async function createProduct() {
+    //var now = new Date();
+    var user = 'Gabriel';
+    const data ={
+      //id: now.getTime(),
+      owner:user,
+      imageUrl: convertToUrl(inputs.image),
+      likes: 0,
+      title: inputs.name,
+      price: inputs.price * 100,
       amount: inputs.amount,
-      local: inputs.local,
-      dateTime:
-        now.getDate() + '/' + (now.getMonth() + 1) + '/' + now.getFullYear(),
-      description: inputs.description,
-    });
+      used: inputs.used,
+      state: inputs.local,
+      slug: convertToSlug(user) + '-' + convertToSlug(inputs.name),
+      createdAt: Date(),
+        //now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear(),
+      descriptionDetailed: inputs.description,
+      descriptionShort: inputs.description.substring(0, Math.min(inputs.description.length,100)) + '...',
+      questions: []
+    };
+
+    try {
+      await createNewProduct(data).unwrap();
+    } catch (err) {
+      console.log(err);
+    }
+  
+    navigate(`/product/${data.slug}`)
   };
 
   return (

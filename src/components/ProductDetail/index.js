@@ -2,47 +2,30 @@ import { useEffect, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { AddFavorite } from '../AddFavorite';
 import { useCreateProductMutation } from '../../redux/features/productsApiSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProduct } from '../../redux/features/cartSlice';
 
-export const ProductDetail = ({ product, setCart }) => {
+export const ProductDetail = ({ product }) => {
   const [itemCardAdded, setItemCardAdded] = useState(false);
   const [createProduct] = useCreateProductMutation();
+
+  const cart = useSelector((state) => state.cart.products);
+  const dispatch = useDispatch();
 
   function handleAddCart(e) {
     e.preventDefault();
 
-    setCart((cart) => {
-      const hasItem = cart.find((item) => item.id === product.id);
-
-      if (hasItem) {
-        const newCart = cart.map((item) => {
-          if (item.id === product.id) {
-            return {
-              ...item,
-              quantity: item.quantity + 1,
-            };
-          }
-          return item;
-        });
-
-        localStorage.setItem('TechBuy.cart', JSON.stringify(newCart));
-        return newCart;
-      }
-
-      const item = {
-        id: product.id,
-        title: product.title,
-        imageUrl: product.imageUrl,
-        price: product.price,
-        state: product.state,
-        quantity: 1,
-        createdAt: product.createdAt,
-      };
-
-      const newCart = [...cart, item];
-      localStorage.setItem('TechBuy.cart', JSON.stringify(newCart));
-      return newCart;
-    });
-
+    const item = {
+      id: product.id,
+      title: product.title,
+      imageUrl: product.imageUrl,
+      price: product.price,
+      state: product.state,
+      quantity: 1,
+      createdAt: product.createdAt,
+    };
+    
+    dispatch(addProduct({cart, product: item}));
     setItemCardAdded(true);
   }
 

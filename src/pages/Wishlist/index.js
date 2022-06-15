@@ -1,68 +1,33 @@
 import { useEffect, useState } from 'react';
 import { Favorite } from '../../components/Favorite';
 import { AiOutlineStar, AiOutlinePlusSquare } from 'react-icons/ai';
-import { Header } from '../../components/Header';
+import { useDispatch, useSelector } from 'react-redux';
+import { addWishlist } from '../../redux/features/favoriteSlice';
 
 export const Wishlist = () => {
-  const [wishlist, setWishlist] = useState(null);
   const [favList, setFavList] = useState(0);
+  const [inputList, setInputList] = useState(false);
+  const [newFav, setNewFav] = useState('')
+
+  const wishlist = useSelector((state) => state.favorite);
+  const dispatch = useDispatch();
+
 
   const handleChange = (event) => {
     setFavList(event.target.value);
   };
 
-  useEffect(() => {
+  const handleButton = (e) =>{
+    dispatch(addWishlist({id:wishlist.length+1, listName:newFav}))
+  }
+
+  const changeOnClick = () => setInputList(!inputList);
+
+  /*useEffect(() => {
     setTimeout(() => {
-      setWishlist([
-        {
-          id: 1,
-          listName: 'Meus Favoritos',
-          favorites: [
-            {
-              id: 1,
-              image: '/ryzen2.jpg',
-              name: 'Ryzen 3 3200G',
-              slug: 'ryzen-3-3200G-felipe',
-              price: new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format('399.99'),
-              dateTime: '2022-05-18', //new Date ("2022-05-18")
-              local: 'Rio de Janeiro',
-            },
-            {
-              id: 2,
-              image: '/placa-de-video.png',
-              name: 'Placa de Vídeo - GIGABYTE',
-              price: new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format('209.99'),
-              dateTime: '2012-12-12',
-              local: 'Santos',
-            },
-          ],
-        },
-        {
-          id: 2,
-          listName: 'Periféricos',
-          favorites: [
-            {
-              id: 1,
-              image: '/headset.jpg',
-              name: 'Headset',
-              price: new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              }).format('199.99'),
-              dateTime: '2021-04-05',
-              local: 'Maranhão',
-            },
-          ],
-        },
-      ]);
+
     }, 1000);
-  }, []);
+  }, []);*/
 
   if (!wishlist) {
     return (
@@ -108,11 +73,33 @@ export const Wishlist = () => {
           </div>
           <ul className="list-group list-group-flush">
             {wishlist[favList].favorites.map((favorito) => (
-              <li key={favorito.id} className="list-group-item question">
-                <Favorite favorite={favorito} />
-              </li>
+              <li key={favorito.slug} className="list-group-item question">
+                <Favorite FavSlug={favorito.slug} FavIndex={favList} />
+              </li>  
             ))}
+
           </ul>
+
+            <div>
+              <div className='fs-4' onClick={changeOnClick} style={{cursor: 'pointer', display: 'inline-block'}}> <AiOutlinePlusSquare className='fs-3'/> Criar uma nova lista</div>
+            {!inputList ? (
+              <div></div>
+            ) : (
+              <div className='m-2'>
+                <form>
+                  <input
+                  type="text"
+                  value={newFav}
+                  onChange ={(e) => setNewFav(e.target.value)}
+                  placeholder="Nova Lista"
+                  style={{float:'left'}}/>
+                </form>
+
+                <button type="button" className="btn btn-outline-secondary ms-2" onClick={handleButton}>Criar</button>
+              </div>
+            ) }
+            </div>
+
         </div>
       </div>
     </>

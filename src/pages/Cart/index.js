@@ -2,16 +2,23 @@ import './style.css';
 import { ProductCart } from '../../components/ProductCart';
 import { useEffect, useState } from 'react';
 import { SubTotalCart } from '../../components/SubTotalCart';
+import { useSelector } from 'react-redux';
 
-export function Cart({ cart, setCart }) {
+export function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
 
-  useEffect(() => {
-    const sum = cart
-      .map((product) => product.price * product.quantity)
-      .reduce((total, current) => total + current, 0);
+  const cart = useSelector((state) => state.cart.products);
 
-    setTotalPrice(sum);
+  useEffect(() => {
+    if (cart.length !== 0) {
+      const sum = cart
+        .map((product) => product.price * product.quantity)
+        .reduce((total, current) => total + current, 0);
+  
+      setTotalPrice(sum);
+    } else {
+      setTotalPrice(0);
+    }
   }, [cart]);
 
   return (
@@ -33,7 +40,6 @@ export function Cart({ cart, setCart }) {
                 <ProductCart
                   key={product.id}
                   product={product}
-                  setCart={setCart}
                 />
               );
             })

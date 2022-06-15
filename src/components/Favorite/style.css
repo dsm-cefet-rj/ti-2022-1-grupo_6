@@ -58,3 +58,13 @@ right:20px;
 padding-right: 10px;
 height: 135px;
 }
+
+.delete-fav{
+margin-top: -20px;
+margin-bottom: -20px;
+margin-left: -10px;
+display: inline-block;
+text-decoration: underline;
+color: #495057;
+cursor: pointer;
+}
