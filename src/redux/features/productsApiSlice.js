@@ -17,19 +17,76 @@ export const productsApi = createApi({
       }
       */
   }),
+  tagTypes: ['Products'],
   endpoints: (builder) => ({
     fetchProducts: builder.query({
-      query: (limit = 4) => `/products?_limit=${limit}`,
+      query: () => `/products`,
+      // Caching tags
+      providesTags: (result) => {
+        return result
+          ? [
+              ...result.map(({ slug }) => ({ type: 'Products', slug })),
+              { type: 'Products', slug: 'LIST' },
+            ]
+          : [{ type: 'Products', slug: 'LIST' }];
+      },
     }),
+
     fetchProduct: builder.query({
       query: (slug) => `/product/${slug}`,
+      transformResponse: (response, meta, arg) => {
+        const [data] = response;
+        return data;
+      },
+      providesTags: (result, err, slug) => {
+        return [{ type: 'Products', slug: slug }];
+      },
     }),
+
     createProduct: builder.mutation({
       query: (data) => ({
         url: `/products`,
         method: 'POST',
         body: data,
       }),
+      // Determines which cached data should be either re-fetched or removed from the cache
+      invalidatesTags: [{ type: 'Products', slug: 'LIST' }],
+    }),
+
+    uploadProductImage: builder.mutation({
+      query: (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        return {
+          url: `/products/upload-image`,
+          method: 'POST',
+          body: formData,
+        };
+      },
+    }),
+
+    updateProduct: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/products/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      // Invalidates all queries that subscribe to this Product `id` only.
+      invalidatesTags: (result, error, { data }) => {
+        return [{ type: 'Products' }];
+      },
+    }),
+
+    deleteProduct: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/products/${id}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: (result, error, { data }) => {
+        return [{ type: 'Products' }];
+      },
     }),
   }),
 });
@@ -39,4 +96,6 @@ export const {
   useFetchProductQuery,
   usePrefetch,
   useCreateProductMutation,
+  useUploadProductImageMutation,
+  useUpdateProductMutation,
 } = productsApi;

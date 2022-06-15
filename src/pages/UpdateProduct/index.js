@@ -1,46 +1,31 @@
 import { useEffect, useState } from 'react';
 import {
-  useCreateProductMutation,
-  useUploadProductImageMutation,
+  useFetchProductQuery,
+  useUpdateProductMutation,
 } from '../../redux/features/productsApiSlice';
 import { FaFileUpload } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 
 import './style.css';
 import slugify from 'slugify';
 
-const formInitialState = {
-  owner: '',
-  slug: '',
-  title: '',
-  price: '',
-  amount: '',
-  state: '',
-  imageUrl: '',
-  used: 'novo',
-  overview: '',
-  description: '',
-  likes: 0,
-  questions: [],
-};
-
-export function AddProduct() {
-  const [formData, setFormData] = useState(formInitialState);
+export function UpdateProduct() {
+  const [formData, setFormData] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const [createProduct, { isLoading, isSuccess, isUninitialized }] =
-    useCreateProductMutation();
+  const { slug } = useParams();
 
-  const [
-    uploadProductImage,
-    { isLoading: isLoadingUpload, isSuccess: isSuccessUpload },
-  ] = useUploadProductImageMutation();
+  const { data: product, isFetching } = useFetchProductQuery(slug);
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setFormData((values) => ({ ...values, [name]: value }));
-  };
+  const [updateProduct, { isLoading, isSuccess, isUninitialized }] =
+    useUpdateProductMutation();
+
+  useEffect(() => {
+    if (!isFetching && product) {
+      setFormData(product);
+    }
+  }, [product]);
 
   useEffect(() => {
     if (previewImage) {
@@ -51,31 +36,35 @@ export function AddProduct() {
     }
   }, [previewImage]);
 
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setFormData((values) => ({ ...values, [name]: value }));
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const user = 'some-user';
+    const user = formData.owner;
     const { title } = formData;
-    const slug =
+    const newSlug =
       slugify(user, { lower: true }) +
       '-' +
       slugify(title, {
         lower: true,
       });
 
-    const price = parseInt(formData.price.replaceAll(/,|\./g, ''));
+    const price = parseInt(String(formData.price).replaceAll(/,|\./g, ''));
 
     const product = {
       ...formData,
-      owner: user,
-      slug,
+      slug: newSlug,
       price,
-      createdAt: new Date(),
       updatedAt: new Date(),
     };
 
     try {
-      await createProduct(product).unwrap();
+      await updateProduct({ id: formData.id, data: product }).unwrap();
     } catch (error) {
       console.log(error);
     }
@@ -94,11 +83,27 @@ export function AddProduct() {
     }
   };
 
+  if (!formData)
+    return (
+      <>
+        <div className="container mb-3 p-2">
+          <h1 className="text-center">
+            Atualizar Produto{' '}
+            <div
+              className="spinner-border text-secondary"
+              style={{ borderWidth: '0.2rem' }}
+              role="status"
+            ></div>
+          </h1>
+        </div>
+      </>
+    );
+
   return (
     <>
       <div className="container">
         <div className="p-4">
-          <h1 className="p-3 text-center">Adicionar Produto</h1>
+          <h1 className="p-3 text-center">Atualizar Produto</h1>
 
           <form onSubmit={handleSubmit}>
             <div className="form-group my-4">
@@ -248,7 +253,7 @@ export function AddProduct() {
             <div className="d-flex align-items-center justify-content-center">
               {isUninitialized && (
                 <button type="submit" className="btn btn-primary w-75">
-                  Enviar
+                  Atualizar
                 </button>
               )}
               {isLoading && (
@@ -256,7 +261,7 @@ export function AddProduct() {
                   type="submit"
                   className="btn btn-primary w-75 d-flex align-items-center justify-content-center"
                 >
-                  Enviar
+                  Atualizar
                   <div
                     className="spinner-border text-light ms-2"
                     id="spinner-adding-product"
@@ -268,7 +273,7 @@ export function AddProduct() {
               )}
               {isSuccess && (
                 <button type="submit" className="btn btn-success w-75">
-                  Produto adicionado
+                  Produto atualizado
                 </button>
               )}
             </div>

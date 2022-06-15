@@ -7,8 +7,8 @@ export const ProductCard = ({ productData }) => {
   const prefetchProduct = usePrefetch('fetchProduct');
 
   return (
-    <div className="col-md-4">
-      <div className="card mb-3">
+    <div className="col-md-4 mb-4">
+      <div className="card h-100">
         <img src={productData.imageUrl} className="card-img-top" alt="..." />
         <div className="card-body">
           <div className="row g-4">
@@ -20,9 +20,7 @@ export const ProductCard = ({ productData }) => {
             </div>
           </div>
 
-          <p className="card-text">
-            {productData.descriptionShort}
-          </p>
+          <p className="card-text">{productData.overview}</p>
           <p className="card-text">
             <Link
               className="btn btn-outline-primary"

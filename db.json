@@ -7,12 +7,13 @@
       "title": "Ryzen 3 3200G",
       "imageUrl": "http://localhost:3333/ryzen2.jpg",
       "likes": 3,
-      "descriptionShort": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
+      "overview": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
       "price": 40000,
       "createdAt": "2022-05-18T12:12:50.686Z",
       "state": "Rio de Janeiro",
       "amount": 320,
-      "descriptionDetailed": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "used": "novo",
       "questions": [
         {
           "id": 1,
@@ -26,7 +27,8 @@
           "question": "Entrega no Rio de Janeiro?",
           "answer": "Entregamos sim, também é possivel retirar na loja"
         }
-      ]
+      ],
+      "updatedAt": "2022-06-15T07:48:32.654Z"
     },
     {
       "id": 2,
@@ -35,12 +37,13 @@
       "title": "Mouse Gamer",
       "imageUrl": "http://localhost:3333/mouse.jpg",
       "likes": 2,
-      "descriptionShort": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
+      "overview": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
       "price": 20000,
       "createdAt": "2022-05-18T12:12:50.686Z",
       "state": "São Paulo",
       "amount": 120,
-      "descriptionDetailed": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "used": "novo",
       "questions": [
         {
           "id": 1,
@@ -63,12 +66,13 @@
       "title": "Placa de video",
       "imageUrl": "http://localhost:3333/placa-de-video.png",
       "likes": 4,
-      "descriptionShort": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
-      "price": 80000,
+      "overview": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
+      "price": 90000,
       "createdAt": "2022-05-18T12:12:50.686Z",
       "state": "São Paulo",
       "amount": 120,
-      "descriptionDetailed": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "used": "novo",
       "questions": [
         {
           "id": 1,
@@ -82,7 +86,8 @@
           "question": "Entrega em São Paulo?",
           "answer": "Sim"
         }
-      ]
+      ],
+      "updatedAt": "2022-06-15T08:24:58.096Z"
     },
     {
       "id": 4,
@@ -91,12 +96,13 @@
       "title": "Headset",
       "imageUrl": "http://localhost:3333/headset.jpg",
       "likes": 4,
-      "descriptionShort": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
+      "overview": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse illum ex totam incidunt ipsam",
       "price": 80000,
       "createdAt": "2022-05-18T12:12:50.686Z",
       "state": "São Paulo",
       "amount": 120,
-      "descriptionDetailed": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "used": "novo",
       "questions": [
         {
           "id": 1,
@@ -113,7 +119,7 @@
       ]
     },
     {
-      "id": 6,
+      "id": 5,
       "owner": "Guigui",
       "slug": "guigui-placa-de-video",
       "title": "Placa de video do guigui",
@@ -123,7 +129,68 @@
       "price": 10000,
       "createdAt": "2022-05-18T12:12:50.686Z",
       "state": "São Paulo",
-      "amount": 120
+      "amount": 120,
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequatur commodi nihil, quaerat voluptatum obcaecati. Architecto consequuntur quisquam, labore inventore maiores sed nobis asperiores unde, mollitia a, distinctio cupiditate velit nemo natus. Rerum labore aliquam cum, quasi tenetur, quod reprehenderit quo culpa totam, voluptatum temporibus. Earum vero tenetur dolorem vitae.",
+      "used": "novo",
+      "questions": [
+        {
+          "id": 1,
+          "questionByUser": "Felipe Nieto",
+          "question": "Qual é o preço?",
+          "answer": "O preço é 200,00 R$"
+        },
+        {
+          "id": 2,
+          "questionByUser": "John Doe",
+          "question": "Entrega em São Paulo?",
+          "answer": "Sim"
+        }
+      ]
+    }
+  ],
+  "purchases": [
+    {
+      "id": "1",
+      "items": [
+        {
+          "createdAt": "2022-05-18T12:12:50.686Z",
+          "id": 2,
+          "imageUrl": "http://localhost:3333/mouse.jpg",
+          "price": 20000,
+          "quantity": 1,
+          "state": "São Paulo",
+          "title": "Mouse Gamer"
+        }
+      ],
+      "payer": {
+        "email": "thiagoandre2121@gmail.com"
+      }
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "title": "Mouse Gamer",
+          "imageUrl": "http://localhost:3333/mouse.jpg",
+          "price": 20000,
+          "state": "São Paulo",
+          "quantity": 1,
+          "createdAt": "2022-05-18T12:12:50.686Z"
+        },
+        {
+          "id": 3,
+          "title": "Placa de video",
+          "imageUrl": "http://localhost:3333/placa-de-video.png",
+          "price": 90000,
+          "state": "São Paulo",
+          "quantity": 1,
+          "createdAt": "2022-05-18T12:12:50.686Z"
+        }
+      ],
+      "payer": {
+        "email": "example@gmail.com"
+      },
+      "id": "Jf2kIh2"
     }
   ]
 }

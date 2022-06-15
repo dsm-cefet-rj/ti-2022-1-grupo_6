@@ -5,6 +5,7 @@ import { Product } from './pages/Product';
 import { Wishlist } from './pages/Wishlist';
 import { AddProduct } from './pages/AddProduct';
 import { Header } from './components/Header';
+import { UpdateProduct } from './pages/UpdateProduct';
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Feed />} />
         <Route path="/favorites" element={<Wishlist />} />
-        <Route path="/cart" element={<Cart/>} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/addProduct" element={<AddProduct />} />
-        <Route path="/product/:slug" element={<Product/>} />
+        <Route path="/product/:slug" element={<Product />} />
+        <Route path="/product/update/:slug" element={<UpdateProduct />} />
       </Routes>
     </BrowserRouter>
   );
