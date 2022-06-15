@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProductDetail } from '../../components/ProductDetail';
 import { ProductDetailSkeleton } from '../../components/ProductDetailSkeleton';
@@ -9,11 +8,9 @@ import './style.css';
 
 export const Product = ({ setCart }) => {
   const { slug } = useParams();
-  const { data, isFetching } = useFetchProductQuery(slug);
+  const { data: product, isFetching } = useFetchProductQuery(slug);
 
   if (isFetching) return <ProductDetailSkeleton />;
-
-  const [product] = data;
 
   return (
     <>
@@ -26,7 +23,7 @@ export const Product = ({ setCart }) => {
 
         <div className="description">
           <h3>Descrição do produto</h3>
-          <p className="description-text">{product.descriptionDetailed}</p>
+          <p className="description-text">{product.description}</p>
         </div>
 
         <div className="questions">
