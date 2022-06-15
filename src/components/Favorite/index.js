@@ -9,7 +9,7 @@ import './style.css'
 
 export const Favorite = ({FavSlug, FavIndex}) =>{
 
-  const { data, isFetching } = useFetchProductQuery(FavSlug);
+  const { data: favorite, isFetching } = useFetchProductQuery(FavSlug);
   
   const dispatch = useDispatch();
 
@@ -30,7 +30,7 @@ export const Favorite = ({FavSlug, FavIndex}) =>{
   }
 
 
-  const [favorite] = data;
+  //const [favorite] = data;
 
     return(
 

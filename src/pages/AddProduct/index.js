@@ -26,7 +26,6 @@ export function AddProduct() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
     createProduct();
   };
 
@@ -59,18 +58,19 @@ export function AddProduct() {
       slug: convertToSlug(user) + '-' + convertToSlug(inputs.name),
       createdAt: Date(),
         //now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear(),
-      descriptionDetailed: inputs.description,
-      descriptionShort: inputs.description.substring(0, Math.min(inputs.description.length,100)) + '...',
+      description: inputs.description,
+      overview: inputs.description.substring(0, Math.min(inputs.description.length,100)) + '...',
       questions: []
     };
-
+    
     try {
       await createNewProduct(data).unwrap();
     } catch (err) {
       console.log(err);
     }
-  
+
     navigate(`/product/${data.slug}`)
+    
   };
 
   return (
