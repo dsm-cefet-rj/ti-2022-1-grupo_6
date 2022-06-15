@@ -8426,6 +8426,11 @@
   "resolved" "https://registry.npmjs.org/slash/-/slash-4.0.0.tgz"
   "version" "4.0.0"
 
+"slugify@^1.6.5":
+  "integrity" "sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ=="
+  "resolved" "https://registry.npmjs.org/slugify/-/slugify-1.6.5.tgz"
+  "version" "1.6.5"
+
 "sockjs@^0.3.21":
   "integrity" "sha512-GJgLTZ7vYb/JtPSSZ10hsOYIvEYsjbNU+zPdIHcUaWVNUEPivzxku31865sSSud0Da0W4lEeOPlmw93zLQchuQ=="
   "resolved" "https://registry.npmjs.org/sockjs/-/sockjs-0.3.24.tgz"

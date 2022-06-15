@@ -47,7 +47,19 @@ export const productsApi = createApi({
         body: data,
       }),
       // Determines which cached data should be either re-fetched or removed from the cache
-      invalidatesTags: [{ type: 'Products', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Products', slug: 'LIST' }],
+    }),
+
+    uploadProductImage: builder.mutation({
+      query: (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        return {
+          url: `/products/upload-image`,
+          method: 'POST',
+          body: formData,
+        };
+      },
     }),
 
     updateProduct: builder.mutation({
@@ -56,6 +68,17 @@ export const productsApi = createApi({
         method: 'PUT',
         body: data,
       }),
+      // Invalidates all queries that subscribe to this Product `slug` only.
+      invalidatesTags: (result, error, { slug }) => [{ type: 'Posts', slug }],
+    }),
+
+    deleteProduct: builder.mutation({
+      query: (slug) => {
+        return {
+          url: `/productspost/${slug}`,
+          method: 'DELETE',
+        };
+      },
       invalidatesTags: (result, error, { slug }) => [{ type: 'Posts', slug }],
     }),
   }),
@@ -66,4 +89,5 @@ export const {
   useFetchProductQuery,
   usePrefetch,
   useCreateProductMutation,
+  useUploadProductImageMutation,
 } = productsApi;

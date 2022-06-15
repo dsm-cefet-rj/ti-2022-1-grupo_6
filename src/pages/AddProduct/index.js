@@ -1,220 +1,276 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  useCreateProductMutation,
+  useUploadProductImageMutation,
+} from '../../redux/features/productsApiSlice';
 import { FaFileUpload } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
-import { useCreateProductMutation } from '../../redux/features/productsApiSlice';
+
+import './style.css';
+import slugify from 'slugify';
+
+const formInitialState = {
+  owner: '',
+  slug: '',
+  title: '',
+  price: '',
+  amount: '',
+  state: '',
+  imageUrl: '',
+  used: 'novo',
+  overview: '',
+  description: '',
+  likes: 0,
+  questions: [],
+};
 
 export function AddProduct() {
-  const [inputs, setInputs] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+  const [formData, setFormData] = useState(formInitialState);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const [createNewProduct] = useCreateProductMutation();
+  const [createProduct, { isLoading, isSuccess, isUninitialized }] =
+    useCreateProductMutation();
 
-  const navigate = useNavigate();
+  const [
+    uploadProductImage,
+    { isLoading: isLoadingUpload, isSuccess: isSuccessUpload },
+  ] = useUploadProductImageMutation();
 
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
+    setFormData((values) => ({ ...values, [name]: value }));
   };
 
   useEffect(() => {
-    if (selectedImage) {
-      setImageUrl(URL.createObjectURL(selectedImage));
+    if (previewImage) {
+      const objectUrl = URL.createObjectURL(previewImage);
+      setSelectedFile(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
     }
-  }, [selectedImage]);
+  }, [previewImage]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    createProduct();
-  };
 
-  const twoCalls = (event) => {
-    setSelectedImage(event.target.files[0]);
-    handleChange(event);
-  };
+    const user = 'some-user';
+    const { title } = formData;
+    const slug =
+      slugify(user, { lower: true }) +
+      '-' +
+      slugify(title, {
+        lower: true,
+      });
 
-  const convertToSlug = (name) => {
-    return name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-  }
+    const price = parseInt(formData.price.replaceAll(/,|\./g, ''));
 
-  const convertToUrl = (image) => {
-    return "http://localhost:3333/" + image.substring(12, image.length);
-  } 
-
-  async function createProduct() {
-    //var now = new Date();
-    var user = 'Gabriel';
-    const data ={
-      //id: now.getTime(),
-      owner:user,
-      imageUrl: convertToUrl(inputs.image),
-      likes: 0,
-      title: inputs.name,
-      price: inputs.price * 100,
-      amount: inputs.amount,
-      used: inputs.used,
-      state: inputs.local,
-      slug: convertToSlug(user) + '-' + convertToSlug(inputs.name),
-      createdAt: Date(),
-        //now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear(),
-      descriptionDetailed: inputs.description,
-      descriptionShort: inputs.description.substring(0, Math.min(inputs.description.length,100)) + '...',
-      questions: []
+    const product = {
+      ...formData,
+      owner: user,
+      slug,
+      price,
+      createdAt: new Date(),
     };
 
     try {
-      await createNewProduct(data).unwrap();
-    } catch (err) {
-      console.log(err);
+      await createProduct(product);
+    } catch (error) {
+      console.log(error);
     }
-  
-    navigate(`/product/${data.slug}`)
+  };
+
+  const handleUploadProductImage = async (event) => {
+    const [file] = event.target.files;
+    try {
+      // let { imageUrl } = await uploadProductImage(file).unwrap();
+      let imageUrl =
+        'https://images.unsplash.com/photo-1555618565-9f2b0323a10d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bnZpZGlhfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60';
+      setFormData((state) => ({ ...state, imageUrl }));
+      setPreviewImage(file);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
+      {console.log(formData)}
       <div className="container">
         <div className="p-4">
-          <h1 className="p-3"> Adicionar Item</h1>
+          <h1 className="p-3 text-center">Adicionar Produto</h1>
 
           <form onSubmit={handleSubmit}>
-            <div className="p-2">
-              <div className="p-2">
-                <img
-                  src={imageUrl}
-                  style={{
-                    borderRadius: '10px',
-                    maxWidth: '200px',
-                  }}
-                />
-              </div>
-              <div className="m-2 ">
-                <input
-                  type="file"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  id="produtoimg"
-                  name="image"
-                  value={inputs.image || ''}
-                  onChange={twoCalls}
-                />
-
-                <button type="button" className="btn btn-secondary btn-lg">
-                  <label
-                    htmlFor="produtoimg"
-                    style={{ cursor: 'pointer', display: 'block' }}
-                  >
-                    <FaFileUpload /> Subir Imagem
-                  </label>
-                </button>
-              </div>
-            </div>
-
-            <div className="p-2">
-              <div className="m-2">
-                <p className="fw-bold mb-0">Nome do Anúncio</p>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Meu Produto"
-                  value={inputs.name || ''}
-                  onChange={handleChange}
-                  className="form-control"
-                  style={{ height: 50 }}
-                />
-              </div>
-            </div>
-
-            <div className="p-2">
-              <div className="m-2">
-                <p className="fw-bold mb-0"> Preço do Produto</p>
-                <div className="input-group" style={{ width: 200 }}>
-                  <span className="input-group-text">R$</span>
-                  <input
-                    type="number"
-                    name="price"
-                    placeholder="99"
-                    value={inputs.price || ''}
-                    prefix={'R$'}
-                    step="any"
-                    onChange={handleChange}
-                    min="0"
-                    className="form-control w-25"
-                  />
-                  <span className="input-group-text">.00</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-2">
-              <div className="m-2 w-25">
-                <p className="fw-bold mb-0">Quantidade Disponível</p>
-                <input
-                  type="number"
-                  name="amount"
-                  placeholder="10"
-                  value={inputs.amount || ''}
-                  onChange={handleChange}
-                  min="0"
-                  className="form-control"
-                  style={{ width: 200 }}
-                />
-              </div>
-            </div>
-
-            <div className="p-2">
-              <div className="m-2">
-                <p className="fw-bold mb-0">Local de Envio</p>
-                <input
-                  type="text"
-                  name="local"
-                  placeholder="Sua Cidade"
-                  value={inputs.local || ''}
-                  onChange={handleChange}
-                  className="form-control"
-                  style={{ height: 50 }}
-                />
-              </div>
-            </div>
-
-            <div className="p-2">
-              <div className="m-2">
-                <p className="fw-bold mb-0">Estado do Produto</p>
-                <select
-                  className="form-select"
-                  name="used"
-                  value={inputs.used || ''}
-                  onChange={handleChange}
-                  style={{ width: 200 }}
-                >
-                  <option value="novo">Novo</option>
-                  <option value="usado">Usado</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="p-2">
-              <div className="m-2">
-                <p className="fw-bold mb-0"> Descreva Seu Produto</p>
-                <textarea
-                  name="description"
-                  placeholder="Meu produto é..."
-                  value={inputs.description || ''}
-                  onChange={handleChange}
-                  className="form-control w-100"
-                  style={{ height: 200 }}
-                />
-              </div>
-            </div>
-
-            <div className="d-grid gap-2">
+            <div className="form-group my-4">
+              <label htmlFor="title">Título do anúncio</label>
               <input
-                type="submit"
-                value="Enviar"
-                className="btn btn-primary fs-2"
+                type="text"
+                className="form-control w-75"
+                id="title"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="Título"
               />
+            </div>
+
+            <div className="form-group my-4">
+              <label htmlFor="imageUrl">Imagem do produto</label>
+              <input
+                type="text"
+                className="form-control w-75"
+                id="imageUrl"
+                name="imageUrl"
+                value={formData.imageUrl}
+                onChange={handleChange}
+                placeholder="URL da imagem"
+              />
+            </div>
+
+            <div className="form-group my-4">
+              <img src={selectedFile} className="rounded previewImage" />
+              <input
+                type="file"
+                accept="image/*"
+                className="d-none"
+                id="previewImage"
+                onChange={handleUploadProductImage}
+              />
+              <button
+                className="btn btn-secondary btn-lg d-block my-2"
+                type="button"
+              >
+                <label htmlFor="previewImage">
+                  <FaFileUpload /> Subir Imagem
+                </label>
+              </button>
+            </div>
+
+            <div className="form-group my-4">
+              <label htmlFor="price">Preço do produto</label>
+              <input
+                type="text"
+                className="form-control w-25"
+                id="price"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                placeholder="299,99"
+              />
+            </div>
+
+            <div className="form-group my-4">
+              <label htmlFor="amount">Quantidade disponível</label>
+              <input
+                type="text"
+                className="form-control w-25"
+                id="amount"
+                name="amount"
+                value={formData.amount}
+                onChange={handleChange}
+                placeholder="Preço"
+              />
+            </div>
+
+            <div className="form-group my-4">
+              <label htmlFor="state">Local de envio</label>
+              <input
+                type="text"
+                className="form-control w-75"
+                id="state"
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                placeholder="Estado ou UF"
+              />
+            </div>
+
+            <div className="form-group my-4">
+              <label htmlFor="novo">Estado do produto</label>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="used"
+                  id="novo"
+                  value="novo"
+                  onChange={handleChange}
+                  checked={formData.used === 'novo'}
+                />
+                <label className="form-check-label" htmlFor="novo">
+                  Novo
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="used"
+                  id="usado"
+                  value="usado"
+                  onChange={handleChange}
+                  checked={formData.used === 'usado'}
+                />
+                <label className="form-check-label" htmlFor="usado">
+                  Usado
+                </label>
+              </div>
+            </div>
+
+            <div className="form-group my-4">
+              <label htmlFor="overview">Resumo do produto</label>
+              <input
+                type="text"
+                className="form-control"
+                id="overview"
+                name="overview"
+                value={formData.overview}
+                onChange={handleChange}
+                placeholder="Descreva o produto resumidamente"
+              />
+            </div>
+
+            <div className="form-group my-4">
+              <label htmlFor="description">
+                Descrição detalhada do produto
+              </label>
+              <textarea
+                className="form-control"
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows="8"
+                placeholder="Descreva o produto detalhadamente"
+              ></textarea>
+            </div>
+
+            <div className="d-flex align-items-center justify-content-center">
+              {isUninitialized && (
+                <button type="submit" className="btn btn-primary w-75">
+                  Enviar
+                </button>
+              )}
+              {isLoading && (
+                <button
+                  type="submit"
+                  className="btn btn-primary w-75 d-flex align-items-center justify-content-center"
+                >
+                  Enviar
+                  <div
+                    className="spinner-border text-light ms-2"
+                    id="spinner-adding-product"
+                    role="status"
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                </button>
+              )}
+              {isSuccess && (
+                <button type="submit" className="btn btn-success w-75">
+                  Produto adicionado
+                </button>
+              )}
             </div>
           </form>
         </div>
