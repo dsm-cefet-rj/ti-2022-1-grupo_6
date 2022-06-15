@@ -1,17 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Favorite } from '../../components/Favorite';
 import { AiOutlineStar, AiOutlinePlusSquare } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addWishlist } from '../../redux/features/favoriteSlice';
 
 export const Wishlist = () => {
-  const [favProduct, setFavProduct] = useState(null);
   const [favList, setFavList] = useState(0);
+  const [inputList, setInputList] = useState(false);
+  const [newFav, setNewFav] = useState('')
 
   const wishlist = useSelector((state) => state.favorite);
+  const dispatch = useDispatch();
+
 
   const handleChange = (event) => {
     setFavList(event.target.value);
   };
+
+  const handleButton = (e) =>{
+    dispatch(addWishlist({id:wishlist.length+1, listName:newFav}))
+  }
+
+  const changeOnClick = () => setInputList(!inputList);
 
   /*useEffect(() => {
     setTimeout(() => {
@@ -64,11 +74,32 @@ export const Wishlist = () => {
           <ul className="list-group list-group-flush">
             {wishlist[favList].favorites.map((favorito) => (
               <li key={favorito.slug} className="list-group-item question">
-                <Favorite Fav={favorito.slug} />
+                <Favorite FavSlug={favorito.slug} FavIndex={favList} />
               </li>  
             ))}
 
           </ul>
+
+            <div>
+              <div className='fs-4' onClick={changeOnClick} style={{cursor: 'pointer', display: 'inline-block'}}> <AiOutlinePlusSquare className='fs-3'/> Criar uma nova lista</div>
+            {!inputList ? (
+              <div></div>
+            ) : (
+              <div className='m-2'>
+                <form>
+                  <input
+                  type="text"
+                  value={newFav}
+                  onChange ={(e) => setNewFav(e.target.value)}
+                  placeholder="Nova Lista"
+                  style={{float:'left'}}/>
+                </form>
+
+                <button type="button" className="btn btn-outline-secondary ms-2" onClick={handleButton}>Criar</button>
+              </div>
+            ) }
+            </div>
+
         </div>
       </div>
     </>

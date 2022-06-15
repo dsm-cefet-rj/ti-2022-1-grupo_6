@@ -21,8 +21,7 @@ export const ProductCard = ({ productData }) => {
           </div>
 
           <p className="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Non esse
-            illum ex totam incidunt ipsam.
+            {productData.descriptionShort}
           </p>
           <p className="card-text">
             <Link

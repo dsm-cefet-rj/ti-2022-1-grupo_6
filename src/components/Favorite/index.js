@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom'
 import { AiFillStar } from 'react-icons/ai'
-
-
 import { useFetchProductQuery } from '../../redux/features/productsApiSlice'
+import { formatDate } from '../../utils/date';
+import { useDispatch } from 'react-redux'
+import { removeFavorite } from '../../redux/features/favoriteSlice'
 
 import './style.css'
 
-export const Favorite = ({Fav}) =>{
+export const Favorite = ({FavSlug, FavIndex}) =>{
 
-  const { data, isFetching } = useFetchProductQuery(Fav);
-
+  const { data, isFetching } = useFetchProductQuery(FavSlug);
+  
+  const dispatch = useDispatch();
 
   if(isFetching) {
     return(
@@ -20,11 +22,19 @@ export const Favorite = ({Fav}) =>{
   }
 
 
+  const handleClick = () => {
+    if(window.confirm("Você deseja remover este item dos Favoritos?")){
+    dispatch(removeFavorite({slug:FavSlug, id:FavIndex}))
+    console.log(FavIndex)
+    }
+  }
+
+
   const [favorite] = data;
 
     return(
 
-      
+      <>
       <Link to={`/product/${favorite.slug}`} style={{textDecoration:"none", color:"#000000"}}>
       <div className="product-fav">
       <img src={favorite.imageUrl} alt="Imagem"/>
@@ -34,13 +44,17 @@ export const Favorite = ({Fav}) =>{
                   style: 'currency',
                   currency: 'BRL',
                 }).format(favorite.price / 100)}</p>
-               <p className="date-fav">{favorite.createdAt}, {favorite.state}</p>
+               <p className="date-fav">{formatDate(favorite.createdAt)}, {favorite.state}</p>
            </form>
         <div className="star-fav">
           <AiFillStar size={28} color={"limegreen"}/>
         </div>
       </div>
       </Link>
+      <div>
+      <p className="delete-fav fs-6" onClick={handleClick}> Excluir dos Favoritos</p>
+      </div>
+      </>
     )
 }
 
