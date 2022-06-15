@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeProduct, updateProduct } from '../../redux/features/cartSlice';
 
 export function ProductCart({ product }) {
+
   const formatterBRL = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
@@ -18,7 +19,8 @@ export function ProductCart({ product }) {
 
   function handleChangeQuant(e) {
     let newProduct = JSON.parse(JSON.stringify(product));
-    newProduct.quantity = "" + e.target.value;
+    newProduct.quantity = Number(e.target.value);
+
     dispatch(updateProduct({cart, product: newProduct}));
   }
 

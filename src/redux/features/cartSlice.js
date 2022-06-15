@@ -1,12 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from "axios";
 
 const initialState = {
   products: []
 };
-
-if (localStorage.getItem('TechBuy.cart')) {
-  initialState.products = JSON.parse(localStorage.getItem('TechBuy.cart'));
-}
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -26,9 +23,14 @@ const cartSlice = createSlice({
           return item;
         });
 
-        localStorage.setItem('TechBuy.cart', JSON.stringify(newCart));
+        axios.put(`http://localhost:3030/products/${action.payload.product.id}`, 
+          {...action.payload.product,
+            quantity: action.payload.product.quantity + 1
+          }
+        )
         state.products = newCart;
       } else {
+        axios.post("http://localhost:3030/products", action.payload.product);
         state.products.push(action.payload.product);
       }
     },
@@ -36,14 +38,21 @@ const cartSlice = createSlice({
       const newCart = action.payload.cart.filter((item) => item.id !== action.payload.product.id);
       state.products = newCart;
       localStorage.setItem('TechBuy.cart', JSON.stringify(state.products));
+
+      axios.delete(`http://localhost:3030/products/${action.payload.product.id}`);
     },
     updateProduct(state, action) {
       state.products = action.payload.cart.filter((item) => item.id !== action.payload.product.id);
       state.products.push(action.payload.product);
-      localStorage.setItem('TechBuy.cart', JSON.stringify(state.products));
+      axios.put(`http://localhost:3030/products/${action.payload.product.id}`, 
+        {...action.payload.product }
+      )
+    },
+    updateCart(state, action) {
+      state.products = action.payload.cart;
     }
   }
 });
 
-export const { addProduct, removeProduct, updateProduct } = cartSlice.actions;
+export const { addProduct, removeProduct, updateProduct, updateCart } = cartSlice.actions;
 export default cartSlice.reducer;

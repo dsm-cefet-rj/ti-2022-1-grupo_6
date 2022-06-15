@@ -8,14 +8,13 @@ import { addProduct } from '../../redux/features/cartSlice';
 export const ProductDetail = ({ product }) => {
   const [itemCardAdded, setItemCardAdded] = useState(false);
   const [createProduct] = useCreateProductMutation();
-
-  const cart = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.products);
 
-  function handleAddCart(e) {
+  async function handleAddCart(e) {
     e.preventDefault();
 
-    const item = {
+    const data = {
       id: product.id,
       title: product.title,
       imageUrl: product.imageUrl,
@@ -25,7 +24,7 @@ export const ProductDetail = ({ product }) => {
       createdAt: product.createdAt,
     };
     
-    dispatch(addProduct({cart, product: item}));
+    dispatch(addProduct({cart, product: data}));
     setItemCardAdded(true);
   }
 

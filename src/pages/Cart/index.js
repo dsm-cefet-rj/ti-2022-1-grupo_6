@@ -2,12 +2,23 @@ import './style.css';
 import { ProductCart } from '../../components/ProductCart';
 import { useEffect, useState } from 'react';
 import { SubTotalCart } from '../../components/SubTotalCart';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateCart } from '../../redux/features/cartSlice';
+import axios from 'axios';
 
 export function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
-
   const cart = useSelector((state) => state.cart.products);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function getDataFromCartDB() {
+      const cart = (await (axios.get("http://localhost:3030/products"))).data
+      dispatch(updateCart({cart}));
+    }
+
+    getDataFromCartDB();
+  }, [dispatch]);
 
   useEffect(() => {
     if (cart.length !== 0) {
