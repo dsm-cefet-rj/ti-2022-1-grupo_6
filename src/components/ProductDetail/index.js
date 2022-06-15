@@ -24,31 +24,9 @@ export const ProductDetail = ({ product }) => {
       quantity: 1,
       createdAt: product.createdAt,
     };
-    
-    dispatch(addProduct({cart, product: item}));
+
+    dispatch(addProduct({ cart, product: item }));
     setItemCardAdded(true);
-  }
-
-  async function handleAddProduct() {
-    const data = {
-      id: 6,
-      owner: 'Guigui',
-      slug: 'guigui-placa-de-video',
-      title: 'Placa de video do guigui',
-      imageUrl: 'http://localhost:3333/placa-de-video.png',
-      likes: 4,
-      descriptionShort: 'desc short',
-      price: 10000,
-      createdAt: '2022-05-18T12:12:50.686Z',
-      state: 'São Paulo',
-      amount: 120,
-    };
-
-    try {
-      await createProduct(data).unwrap();
-    } catch (err) {
-      console.log(err);
-    }
   }
 
   useEffect(() => {
@@ -109,7 +87,6 @@ export const ProductDetail = ({ product }) => {
               <div className="mt-4">
                 <AddFavorite />
               </div>
-              <h1 onClick={handleAddProduct}>Adicionar um produto</h1>
             </form>
           </div>
         </div>

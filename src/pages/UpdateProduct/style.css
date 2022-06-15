@@ -1,0 +1,10 @@
+#spinner-adding-product {
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
+  margin-left: 2rem;
+}
+
+.previewImage {
+  max-width: 12.5rem;
+}

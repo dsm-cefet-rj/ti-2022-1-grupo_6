@@ -22,13 +22,14 @@ export const productsApi = createApi({
     fetchProducts: builder.query({
       query: () => `/products`,
       // Caching tags
-      providesTags: (result) =>
-        result
+      providesTags: (result) => {
+        return result
           ? [
               ...result.map(({ slug }) => ({ type: 'Products', slug })),
               { type: 'Products', slug: 'LIST' },
             ]
-          : [{ type: 'Products', slug: 'LIST' }],
+          : [{ type: 'Products', slug: 'LIST' }];
+      },
     }),
 
     fetchProduct: builder.query({
@@ -37,7 +38,9 @@ export const productsApi = createApi({
         const [data] = response;
         return data;
       },
-      providesTags: (result, err, slug) => [{ type: 'Posts', slug }],
+      providesTags: (result, err, slug) => {
+        return [{ type: 'Products', slug: slug }];
+      },
     }),
 
     createProduct: builder.mutation({
@@ -63,23 +66,27 @@ export const productsApi = createApi({
     }),
 
     updateProduct: builder.mutation({
-      query: ({ slug, data }) => ({
-        url: `/products/${slug}`,
+      query: ({ id, data }) => ({
+        url: `/products/${id}`,
         method: 'PUT',
         body: data,
       }),
-      // Invalidates all queries that subscribe to this Product `slug` only.
-      invalidatesTags: (result, error, { slug }) => [{ type: 'Posts', slug }],
+      // Invalidates all queries that subscribe to this Product `id` only.
+      invalidatesTags: (result, error, { data }) => {
+        return [{ type: 'Products' }];
+      },
     }),
 
     deleteProduct: builder.mutation({
-      query: (slug) => {
+      query: (id) => {
         return {
-          url: `/productspost/${slug}`,
+          url: `/products/${id}`,
           method: 'DELETE',
         };
       },
-      invalidatesTags: (result, error, { slug }) => [{ type: 'Posts', slug }],
+      invalidatesTags: (result, error, { data }) => {
+        return [{ type: 'Products' }];
+      },
     }),
   }),
 });
@@ -90,4 +97,5 @@ export const {
   usePrefetch,
   useCreateProductMutation,
   useUploadProductImageMutation,
+  useUpdateProductMutation,
 } = productsApi;

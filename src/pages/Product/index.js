@@ -3,6 +3,7 @@ import { ProductDetail } from '../../components/ProductDetail';
 import { ProductDetailSkeleton } from '../../components/ProductDetailSkeleton';
 import { Question } from '../../components/Question';
 import { useFetchProductQuery } from '../../redux/features/productsApiSlice';
+import { Link } from 'react-router-dom';
 
 import './style.css';
 
@@ -15,7 +16,11 @@ export const Product = () => {
   return (
     <>
       <div className="container p-5">
-        <ProductDetail product={product}/>
+        <ProductDetail product={product} />
+
+        <Link className="btn btn-dark my-4" to={`/product/update/${slug}`}>
+          Editar
+        </Link>
 
         <div className="d-flex justify-content-center align-items-center mb-4">
           <div className="dropdown-divider w-75"></div>
