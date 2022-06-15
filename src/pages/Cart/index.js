@@ -49,7 +49,7 @@ export function Cart() {
         </section>
       </div>
 
-      <SubTotalCart totalPrice={totalPrice} />
+      <SubTotalCart cart={cart} totalPrice={totalPrice} />
     </>
   );
 }

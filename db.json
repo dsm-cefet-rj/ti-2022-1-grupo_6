@@ -147,5 +147,50 @@
         }
       ]
     }
+  ],
+  "purchases": [
+    {
+      "id": "1",
+      "items": [
+        {
+          "createdAt": "2022-05-18T12:12:50.686Z",
+          "id": 2,
+          "imageUrl": "http://localhost:3333/mouse.jpg",
+          "price": 20000,
+          "quantity": 1,
+          "state": "São Paulo",
+          "title": "Mouse Gamer"
+        }
+      ],
+      "payer": {
+        "email": "thiagoandre2121@gmail.com"
+      }
+    },
+    {
+      "items": [
+        {
+          "id": 2,
+          "title": "Mouse Gamer",
+          "imageUrl": "http://localhost:3333/mouse.jpg",
+          "price": 20000,
+          "state": "São Paulo",
+          "quantity": 1,
+          "createdAt": "2022-05-18T12:12:50.686Z"
+        },
+        {
+          "id": 3,
+          "title": "Placa de video",
+          "imageUrl": "http://localhost:3333/placa-de-video.png",
+          "price": 90000,
+          "state": "São Paulo",
+          "quantity": 1,
+          "createdAt": "2022-05-18T12:12:50.686Z"
+        }
+      ],
+      "payer": {
+        "email": "example@gmail.com"
+      },
+      "id": "Jf2kIh2"
+    }
   ]
 }
