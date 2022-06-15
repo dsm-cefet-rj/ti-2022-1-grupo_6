@@ -98,4 +98,5 @@ export const {
   useCreateProductMutation,
   useUploadProductImageMutation,
   useUpdateProductMutation,
+  useDeleteProductMutation,
 } = productsApi;
