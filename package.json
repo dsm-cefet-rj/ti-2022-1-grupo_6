@@ -21,12 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-<<<<<<< HEAD
     "server": "npx json-server --watch db.json --port 3333 --routes routes.json -d 2000",
     "dev": "concurrently \"npm run server\" \"npm run start\" "
-=======
-    "server-json": "json-server --watch --port 3333 --routes routes.json db.json"
->>>>>>> bf31e3e38df65729408dad5db7a7ad49757a9608
   },
   "eslintConfig": {
     "extends": [
