@@ -56,10 +56,16 @@ export const productsApi = createApi({
     uploadProductImage: builder.mutation({
       query: (file) => {
         const formData = new FormData();
-        formData.append('file', file);
+
+        formData.append('image', file);
+
         return {
           url: `/products/upload-image`,
           method: 'POST',
+          headers: (headers) => {
+            headers.set('Content-Type', 'multipart/form-data');
+            return headers;
+          },
           body: formData,
         };
       },
