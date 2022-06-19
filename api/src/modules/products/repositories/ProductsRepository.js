@@ -9,8 +9,9 @@ class ProductsRepository {
   static instance = null;
 
   static getInstance() {
-    if (this.instance === null) this.instance = new ProductsRepository();
-    return this.instance;
+    if (ProductsRepository.instance === null)
+      ProductsRepository.instance = new ProductsRepository();
+    return ProductsRepository.instance;
   }
 
   async create(data) {
