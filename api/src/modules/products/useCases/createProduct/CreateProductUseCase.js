@@ -4,7 +4,7 @@ class CreateProductUseCase {
   }
 
   async execute(data, imageFile) {
-    return await this.productsRepository.create(data, imageFile);
+    return await this.productsRepository.create(data);
   }
 }
 

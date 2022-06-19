@@ -5,9 +5,8 @@ class CreateProductController {
 
   async handle(request, response) {
     const { body: data } = request;
-    const { file: imageFile } = request;
 
-    await this.createProductUseCase.execute(data, imageFile);
+    await this.createProductUseCase.execute(data);
 
     return response.status(201).json();
   }

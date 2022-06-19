@@ -13,7 +13,7 @@ class ProductsRepository {
     return this.instance;
   }
 
-  async create(data, imageFile) {
+  async create(data) {
     const product = new Product();
 
     const slug =
