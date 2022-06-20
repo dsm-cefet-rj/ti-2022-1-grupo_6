@@ -2,15 +2,17 @@ import { Link } from 'react-router-dom';
 import { AiFillStar } from 'react-icons/ai';
 import { useFetchProductQuery } from '../../redux/features/productsApiSlice';
 import { formatDate } from '../../utils/date';
-import { useDispatch } from 'react-redux';
-import { removeFavorite } from '../../redux/features/favoriteSlice';
+
+import { useRemoveFavoriteMutation, useFetchWishlistQuery } from '../../redux/features/wishlistApiSlice';
 
 import './style.css';
 
-export const Favorite = ({ FavSlug, FavIndex }) => {
-  const { data: favorite, isFetching } = useFetchProductQuery(FavSlug);
+export const Favorite = ({ FavSlug, FavId }) => {
+  const { data: favorite = [] } = useFetchProductQuery(FavSlug);
 
-  const dispatch = useDispatch();
+  const { data:wishlist = [], isFetching} = useFetchWishlistQuery(+FavId+1);
+  const [removeFavorite] = useRemoveFavoriteMutation();
+
 
   if (isFetching) {
     return (
@@ -20,14 +22,22 @@ export const Favorite = ({ FavSlug, FavIndex }) => {
     );
   }
 
-  const handleClick = () => {
+  const handleClick = async () => {
+
+    const newFavorite = {
+      ...wishlist,
+      favorites: wishlist.favorites.filter((item)=> item.slug !== FavSlug)
+      }
+    var newId = +FavId+1;
+
     if (window.confirm('Você deseja remover este item dos Favoritos?')) {
-      dispatch(removeFavorite({ slug: FavSlug, id: FavIndex }));
-      console.log(FavIndex);
+      try {
+        await removeFavorite({id:newId, data: newFavorite}).unwrap();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
-
-  //const [favorite] = data;
 
   return (
     <>

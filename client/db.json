@@ -192,5 +192,31 @@
       },
       "id": "Jf2kIh2"
     }
+  ],
+  "wishlist": [
+    {
+      "id": 1,
+      "listName": "Periféricos",
+      "favorites": [
+        {
+          "slug": "gabriel-placa-de-video"
+        },
+        {
+          "slug": "thiago-mouse-gamer"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "listName": "Componentes",
+      "favorites": [
+        {
+          "slug": "felipe-ryzen-3-3200G"
+        },
+        {
+          "slug": "guigui-placa-de-video"
+        }
+      ]
+    }
   ]
 }
