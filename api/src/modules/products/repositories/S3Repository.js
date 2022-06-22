@@ -4,6 +4,10 @@ const fs = require('fs');
 const mime = require('mime-types');
 
 class S3Repository {
+  constructor() {
+    this.s3Client = new S3Client({ region: 'us-east-1' });
+  }
+
   async uploadProductImage(filename) {
     const file = path.join(__dirname, '..', '..', '..', '..', 'tmp', filename);
     const fileStream = fs.createReadStream(file);
@@ -18,12 +22,8 @@ class S3Repository {
       ContentType: contentType,
     };
 
-    const REGION = 'us-east-1';
-
-    const s3Client = new S3Client({ region: REGION });
-
     try {
-      await s3Client.send(new PutObjectCommand(uploadParams));
+      await this.s3Client.send(new PutObjectCommand(uploadParams));
       fs.promises.unlink(file);
       const imageUrl = `https://${uploadParams.Bucket}.s3.amazonaws.com/${uploadParams.Key}`;
 
