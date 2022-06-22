@@ -43,13 +43,19 @@ export function AddProduct() {
   };
 
   useEffect(() => {
-    if (previewImage) {
-      const objectUrl = URL.createObjectURL(previewImage);
-      setSelectedFile(objectUrl);
+    if (selectedFile) {
+      const objectUrl = URL.createObjectURL(selectedFile);
+      setPreviewImage(objectUrl);
 
       return () => URL.revokeObjectURL(objectUrl);
     }
-  }, [previewImage]);
+  }, [selectedFile]);
+
+  const handleFileChange = (event) => {
+    const [file] = event.target.files;
+
+    setSelectedFile(file);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -75,20 +81,11 @@ export function AddProduct() {
     };
 
     try {
-      await createProduct(product).unwrap();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      const { imageUrl } = await uploadProductImage(selectedFile).unwrap();
 
-  const handleUploadProductImage = async (event) => {
-    const [file] = event.target.files;
-    try {
-      // let { imageUrl } = await uploadProductImage(file).unwrap();
-      let imageUrl =
-        'https://images.unsplash.com/photo-1555618565-9f2b0323a10d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bnZpZGlhfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60';
-      setFormData((state) => ({ ...state, imageUrl }));
-      setPreviewImage(file);
+      product.imageUrl = imageUrl;
+
+      await createProduct(product).unwrap();
     } catch (error) {
       console.log(error);
     }
@@ -128,13 +125,13 @@ export function AddProduct() {
             </div>
 
             <div className="form-group my-4">
-              <img src={selectedFile} className="rounded previewImage" />
+              <img src={previewImage} className="rounded previewImage" />
               <input
                 type="file"
                 accept="image/*"
                 className="d-none"
                 id="previewImage"
-                onChange={handleUploadProductImage}
+                onChange={handleFileChange}
               />
               <button
                 className="btn btn-secondary btn-lg d-block my-2"

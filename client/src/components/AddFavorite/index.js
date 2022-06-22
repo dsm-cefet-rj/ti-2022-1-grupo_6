@@ -1,27 +1,40 @@
 import { useState } from 'react';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {addWishlist, addFavorite} from '../../redux/features/favoriteSlice';
+import { useCreateFavoriteMutation, useFetchAllWishlistsQuery } from '../../redux/features/wishlistApiSlice';
 
 export const AddFavorite = (product) => {
-  //const [favorites, setFavorites] = useState(null);
   const [selected, setSelected] = useState(null);
 
   const { slug } = useParams();
 
-  const listaFavoritos = useSelector((state) => state.favorite);
-  const dispatch = useDispatch();
+  const {data: listaFavoritos = [], isFetching} = useFetchAllWishlistsQuery();
+  const [createFavorite] = useCreateFavoriteMutation();
 
-
-  const handleChange = (event) => {
+  const handleChange = async(event) => {
     if (event.target.value === 'default') {
       setSelected(null);
       return;
     }
     setSelected(event.target.value);
     
-    dispatch(addFavorite({id:event.target.value, slug: {slug} }))
+    const newFavorite = {
+      ...listaFavoritos[event.target.value-1],
+      favorites:[
+        ...listaFavoritos[event.target.value-1].favorites,
+        {
+          slug: slug
+        }
+      ]
+    }
+
+    try {
+      await createFavorite({id:event.target.value, data: newFavorite}).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+
+
   };
   
   return (

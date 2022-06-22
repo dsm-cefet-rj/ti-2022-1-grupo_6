@@ -1,24 +1,41 @@
 import { useEffect, useState } from 'react';
 import { Favorite } from '../../components/Favorite';
 import { AiOutlineStar, AiOutlinePlusSquare } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
-import { addWishlist } from '../../redux/features/favoriteSlice';
+import { useFetchAllWishlistsQuery, useCreateWishlistMutation, useDeleteWishlistMutation } from '../../redux/features/wishlistApiSlice';
 
 export const Wishlist = () => {
   const [favList, setFavList] = useState(0);
   const [inputList, setInputList] = useState(false);
   const [newFav, setNewFav] = useState('')
 
-  const wishlist = useSelector((state) => state.favorite);
-  const dispatch = useDispatch();
-
+  const { data: wishlist = [], isFetching } = useFetchAllWishlistsQuery();
+  const [createWishlist, { isLoading, isSuccess, isUninitialized }] = useCreateWishlistMutation();
+  const [deleteWishlist] =useDeleteWishlistMutation();
 
   const handleChange = (event) => {
     setFavList(event.target.value);
   };
 
-  const handleButton = (e) =>{
-    dispatch(addWishlist({id:wishlist.length+1, listName:newFav}))
+  const handleButton = async (e) =>{
+    e.preventDefault();
+    try {
+      await createWishlist({listName:newFav, favorites: []}).unwrap();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleDelete = async () =>{
+    var wishlistId = +favList+1;
+
+    if (window.confirm('Você deseja remover permanentemente esta lista?')) {
+      try {
+        await deleteWishlist(wishlistId).unwrap();
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   const changeOnClick = () => setInputList(!inputList);
@@ -52,7 +69,9 @@ export const Wishlist = () => {
           <AiOutlineStar style={{ color: 'limegreen' }} /> Favoritos
         </h1>
 
-        <div className="container">
+        
+        <div className="container" style={{position:"relative"}}>
+        {!isFetching ?(<div>
           <div>
             <select
               className="form-select fs-5"
@@ -74,19 +93,23 @@ export const Wishlist = () => {
           <ul className="list-group list-group-flush">
             {wishlist[favList].favorites.map((favorito) => (
               <li key={favorito.slug} className="list-group-item question">
-                <Favorite FavSlug={favorito.slug} FavIndex={favList} />
+                <Favorite FavSlug={favorito.slug} FavId={favList} />
               </li>  
             ))}
-
           </ul>
+          </div>
+          ):(<div>
+          </div>)}
 
-            <div>
+            <div style={{float:'left'}}>
               <div className='fs-4' onClick={changeOnClick} style={{cursor: 'pointer', display: 'inline-block'}}> <AiOutlinePlusSquare className='fs-3'/> Criar uma nova lista</div>
             {!inputList ? (
               <div></div>
             ) : (
+      
               <div className='m-2'>
-                <form>
+                { isUninitialized && ( <div>
+                  <form>
                   <input
                   type="text"
                   value={newFav}
@@ -96,10 +119,37 @@ export const Wishlist = () => {
                 </form>
 
                 <button type="button" className="btn btn-outline-secondary ms-2" onClick={handleButton}>Criar</button>
+                </div>) }
+                { isLoading && ( <div>
+                  <form>
+                  <input
+                  type="text"
+                  value={newFav}
+                  placeholder="Nova Lista"
+                  style={{float:'left'}}/>
+                </form>
+
+                <button type="button" className="btn btn-outline-secondary ms-2">
+                  Criar
+                </button>
+                </div>) }
+                {isSuccess &&(
+                  <div className='fs-4'>
+                    Lista Criada!
+                  </div>
+                )}
+                
               </div>
+              
             ) }
             </div>
+            <div>
+              <button className='btn btn-outline-danger ms-2' style={{position:"absolute", right:"10px"}} onClick={handleDelete}>
+                Excluir Lista
+              </button>
+            </div>
 
+              
         </div>
       </div>
     </>
