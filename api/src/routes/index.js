@@ -4,6 +4,7 @@ require('dotenv').config()
 
 const paymentsController = require('../controllers/paymentsController');
 
-routes.post('/checkout', paymentsController.checkout)
+routes.post('/order', paymentsController.order)
+routes.get('/checkout', paymentsController.checkout)
 
 module.exports = routes;
