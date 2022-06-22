@@ -2,6 +2,8 @@ const MercadoPago = require('mercadopago');
 require('dotenv').config()
 const { v4 } = require("uuid");
 
+const orders = [];
+
 const getFullUrl = (req) => {
     const url = req.protocol + '://' + req.get('host')
     console.log(url)
@@ -9,13 +11,17 @@ const getFullUrl = (req) => {
 }
 
 module.exports = {
-    async createOrder() {
-        const { user_id, value, seller_id } = reqBody;
-        return {
+    async createOrder(req, res) {
+        const { user_id, value, seller_id } = req.body
+        //checkout()
+        const order = {
             user_id,
             value,
             seller_id
         }
+        orders.push(order)
+
+        return res.send(order)
     },
 
     async checkout(req, res) {
@@ -38,7 +44,7 @@ module.exports = {
                 }
             ],
             payer: {
-                email
+                email: 'example@gmail.com'
             },
             auto_return: 'all',
             external_reference: id,
