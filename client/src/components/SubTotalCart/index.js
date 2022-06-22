@@ -9,13 +9,24 @@ export function SubTotalCart({ cart, totalPrice }) {
 
   const submitFunction = () => {
     const body = {
-      "items": cart,
+      "items": [],
       "payer": {
         "email": "example@gmail.com" //quando login estiver implementado, teremos mais informações do usuário
       }
     }
+    cart.forEach((product) => {
+      body.items.push({
+        title: product.title,
+        quantity: product.quantity,
+        currency_id: 'BRL',
+        unit_price: parseFloat(product.price/100)
+      })
+    })
+
+    console.log(body)
+    
     try{
-      axios.post("http://localhost:3333/purchases", body);
+      axios.post("http://localhost:5000/checkout", body);
     } catch(e) {
       console.log(e);
     }
@@ -33,7 +44,7 @@ export function SubTotalCart({ cart, totalPrice }) {
         <button onClick={() => {
           submitFunction()
         }} className={`btn buy-button ${totalPrice ? '' : 'disabled'}`}>
-          Continuar a compra
+          Ir para o pagamento
         </button>
       </section>
     </div>
