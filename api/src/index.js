@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 require('express-async-errors');
+const mongoose = require('mongoose');
 
 const cors = require('cors');
 
@@ -12,6 +13,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/', routes);
+
+await mongoose.connect(`mongodb+srv://psw:${process.env.ATLAS_PASSWORD}@cluster0.tbhn8.mongodb.net/test`);
 
 const port = process.env.PORT || 5000;
 
