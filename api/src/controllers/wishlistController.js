@@ -1,7 +1,7 @@
 require('dotenv').config()
 const { v4 } = require("uuid");
 
-const wishlist = [
+/*const wishlist = [
     {
       id: 1,
       listName: 'Periféricos',
@@ -23,34 +23,47 @@ const wishlist = [
         }
       ]
     }
-  ];
+  ];*/
+
+const Wishlist = require('../modules/wishlist/models/WishlistSchema');
 
 module.exports = {
 
     async getWishlist(req, res){
-        const {wishlistId} = req.params;
-        const wishlistIndex = wishlist.findIndex(item =>item.id == wishlistId);
 
         try {
-            return res.json(wishlist[wishlistIndex]);
+            const wishlistData = await Wishlist.findById(req.params.id)
+            return res.json(wishlistData);
         }catch(error){
             return res.send(error.message)
         }
     },
 
-    async getAllWishlists(req, res){
+    /*async getAllWishlists(req, res){
         try {
             return res.json({wishlist});
         }catch(error){
             return res.send(error.message)
         }
-    },
- 
-    async createWishlist(req, res){
-        const newWishlist = req.body;
-        Object.assign(newWishlist);
+    },*/
+
+    //
+    async getAllWishlists(req, res){
 
         try {
+            const wishlistData = await Wishlist.find({}).maxTime(3000)
+            return res.json(wishlistData);
+        }catch(error){
+            return res.send(error.message)
+        }
+
+    },
+    //
+ 
+    async createWishlist(req, res){
+        
+        try {
+            await Wishlist.create(req.body)
             return res.json({message: "Lista de desejos criada"});
         }catch(error){
             return res.send(error.message)
@@ -58,37 +71,34 @@ module.exports = {
     },
 
     async createFavorite(req, res){
-        const {wishlistId} = req.params;
-        const {newSlug} = req.body;
-        const wishlistIndex = wishlist.findIndex(item =>item.id == wishlistId);
-        
+
         try {
-            wishlist[wishlistIndex].favorites.push({newSlug});
+            await Wishlist.findByIdAndUpdate(req.params.id, {$push: {slug: req.body}})
             return res.json({message: "Novo favorito adicionado"});
         }catch(error){
             return res.send(error.message)
         }
     },
 
-    async removeFavorite(req, res){
-        const {wishlistId} = req.params;
-        const {wishlistSlug} = req.body;
-        const wishlistIndex = wishlist.findIndex(item =>item.id == wishlistId);
-        const favoriteIndex = wishlist[wishlistIndex].favorites(item => item.slug == wishlistSlug);
+    /*async removeFavorite(req, res){
+
         try {
-            wishlist[wishlistIndex].favorites.splice(favoriteIndex,1);
+            const wishlistData = await Wishlist.findById(req.params.id);
+            const favSlug = req.body;
+            const favIndex = wishlistData.favorites.findIndex(item => item.slug == favSlug);
+            wishlistData.favorites.splice(favIndex,1);
+            await Wishlist.findByIdAndUpdate(req.params.id, {$set: wishlistData})
+
             return res.json({message: "Favorito removido"});
         }catch(error){
             return res.send(error.message)
         }
-    },
+    },*/
 
     async deleteWishlist(req, res){
-        const {wishlistId} = req.params;
-        const wishlistIndex = wishlist.findIndex(item =>item.id == wishlistId);
 
         try {
-            wishlist.splice(wishlistIndex, 1);
+            await Wishlist.findByIdAndRemove(req.params.id)
             return res.json({message: "Lista de desejos excluída"});
         }catch(error){
             return res.send(error.message)
