@@ -3,26 +3,7 @@ const slugify = require('slugify');
 
 class ProductsRepository {
   constructor() {
-    this.productsRepository = [
-      {
-        id: '46476db2-20f4-49dd-a29b-ad6893d5e3e4',
-        likes: 0,
-        questions: [],
-        owner: 'Felipe',
-        title: 'My GPU',
-        price: 50000,
-        amount: 5,
-        state: 'Rio de Janeiro',
-        used: 'novo',
-        overview: 'some overview',
-        imageUrl:
-          'https://felipecurciopsw.s3.amazonaws.com/images/image-1655906673810-174revan.jpg',
-        description: 'Some detailed description',
-        slug: 'felipe-my-gpu',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
+    this.Product = Product;
   }
 
   static instance = null;
@@ -34,8 +15,6 @@ class ProductsRepository {
   }
 
   async create(data) {
-    const product = new Product();
-
     const slug =
       slugify(data.owner, { lower: true }) +
       '-' +
@@ -43,13 +22,11 @@ class ProductsRepository {
         lower: true,
       });
 
-    Object.assign(product, data, {
-      slug,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    const productData = { ...data, slug };
 
-    this.productsRepository.push(product);
+    const product = new this.Product(productData);
+
+    await product.save();
   }
 
   async findById(productId) {
@@ -83,7 +60,7 @@ class ProductsRepository {
   }
 
   async list() {
-    const products = this.productsRepository;
+    const products = await this.Product.find();
     return products;
   }
 }
