@@ -6,7 +6,13 @@ const ProductSchema = new Schema(
     // user|ownerId: Schema.Types.ObjectID, later we'll need the user reference, product 0..* -belongs- 1..1 user
     owner: String,
 
-    questions: [[Number]],
+    questions: [
+      {
+        user: String,
+        question: String,
+        answer: String,
+      },
+    ],
 
     likes: {
       type: Number,

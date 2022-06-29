@@ -29,10 +29,14 @@ class ProductsRepository {
     await product.save();
   }
 
+  async createQuestion(product, data) {
+    product.questions.push(data);
+
+    await product.save();
+  }
+
   async findById(productId) {
-    const product = this.productsRepository.find(
-      (product) => product.id === productId
-    );
+    const product = await this.Product.findById(productId);
     return product;
   }
 
@@ -44,17 +48,13 @@ class ProductsRepository {
   }
 
   async update({ product, data }) {
-    Object.assign(product, data, { updatedAt: new Date() });
-
+    Object.assign(product, data);
+    product = await product.save();
     return product;
   }
 
-  async delete(productId) {
-    const product = this.findById(productId);
-
-    const productIdx = this.productsRepository.indexOf(product);
-
-    this.productsRepository.splice(productIdx, 1);
+  async delete(product) {
+    await product.remove();
 
     return product;
   }
