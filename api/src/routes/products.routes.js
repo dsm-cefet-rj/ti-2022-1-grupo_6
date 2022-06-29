@@ -14,6 +14,12 @@ const {
 const {
   deleteProductController,
 } = require('../modules/products/useCases/deleteProduct');
+const {
+  listProductByIdController,
+} = require('../modules/products/useCases/listProductById');
+const {
+  createQuestionController,
+} = require('../modules/products/useCases/createQuestion');
 const { upload } = require('../middlewares/uploadImageMiddleware');
 
 const productsRoutes = Router();
@@ -22,8 +28,16 @@ productsRoutes.get('/', (request, response) => {
   return listProductsController.handle(request, response);
 });
 
+productsRoutes.get('/:productId', (request, response) => {
+  return listProductByIdController.handle(request, response);
+});
+
 productsRoutes.post('/', (request, response) => {
   return createProductController.handle(request, response);
+});
+
+productsRoutes.post('/:productId/questions', (request, response) => {
+  return createQuestionController.handle(request, response);
 });
 
 productsRoutes.post(
