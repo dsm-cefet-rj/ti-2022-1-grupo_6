@@ -4,6 +4,8 @@ const { v4 } = require("uuid");
 
 const orders = [];
 
+const Order = require('../models/OrderSchema');
+
 const getFullUrl = (req) => {
     const url = req.protocol + '://' + req.get('host')
     console.log(url)
@@ -12,16 +14,9 @@ const getFullUrl = (req) => {
 
 module.exports = {
     async createOrder(req, res) {
-        const { user_id, value, seller_id } = req.body
-        //checkout()
-        const order = {
-            user_id,
-            value,
-            seller_id
-        }
-        orders.push(order)
+        await Order.create(req.body)
 
-        return res.send(order)
+        return res.send('Pedido criado com sucesso!');
     },
 
     async checkout(req, res) {
