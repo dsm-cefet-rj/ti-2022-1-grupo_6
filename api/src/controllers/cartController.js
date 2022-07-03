@@ -1,7 +1,7 @@
 require('dotenv').config()
 const { v4 } = require("uuid");
 const { CartModel } = require("../models/Cart");
-const { Product } = require("../modules/products/models/Product");
+const { Product } = require("../models/Product")
 
 const userId = "123456";
 

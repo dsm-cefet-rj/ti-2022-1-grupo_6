@@ -9,7 +9,7 @@ class S3Repository {
   }
 
   async uploadProductImage(filename) {
-    const file = path.join(__dirname, '..', '..', '..', '..', 'tmp', filename);
+    const file = path.join(__dirname, '..', '..', 'tmp', filename);
     const fileStream = fs.createReadStream(file);
 
     const contentType = mime.lookup(file);
@@ -34,4 +34,4 @@ class S3Repository {
   }
 }
 
-exports.S3Repository = S3Repository;
+exports.s3Repository = new S3Repository();

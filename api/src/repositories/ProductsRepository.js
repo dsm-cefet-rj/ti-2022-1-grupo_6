@@ -6,14 +6,6 @@ class ProductsRepository {
     this.Product = Product;
   }
 
-  static instance = null;
-
-  static getInstance() {
-    if (ProductsRepository.instance === null)
-      ProductsRepository.instance = new ProductsRepository();
-    return ProductsRepository.instance;
-  }
-
   async create(data) {
     const slug =
       slugify(data.owner, { lower: true }) +
@@ -64,4 +56,5 @@ class ProductsRepository {
     return products;
   }
 }
-exports.ProductsRepository = ProductsRepository;
+
+exports.productsRepository = new ProductsRepository();
