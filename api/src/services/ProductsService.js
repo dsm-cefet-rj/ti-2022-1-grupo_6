@@ -1,6 +1,7 @@
 const { productsRepository } = require('../repositories/ProductsRepository');
 const { s3Repository } = require('../repositories/S3Repository');
-
+const slugify = require('slugify');
+const { RequestError } = require('../errors/RequestError');
 class ProductsService {
   constructor(productsRepository, s3Repository) {
     this.productsRepository = productsRepository;
@@ -8,7 +9,16 @@ class ProductsService {
   }
 
   async create(data, user) {
-    return await this.productsRepository.create(data, user);
+    const slug =
+      slugify(data.owner, { lower: true }) +
+      '-' +
+      slugify(data.title, {
+        lower: true,
+      });
+
+    const productData = { ...data, slug, user: user.id };
+
+    return await this.productsRepository.create(productData);
   }
 
   async list() {
@@ -19,28 +29,36 @@ class ProductsService {
     return await this.productsRepository.findById(productId);
   }
 
-  async deleteById(productId) {
+  async deleteById(productId, user) {
     const product = await this.productsRepository.findById(productId);
 
-    if (!product) throw new Error('Product does not exists');
+    if (!product) throw new RequestError('Product does not exists', 404);
+
+    if (product.user.id !== user.id)
+      throw new RequestError('Unauthorized', 401);
 
     const productDeleted = await this.productsRepository.delete(product);
 
     return productDeleted;
   }
 
-  async createQuestion(productId, data) {
+  async createQuestion(productId, data, user) {
     const product = await this.productsRepository.findById(productId);
 
-    if (!product) throw new Error('Product does not exists');
+    if (!product) throw new RequestError('Product does not exists', 404);
 
-    return await this.productsRepository.createQuestion(product, data);
+    const questionData = { ...data, user };
+
+    return await this.productsRepository.createQuestion(product, questionData);
   }
 
-  async update({ productId, data }) {
+  async update({ productId, data, user }) {
     const product = await this.productsRepository.findById(productId);
 
-    if (!product) throw new Error('Product does not exists');
+    if (!product) throw new RequestError('Product does not exists', 404);
+
+    if (product.user.id !== user.id)
+      throw new RequestError('Unauthorized', 401);
 
     const updatedProduct = await this.productsRepository.update({
       product,

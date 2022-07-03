@@ -3,6 +3,7 @@ require('dotenv').config();
 require('express-async-errors');
 require('./middlewares/passportJWT');
 const { connectDB } = require('./config/db');
+const { RequestError } = require('./errors/RequestError');
 
 const cors = require('cors');
 
@@ -20,9 +21,14 @@ app.use('/', routes);
 const port = process.env.PORT || 5000;
 
 app.use((err, request, response, next) => {
-  return response.status(400).json({
-    message: err.message,
-  });
+  if (err instanceof RequestError) {
+    return response.status(err.status).json({
+      message: err.message,
+    });
+  }
+  return response
+    .status(500)
+    .json({ msg: `Internal Server Error: ${err.message}` });
 });
 
 app.listen(port, function (err) {

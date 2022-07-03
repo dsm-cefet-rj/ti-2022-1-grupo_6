@@ -30,7 +30,10 @@ class ProductsController {
   async deleteById(request, response) {
     const { productId } = request.params;
 
-    const deletedProduct = await this.productsService.deleteById(productId);
+    const deletedProduct = await this.productsService.deleteById(
+      productId,
+      request.user
+    );
 
     return response.json(deletedProduct);
   }
@@ -39,7 +42,7 @@ class ProductsController {
     const { productId } = request.params;
     const { body: data } = request;
 
-    await this.productsService.createQuestion(productId, data);
+    await this.productsService.createQuestion(productId, data, request.user);
 
     return response.status(201).json();
   }
@@ -51,6 +54,7 @@ class ProductsController {
     const updatedProduct = await this.productsService.update({
       productId,
       data,
+      user: request.user,
     });
 
     return response.json(updatedProduct);
@@ -68,14 +72,6 @@ class ProductsController {
     } catch (err) {
       throw err;
     }
-  }
-
-  async signup(request, response) {
-    const { body: data } = request;
-
-    await this.productsService.create(data);
-
-    return response.status(201).json();
   }
 }
 

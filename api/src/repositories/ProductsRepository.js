@@ -1,22 +1,13 @@
+const { default: mongoose } = require('mongoose');
 const { Product } = require('../models/Product');
-const slugify = require('slugify');
 
 class ProductsRepository {
   constructor() {
     this.Product = Product;
   }
 
-  async create(data, user) {
-    const slug =
-      slugify(data.owner, { lower: true }) +
-      '-' +
-      slugify(data.title, {
-        lower: true,
-      });
-
-    const productData = { ...data, slug, user: user.id };
-
-    const product = new this.Product(productData);
+  async create(data) {
+    const product = new this.Product(data);
 
     await product.save();
   }
@@ -28,8 +19,11 @@ class ProductsRepository {
   }
 
   async findById(productId) {
-    const product = await this.Product.findById(productId);
-    return product;
+    if (mongoose.isObjectIdOrHexString(productId))
+      return await this.Product.findById(productId).populate(
+        'user',
+        '-password'
+      );
   }
 
   async findBySlug(productSlug) {

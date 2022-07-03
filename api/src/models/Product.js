@@ -3,8 +3,20 @@ const Schema = mongoose.Schema;
 
 const questionSchema = new Schema({
   user: {
-    type: String,
-    required: true,
+    name: {
+      type: String,
+      required: true,
+    },
+
+    address: {
+      type: String,
+      require: true,
+    },
+
+    email: {
+      type: String,
+      required: true,
+    },
   },
 
   question: {
