@@ -20,13 +20,19 @@ const {
 const {
   createQuestionController,
 } = require('../modules/products/useCases/createQuestion');
+
+// const { passport } = require('../middlewares/passportJWT');
 const { upload } = require('../middlewares/uploadImageMiddleware');
 
 const productsRoutes = Router();
 
-productsRoutes.get('/', (request, response) => {
-  return listProductsController.handle(request, response);
-});
+productsRoutes.get(
+  '/',
+  // passport.authenticate('jwt', { session: false }),
+  (request, response) => {
+    return listProductsController.handle(request, response);
+  }
+);
 
 productsRoutes.get('/:productId', (request, response) => {
   return listProductByIdController.handle(request, response);

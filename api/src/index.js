@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 require('express-async-errors');
+require('./middlewares/passportJWT');
 const { connectDB } = require('./config/db');
 
 const cors = require('cors');

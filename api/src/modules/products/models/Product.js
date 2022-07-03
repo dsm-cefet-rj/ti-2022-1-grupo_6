@@ -3,7 +3,11 @@ const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema(
   {
-    // user|ownerId: Schema.Types.ObjectID, later we'll need the user reference, product 0..* -belongs- 1..1 user
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Users',
+    },
+
     owner: String,
 
     questions: [
