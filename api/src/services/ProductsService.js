@@ -34,8 +34,7 @@ class ProductsService {
 
     if (!product) throw new RequestError('Product does not exists', 404);
 
-    if (product.user.id !== user.id)
-      throw new RequestError('Unauthorized', 401);
+    if (product.user.id !== user.id) throw new RequestError('Forbidden', 403);
 
     const productDeleted = await this.productsRepository.delete(product);
 
@@ -57,8 +56,7 @@ class ProductsService {
 
     if (!product) throw new RequestError('Product does not exists', 404);
 
-    if (product.user.id !== user.id)
-      throw new RequestError('Unauthorized', 401);
+    if (product.user.id !== user.id) throw new RequestError('Forbidden', 403);
 
     const updatedProduct = await this.productsRepository.update({
       product,

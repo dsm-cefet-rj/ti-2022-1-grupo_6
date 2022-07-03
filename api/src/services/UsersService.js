@@ -1,5 +1,6 @@
 const { compare, hash } = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { RequestError } = require('../errors/RequestError');
 const { usersRepository } = require('../repositories/UsersRepository');
 
 class UsersService {
@@ -10,11 +11,12 @@ class UsersService {
   async authenticate({ email, password }) {
     const user = await this.usersRepository.findByEmail(email);
 
-    if (!user) throw new Error('Email or password incorrect');
+    if (!user) throw new RequestError('Email or password incorrect', 401);
 
     const isCorrectPassword = await compare(password, user.password);
 
-    if (!isCorrectPassword) throw new Error('Email or password incorrect');
+    if (!isCorrectPassword)
+      throw new RequestError('Email or password incorrect', 401);
 
     const token = jwt.sign(
       {
@@ -39,7 +41,7 @@ class UsersService {
   async create({ name, email, password, address }) {
     const isUser = await this.usersRepository.findByEmail(email);
 
-    if (isUser) throw new Error('User already exists');
+    if (isUser) throw new RequestError('User already exists', 400);
 
     const passwordHash = await hash(password, 8);
 
