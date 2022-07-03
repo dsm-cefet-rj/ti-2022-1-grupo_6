@@ -1,44 +1,86 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const questionSchema = new Schema({
+  user: {
+    type: String,
+    required: true,
+  },
+
+  question: {
+    type: String,
+    required: true,
+  },
+  answer: {
+    type: String,
+    required: true,
+  },
+});
+
 const ProductSchema = new Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Users',
+      required: true,
     },
 
-    owner: String,
+    owner: {
+      type: String,
+      required: true,
+    },
 
-    questions: [
-      {
-        user: String,
-        question: String,
-        answer: String,
-      },
-    ],
+    questions: [questionSchema],
 
     likes: {
       type: Number,
       default: () => 0,
     },
-    title: String,
 
-    price: Number,
+    title: {
+      type: String,
+      required: true,
+    },
 
-    amount: Number,
+    price: {
+      type: Number,
+      required: true,
+    },
 
-    state: String,
+    amount: {
+      type: Number,
+      required: true,
+    },
 
-    new: Boolean,
+    state: {
+      type: String,
+      required: true,
+    },
 
-    overview: String,
+    new: {
+      type: Boolean,
+      required: true,
+    },
 
-    imageUrl: String,
+    overview: {
+      type: String,
+      required: true,
+    },
 
-    description: String,
+    imageUrl: {
+      type: String,
+      required: true,
+    },
 
-    slug: String,
+    description: {
+      type: String,
+      required: true,
+    },
+
+    slug: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

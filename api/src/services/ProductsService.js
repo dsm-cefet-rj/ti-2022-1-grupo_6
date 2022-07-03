@@ -7,8 +7,8 @@ class ProductsService {
     this.s3Repository = s3Repository;
   }
 
-  async create(data) {
-    return await this.productsRepository.create(data);
+  async create(data, user) {
+    return await this.productsRepository.create(data, user);
   }
 
   async list() {

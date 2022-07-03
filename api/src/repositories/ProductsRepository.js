@@ -6,7 +6,7 @@ class ProductsRepository {
     this.Product = Product;
   }
 
-  async create(data) {
+  async create(data, user) {
     const slug =
       slugify(data.owner, { lower: true }) +
       '-' +
@@ -14,7 +14,7 @@ class ProductsRepository {
         lower: true,
       });
 
-    const productData = { ...data, slug };
+    const productData = { ...data, slug, user: user.id };
 
     const product = new this.Product(productData);
 

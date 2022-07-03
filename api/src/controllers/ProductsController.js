@@ -8,7 +8,7 @@ class ProductsController {
   async create(request, response) {
     const { body: data } = request;
 
-    await this.productsService.create(data);
+    await this.productsService.create(data, request.user);
 
     return response.status(201).json();
   }
