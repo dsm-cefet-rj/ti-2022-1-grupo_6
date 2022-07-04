@@ -46,26 +46,6 @@ export const SignInModal = ({
           </button>
         </form>
       </Modal.Body>
-      {/* <Modal.Footer>
-        <Button variant="secondary" onClick={() => setIsSignInModalOpen(false)}>
-          Cancelar
-        </Button>
-        <Button variant="primary">
-          {isUninitialized && 'Login'}
-          {isLoading && (
-            <>
-              <span>Login</span>
-              <div
-                className="spinner-border text-light ms-2"
-                id="spinner-adding-product"
-                role="status"
-              >
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            </>
-          )}
-        </Button>
-      </Modal.Footer> */}
     </Modal>
   );
 };

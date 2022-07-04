@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { SignInModal } from '../SignInModal';
-import { useSignInMutation } from '../../redux/features/userApiSlice';
-import { signIn, signOut } from '../../redux/features/userSlice';
+import {
+  useSignInMutation,
+  useFetchUserQuery,
+} from '../../redux/features/userApiSlice';
+import { signIn, signInUser, signOut } from '../../redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './style.css';
@@ -18,6 +21,8 @@ export const Header = () => {
 
   const user = useSelector((state) => state.user.value);
 
+  const { data = null } = useFetchUserQuery();
+
   const [signInMutation, { isLoading, isUninitialized }] = useSignInMutation();
 
   const dispatch = useDispatch();
@@ -30,10 +35,11 @@ export const Header = () => {
 
   const handleSubmitSignIn = async (event) => {
     event.preventDefault();
-    const data = await signInMutation(formData).unwrap();
+    // const data = await signInMutation(formData).unwrap();
+    const { payload: data } = await dispatch(signInUser(formData));
     localStorage.setItem('TechBuy.token', data.token);
-    dispatch(signIn(data));
-    setIsSignInModalOpen(false);
+    // dispatch(signIn(data));
+    // setIsSignInModalOpen(false);
   };
 
   const handleLogout = (event) => {

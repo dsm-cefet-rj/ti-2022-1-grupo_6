@@ -13,11 +13,12 @@ export const userApiSlice = createApi({
   endpoints: (builder) => ({
     fetchUser: builder.query({
       query: () => {
+        const token = localStorage.getItem('TechBuy.token');
         return {
           url: `/users/me`,
           method: 'GET',
           headers: {
-            Authorization: localStorage.getItem('TechBuy.token'),
+            Authorization: `Bearer ${token}`,
           },
         };
       },
