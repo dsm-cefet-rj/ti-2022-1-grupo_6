@@ -8,7 +8,7 @@ class ProductsController {
   async create(request, response) {
     const { body: data } = request;
 
-    await this.productsService.create(data, request.user);
+    await this.productsService.create(data, request.user.profile);
 
     return response.status(201).json();
   }
@@ -19,10 +19,10 @@ class ProductsController {
     return response.json(products);
   }
 
-  async listById(request, response) {
-    const { productId } = request.params;
+  async listParam(request, response) {
+    const { productParam } = request.params;
 
-    const product = await this.productsService.listById(productId);
+    const product = await this.productsService.listByParam(productParam);
 
     return response.json(product);
   }
@@ -32,7 +32,7 @@ class ProductsController {
 
     const deletedProduct = await this.productsService.deleteById(
       productId,
-      request.user
+      request.user.profile
     );
 
     return response.json(deletedProduct);
@@ -42,7 +42,11 @@ class ProductsController {
     const { productId } = request.params;
     const { body: data } = request;
 
-    await this.productsService.createQuestion(productId, data, request.user);
+    await this.productsService.createQuestion(
+      productId,
+      data,
+      request.user.profile
+    );
 
     return response.status(201).json();
   }
@@ -54,7 +58,7 @@ class ProductsController {
     const updatedProduct = await this.productsService.update({
       productId,
       data,
-      user: request.user,
+      user: request.user.profile,
     });
 
     return response.json(updatedProduct);

@@ -9,8 +9,8 @@ productsRoutes.get('/', (request, response) => {
   return productsController.list(request, response);
 });
 
-productsRoutes.get('/:productId', (request, response) => {
-  return productsController.listById(request, response);
+productsRoutes.get('/:productParam', (request, response) => {
+  return productsController.listParam(request, response);
 });
 
 productsRoutes.post(

@@ -30,15 +30,17 @@ class UsersService {
     );
 
     return {
-      user: {
+      profile: {
+        username: user.username,
         name: user.name,
         email,
+        address: user.address,
       },
       token,
     };
   }
 
-  async create({ name, email, password, address }) {
+  async create({ username, name, email, password, address }) {
     const isUser = await this.usersRepository.findByEmail(email);
 
     if (isUser) throw new RequestError('User already exists', 400);
@@ -46,6 +48,7 @@ class UsersService {
     const passwordHash = await hash(password, 8);
 
     await this.usersRepository.create({
+      username,
       name,
       email,
       password: passwordHash,

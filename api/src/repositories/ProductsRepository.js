@@ -1,4 +1,3 @@
-const { default: mongoose } = require('mongoose');
 const { Product } = require('../models/Product');
 
 class ProductsRepository {
@@ -19,18 +18,11 @@ class ProductsRepository {
   }
 
   async findById(productId) {
-    if (mongoose.isObjectIdOrHexString(productId))
-      return await this.Product.findById(productId).populate(
-        'user',
-        '-password'
-      );
+    return await this.Product.findById(productId).populate('user', '-password');
   }
 
   async findBySlug(productSlug) {
-    const product = this.productsRepository.find(
-      (product) => product.slug === productSlug
-    );
-    return product;
+    return await this.Product.findOne({ slug: productSlug });
   }
 
   async update({ product, data }) {

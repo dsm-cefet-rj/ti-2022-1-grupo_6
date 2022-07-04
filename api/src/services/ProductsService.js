@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { productsRepository } = require('../repositories/ProductsRepository');
 const { s3Repository } = require('../repositories/S3Repository');
 const slugify = require('slugify');
@@ -25,8 +26,11 @@ class ProductsService {
     return await this.productsRepository.list();
   }
 
-  async listById(productId) {
-    return await this.productsRepository.findById(productId);
+  async listByParam(productParam) {
+    if (mongoose.isObjectIdOrHexString(productParam))
+      return await this.productsRepository.findById(productParam);
+
+    return await this.productsRepository.findBySlug(productParam);
   }
 
   async deleteById(productId, user) {
