@@ -4,27 +4,9 @@ export const userApiSlice = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:5000',
-    // prepareHeaders: (headers) => {
-    //   headers.set('authorization', localStorage.getItem('TechBuy.token'));
-    //   return headers;
-    // },
   }),
   tagTypes: ['User'],
   endpoints: (builder) => ({
-    fetchUser: builder.query({
-      query: () => {
-        const token = localStorage.getItem('TechBuy.token');
-        return {
-          url: `/users/me`,
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-      },
-      providesTags: [{ type: 'User' }],
-    }),
-
     signUp: builder.mutation({
       query: (data) => ({
         url: `/users/signup`,
@@ -45,5 +27,4 @@ export const userApiSlice = createApi({
   }),
 });
 
-export const { useFetchUserQuery, useSignInMutation, useSignUpMutation } =
-  userApiSlice;
+export const { useSignInMutation, useSignUpMutation } = userApiSlice;

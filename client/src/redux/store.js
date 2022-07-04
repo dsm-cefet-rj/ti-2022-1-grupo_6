@@ -4,11 +4,11 @@ import favoriteReducer from './features/favoriteSlice';
 import { productsApi } from './features/productsApiSlice';
 import { userApiSlice } from './features/userApiSlice';
 import { wishlistApi } from './features/wishlistApiSlice';
-import userReducer from './features/userSlice';
+import authReducer from './features/authSlice';
 
 export const store = configureStore({
   reducer: {
-    user: userReducer,
+    auth: authReducer,
     cart: cartReducer,
     favorite: favoriteReducer,
     [productsApi.reducerPath]: productsApi.reducer,

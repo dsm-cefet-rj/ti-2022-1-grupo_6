@@ -4,10 +4,6 @@ export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:5000',
-    // prepareHeaders: (headers) => {
-    //   headers.set('authorization', localStorage.getItem('TechBuy.token'));
-    //   return headers;
-    // },
   }),
   tagTypes: ['Products'],
   endpoints: (builder) => ({
@@ -32,11 +28,18 @@ export const productsApi = createApi({
     }),
 
     createProduct: builder.mutation({
-      query: (data) => ({
-        url: `/products`,
-        method: 'POST',
-        body: data,
-      }),
+      query: (data) => {
+        const token = localStorage.getItem('TechBuy.token');
+
+        return {
+          url: `/products`,
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: data,
+        };
+      },
       invalidatesTags: [{ type: 'Products', slug: 'LIST' }],
     }),
 
@@ -46,12 +49,13 @@ export const productsApi = createApi({
 
         formData.append('image', file);
 
+        const token = localStorage.getItem('TechBuy.token');
+
         return {
           url: `/products/upload-image`,
           method: 'POST',
           headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: localStorage.getItem('TechBuy.token'),
+            Authorization: `Bearer ${token}`,
           },
           body: formData,
         };
@@ -65,9 +69,9 @@ export const productsApi = createApi({
         body: data,
       }),
       invalidatesTags: (result, error, data) => {
-        console.log('UPDATEEE');
-        console.log(result);
-        console.log(data);
+        // console.log('UPDATEE invalidatesTags');
+        // console.log(result);
+        // console.log(data);
         return [{ type: 'Products' }];
       },
     }),
