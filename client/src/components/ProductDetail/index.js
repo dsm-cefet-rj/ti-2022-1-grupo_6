@@ -57,7 +57,7 @@ export const ProductDetail = ({ product }) => {
                   currency: 'BRL',
                 }).format(product.price / 100)}
               </p>
-              <p className="card-text">Local: {product.local}</p>
+              <p className="card-text">Local: {product.state}</p>
               <p className="card-text">
                 Quantidade disponível: {product.amount}
               </p>

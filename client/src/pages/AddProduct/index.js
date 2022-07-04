@@ -6,20 +6,19 @@ import {
 import { FaFileUpload } from 'react-icons/fa';
 
 import './style.css';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/features/authSlice';
 
 const formInitialState = {
   owner: '',
-  slug: '',
   title: '',
   price: '',
   amount: '',
   state: '',
   imageUrl: '',
-  used: 'novo',
+  new: true,
   overview: '',
   description: '',
-  likes: 0,
-  questions: [],
 };
 
 export function AddProduct() {
@@ -34,6 +33,8 @@ export function AddProduct() {
     uploadProductImage,
     { isLoading: isLoadingUpload, isSuccess: isSuccessUpload },
   ] = useUploadProductImageMutation();
+
+  const auth = useSelector(selectAuth);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -59,7 +60,7 @@ export function AddProduct() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const user = 'some-user';
+    const user = auth.user.name;
 
     const price = parseInt(formData.price.replaceAll(/,|\./g, ''));
 
@@ -96,19 +97,6 @@ export function AddProduct() {
                 value={formData.title}
                 onChange={handleChange}
                 placeholder="Título"
-              />
-            </div>
-
-            <div className="form-group my-4">
-              <label htmlFor="imageUrl">Imagem do produto</label>
-              <input
-                type="text"
-                className="form-control w-75"
-                id="imageUrl"
-                name="imageUrl"
-                value={formData.imageUrl}
-                onChange={handleChange}
-                placeholder="URL da imagem"
               />
             </div>
 
@@ -171,18 +159,18 @@ export function AddProduct() {
             </div>
 
             <div className="form-group my-4">
-              <label htmlFor="novo">Estado do produto</label>
+              <label htmlFor="new">Estado do produto</label>
               <div className="form-check">
                 <input
                   className="form-check-input"
                   type="radio"
                   name="used"
-                  id="novo"
-                  value="novo"
+                  id="new"
+                  value="new"
                   onChange={handleChange}
-                  checked={formData.used === 'novo'}
+                  checked={formData.new === true}
                 />
-                <label className="form-check-label" htmlFor="novo">
+                <label className="form-check-label" htmlFor="new">
                   Novo
                 </label>
               </div>
@@ -190,13 +178,13 @@ export function AddProduct() {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="used"
-                  id="usado"
-                  value="usado"
+                  name="new"
+                  id="used"
+                  value="used"
                   onChange={handleChange}
-                  checked={formData.used === 'usado'}
+                  checked={formData.new === false}
                 />
-                <label className="form-check-label" htmlFor="usado">
+                <label className="form-check-label" htmlFor="used">
                   Usado
                 </label>
               </div>

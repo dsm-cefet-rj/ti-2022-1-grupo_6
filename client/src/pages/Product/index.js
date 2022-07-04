@@ -39,7 +39,7 @@ export const Product = () => {
       <div className="container p-5">
         <ProductDetail product={product} />
 
-        <Link className="btn btn-dark my-4" to={`/product/update/${slug}`}>
+        <Link className="btn btn-dark my-4" to={`/products/update/${slug}`}>
           Editar
         </Link>
 
@@ -57,7 +57,7 @@ export const Product = () => {
 
         <div className="description">
           <h3>Descrição do produto</h3>
-          <p className="description-text">{product.description}</p>
+          <pre className="description-text">{product.description}</pre>
         </div>
 
         <div className="questions">

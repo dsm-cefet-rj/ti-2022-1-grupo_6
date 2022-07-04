@@ -24,7 +24,7 @@ export const ProductCard = ({ productData }) => {
           <p className="card-text">
             <Link
               className="btn btn-outline-primary"
-              to={`/product/${productData.slug}`}
+              to={`/products/${productData.slug}`}
               onMouseEnter={() =>
                 prefetchProduct(productData.slug, { ifOlderThan: 60 })
               }

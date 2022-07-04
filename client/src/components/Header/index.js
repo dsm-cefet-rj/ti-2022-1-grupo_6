@@ -1,46 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { SignInModal } from '../SignInModal';
-import {
-  useSignInMutation,
-  useFetchUserQuery,
-} from '../../redux/features/userApiSlice';
-import { signIn, signInUser, signOut } from '../../redux/features/userSlice';
+import { getUser, selectAuth, signOut } from '../../redux/features/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './style.css';
 
 export const Header = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
-  const user = useSelector((state) => state.user.value);
-
-  const { data = null } = useFetchUserQuery();
-
-  const [signInMutation, { isLoading, isUninitialized }] = useSignInMutation();
+  const auth = useSelector(selectAuth);
 
   const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setFormData((values) => ({ ...values, [name]: value }));
-  };
-
-  const handleSubmitSignIn = async (event) => {
-    event.preventDefault();
-    // const data = await signInMutation(formData).unwrap();
-    const { payload: data } = await dispatch(signInUser(formData));
-    localStorage.setItem('TechBuy.token', data.token);
-    // dispatch(signIn(data));
-    // setIsSignInModalOpen(false);
-  };
+  useEffect(() => {
+    const token = localStorage.getItem('TechBuy.token');
+    if (token) dispatch(getUser(token));
+  }, []);
 
   const handleLogout = (event) => {
     localStorage.removeItem('TechBuy.token');
@@ -125,7 +102,7 @@ export const Header = () => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                {user ? (
+                {auth.isAuthenticated ? (
                   <button className="btn nav-link" onClick={handleLogout}>
                     Logout
                   </button>
@@ -144,14 +121,8 @@ export const Header = () => {
       </nav>
 
       <SignInModal
-        formData={formData}
-        setFormData={setFormData}
         isSignInModalOpen={isSignInModalOpen}
         setIsSignInModalOpen={setIsSignInModalOpen}
-        handleChange={handleChange}
-        handleSubmitSignIn={handleSubmitSignIn}
-        isUninitialized={true}
-        isLoading={false}
       />
     </header>
   );
