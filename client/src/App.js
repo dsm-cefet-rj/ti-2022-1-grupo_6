@@ -16,8 +16,8 @@ function App() {
         <Route path="/favorites" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/addProduct" element={<AddProduct />} />
-        <Route path="/product/:slug" element={<Product />} />
-        <Route path="/product/update/:slug" element={<UpdateProduct />} />
+        <Route path="/products/:slug" element={<Product />} />
+        <Route path="/products/update/:slug" element={<UpdateProduct />} />
       </Routes>
     </BrowserRouter>
   );

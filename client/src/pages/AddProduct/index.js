@@ -6,7 +6,6 @@ import {
 import { FaFileUpload } from 'react-icons/fa';
 
 import './style.css';
-import slugify from 'slugify';
 
 const formInitialState = {
   owner: '',
@@ -61,33 +60,22 @@ export function AddProduct() {
     event.preventDefault();
 
     const user = 'some-user';
-    const { title } = formData;
-    const slug =
-      slugify(user, { lower: true }) +
-      '-' +
-      slugify(title, {
-        lower: true,
-      });
 
     const price = parseInt(formData.price.replaceAll(/,|\./g, ''));
-
-    const product = {
-      ...formData,
-      owner: user,
-      slug,
-      price,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
 
     try {
       const { imageUrl } = await uploadProductImage(selectedFile).unwrap();
 
-      product.imageUrl = imageUrl;
+      const product = {
+        ...formData,
+        owner: user,
+        price,
+        imageUrl,
+      };
 
       await createProduct(product).unwrap();
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -165,7 +153,7 @@ export function AddProduct() {
                 name="amount"
                 value={formData.amount}
                 onChange={handleChange}
-                placeholder="Preço"
+                placeholder="Quantidade em estoque"
               />
             </div>
 

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { ProductDetail } from '../../components/ProductDetail';
 import { ProductDetailSkeleton } from '../../components/ProductDetailSkeleton';
+import { DeleteProductModal } from '../../components/DeleteProductModal';
 import { Question } from '../../components/Question';
 import {
   useDeleteProductMutation,
@@ -10,7 +11,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import './style.css';
 import { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
 
 export const Product = () => {
   const { slug } = useParams();
@@ -19,6 +19,7 @@ export const Product = () => {
 
   const [deleteProduct, { isLoading, isUninitialized }] =
     useDeleteProductMutation();
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   if (isFetching) return <ProductDetailSkeleton />;
@@ -77,44 +78,14 @@ export const Product = () => {
         </div>
       </div>
 
-      <Modal
-        show={isDeleteModalOpen}
-        onHide={() => setIsDeleteModalOpen(false)}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Deletar produto</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h5>Tem certeza que deseja deletar o produto:</h5>
-          <p>{product.title}</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => setIsDeleteModalOpen(false)}
-          >
-            Cancelar
-          </Button>
-          <Button
-            variant="danger"
-            onClick={() => handleDeleteProduct(product.id)}
-          >
-            {isUninitialized && 'Deletar'}
-            {isLoading && (
-              <>
-                <span>Deletar</span>
-                <div
-                  className="spinner-border text-light ms-2"
-                  id="spinner-adding-product"
-                  role="status"
-                >
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              </>
-            )}
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DeleteProductModal
+        handleDeleteProduct={handleDeleteProduct}
+        isDeleteModalOpen={isDeleteModalOpen}
+        setIsDeleteModalOpen={setIsDeleteModalOpen}
+        isLoading={isLoading}
+        isUninitialized={isUninitialized}
+        product={product}
+      />
     </>
   );
 };

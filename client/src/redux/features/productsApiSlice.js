@@ -1,21 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-// Define a service using a base URL and expected endpoints
-// console.log('Hereeeeeeeeeee');
-// console.log(localStorage.getItem('token.example'));
-
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3333',
-    /*
-      later, add the prepareHeaders property passing the JWT:
-
-      prepareHeaders: (headers) => {
-        headers.set('authorization', token)
-        return headers
-      }
-      */
+    baseUrl: 'http://localhost:5000',
+    // prepareHeaders: (headers) => {
+    //   headers.set('authorization', localStorage.getItem('TechBuy.token'));
+    //   return headers;
+    // },
   }),
   tagTypes: ['Products'],
   endpoints: (builder) => ({
@@ -33,11 +25,7 @@ export const productsApi = createApi({
     }),
 
     fetchProduct: builder.query({
-      query: (slug) => `/product/${slug}`,
-      transformResponse: (response, meta, arg) => {
-        const [data] = response;
-        return data;
-      },
+      query: (slug) => `/products/${slug}`,
       providesTags: (result, err, slug) => {
         return [{ type: 'Products', slug: slug }];
       },
@@ -49,7 +37,6 @@ export const productsApi = createApi({
         method: 'POST',
         body: data,
       }),
-      // Determines which cached data should be either re-fetched or removed from the cache
       invalidatesTags: [{ type: 'Products', slug: 'LIST' }],
     }),
 
@@ -62,9 +49,9 @@ export const productsApi = createApi({
         return {
           url: `/products/upload-image`,
           method: 'POST',
-          headers: (headers) => {
-            headers.set('Content-Type', 'multipart/form-data');
-            return headers;
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: localStorage.getItem('TechBuy.token'),
           },
           body: formData,
         };
@@ -77,8 +64,10 @@ export const productsApi = createApi({
         method: 'PUT',
         body: data,
       }),
-      // Invalidates all queries that subscribe to this Product `id` only.
-      invalidatesTags: (result, error, { data }) => {
+      invalidatesTags: (result, error, data) => {
+        console.log('UPDATEEE');
+        console.log(result);
+        console.log(data);
         return [{ type: 'Products' }];
       },
     }),
