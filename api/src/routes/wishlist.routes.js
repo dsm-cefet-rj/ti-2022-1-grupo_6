@@ -1,7 +1,6 @@
 const { Router } = require('express');
-
 const wishlistController = require("../controllers/wishlistController");
-
+const passport = require('passport')
 const wishlistRoutes = Router();
 
 wishlistRoutes.get(
