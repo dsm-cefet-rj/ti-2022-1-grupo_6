@@ -17,19 +17,9 @@ export const AddFavorite = (product) => {
       return;
     }
     setSelected(event.target.value);
-    
-    const newFavorite = {
-      ...listaFavoritos[event.target.value-1],
-      favorites:[
-        ...listaFavoritos[event.target.value-1].favorites,
-        {
-          slug: slug
-        }
-      ]
-    }
 
     try {
-      await createFavorite({id:event.target.value, data: newFavorite}).unwrap();
+      await createFavorite({id:event.target.value, data: {slug}}).unwrap();
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +31,7 @@ export const AddFavorite = (product) => {
     <>
       <div className="d-flex align-items-center g-2">
         <h5 className="fw-bold m-0">
-          {!selected ? `Adicione nos Favoritos` : `Adicionado em ${(listaFavoritos.find((item)=> item.id == selected)).listName}`}
+          {!selected ? `Adicione nos Favoritos` : `Adicionado em ${(listaFavoritos.find((item)=> item._id == selected)).listName}`}
         </h5>
         <div className="paddingLeft-2" style={{ transition: '2s' }}>
           {!selected ? (
@@ -55,10 +45,10 @@ export const AddFavorite = (product) => {
       {!selected ? (
         <select className="form-select m-0 w-auto" onChange={handleChange}>
           <option value="default">Selecione uma seção</option>
-          {listaFavoritos.map((item) => (
+          {listaFavoritos.map((item, index) => (
             <option
-              key={item.id}
-              value={item.id}
+              key={item._id}
+              value={item._id}
             >
               {item.listName}
             </option>

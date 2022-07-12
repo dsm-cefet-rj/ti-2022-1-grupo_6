@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const wishlistController = require("../controllers/wishlistController");
-const passport = require('passport')
+const passport = require('passport');
 const wishlistRoutes = Router();
 
 wishlistRoutes.get(
@@ -35,7 +35,13 @@ wishlistRoutes.put(
     }
 )
 
-//wishlistRoutes.put("/d/:wishlistId", wishlistController.removeFavorite);
+wishlistRoutes.put(
+    "/del/:wishlistId",
+    passport.authenticate("jwt", {session: false}),
+    (req, res) => {
+    return wishlistController.removeFavorite(req,res)
+    }
+);
 
 wishlistRoutes.delete(
     "/:wishlistId",

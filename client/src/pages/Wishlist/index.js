@@ -25,8 +25,9 @@ export const Wishlist = () => {
     }
   }
 
+
   const handleDelete = async () =>{
-    var wishlistId = +favList+1;
+    var wishlistId = wishlist[favList]._id;
 
     if (window.confirm('Você deseja remover permanentemente esta lista?')) {
       try {
@@ -39,12 +40,6 @@ export const Wishlist = () => {
   }
 
   const changeOnClick = () => setInputList(!inputList);
-
-  /*useEffect(() => {
-    setTimeout(() => {
-
-    }, 1000);
-  }, []);*/
 
   if (!wishlist) {
     return (
@@ -83,8 +78,8 @@ export const Wishlist = () => {
                 textAlign: 'center',
               }}
             >
-              {wishlist.map((lista) => (
-                <option key={lista.id} value={lista.id - 1}>
+              {wishlist.map((lista, index) => (
+                <option key={lista.id} value={index}>
                   {lista.listName}
                 </option>
               ))}
@@ -93,7 +88,7 @@ export const Wishlist = () => {
           <ul className="list-group list-group-flush">
             {wishlist[favList].favorites.map((favorito) => (
               <li key={favorito.slug} className="list-group-item question">
-                <Favorite FavSlug={favorito.slug} FavId={favList} />
+                <Favorite FavSlug={favorito.slug} FavId={wishlist[favList]._id} />
               </li>  
             ))}
           </ul>
