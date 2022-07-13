@@ -1,10 +1,24 @@
 import { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  selectSignInModal,
+  setIsSignInModalOpen,
+} from '../../redux/features/signInModalSlice';
 import { useSignInMutation } from '../../redux/features/userApiSlice';
 import { SignUpModal } from '../SignUpModal';
 
-export const SignInModal = ({ isSignInModalOpen, setIsSignInModalOpen }) => {
+export const SignInModal = () => {
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+
+  const { isSignInModalOpen } = useSelector(selectSignInModal);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const from = location.state?.from?.pathname || '/';
 
   const [formData, setFormData] = useState({
     email: '',
@@ -23,14 +37,15 @@ export const SignInModal = ({ isSignInModalOpen, setIsSignInModalOpen }) => {
     event.preventDefault();
     const data = await signInMutation(formData).unwrap();
     localStorage.setItem('TechBuy.token', data.token);
-    setIsSignInModalOpen(false);
+    dispatch(setIsSignInModalOpen(false));
+    navigate(from, { replace: true });
   };
 
   return (
     <>
       <Modal
         show={isSignInModalOpen}
-        onHide={() => setIsSignInModalOpen(false)}
+        onHide={() => dispatch(setIsSignInModalOpen(false))}
       >
         <Modal.Header closeButton>
           <Modal.Title>Login</Modal.Title>
@@ -38,11 +53,10 @@ export const SignInModal = ({ isSignInModalOpen, setIsSignInModalOpen }) => {
         <Modal.Body>
           <form onSubmit={handleSubmitSignIn} className="mx-auto">
             <div className="form-group my-4">
-              <label htmlFor="email">E-mail</label>
+              <label>E-mail</label>
               <input
                 type="text"
                 className="form-control w-75"
-                id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
@@ -51,11 +65,10 @@ export const SignInModal = ({ isSignInModalOpen, setIsSignInModalOpen }) => {
             </div>
 
             <div className="form-group my-4">
-              <label htmlFor="password">Senha</label>
+              <label>Senha</label>
               <input
                 type="password"
                 className="form-control w-75"
-                id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
