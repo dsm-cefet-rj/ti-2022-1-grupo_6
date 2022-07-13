@@ -14,7 +14,17 @@ module.exports = {
                 throw new Error("Carrinho não existe!");
             }
 
-            return res.json(cartExists);
+            let cart = [];
+
+            const products = cartExists.products;
+
+            for (const product of products) {
+                let item = await Product.findOne({ _id: product.productId }, '_id owner title imageUrl createdAt state price');
+                item = {...item._doc, quantity: product.quantity} 
+                cart.push( item );
+            }
+            
+            return res.json(cart);
         } catch (error) {
             return res.status(400).json({message: error.message});
         }

@@ -13,7 +13,13 @@ export function Cart() {
 
   useEffect(() => {
     async function getDataFromCartDB() {
-      const cart = (await (axios.get("http://localhost:3030/products"))).data
+      const token = localStorage.getItem('TechBuy.token');
+
+      const cart = (await (axios.get(
+        "http://localhost:5000/cart",
+        { headers: { Authorization: `Bearer ${token}` } }
+      ))).data
+      
       dispatch(updateCart({cart}));
     }
 
@@ -49,7 +55,7 @@ export function Cart() {
             cart.map((product) => {
               return (
                 <ProductCart
-                  key={product.id}
+                  key={product._id}
                   product={product}
                 />
               );

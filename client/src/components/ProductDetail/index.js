@@ -9,22 +9,16 @@ export const ProductDetail = ({ product }) => {
   const [itemCardAdded, setItemCardAdded] = useState(false);
   const [createProduct] = useCreateProductMutation();
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.products);
 
   async function handleAddCart(e) {
     e.preventDefault();
 
     const data = {
-      id: product.id,
-      title: product.title,
-      imageUrl: product.imageUrl,
-      price: product.price,
-      state: product.state,
+      productId: product._id,
       quantity: 1,
-      createdAt: product.createdAt,
     };
 
-    dispatch(addProduct({ cart, product: data }));
+    dispatch(addProduct({ product: data }));
     setItemCardAdded(true);
   }
 
