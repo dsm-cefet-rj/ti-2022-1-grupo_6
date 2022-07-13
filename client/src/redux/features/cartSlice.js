@@ -23,14 +23,14 @@ const cartSlice = createSlice({
           return item;
         });
 
-        axios.put(`http://localhost:3030/products/${action.payload.product.id}`, 
+        axios.put(`${process.env.REACT_APP_BASE_URL}/products/${action.payload.product.id}`, 
           {...action.payload.product,
             quantity: action.payload.product.quantity + 1
           }
         )
         state.products = newCart;
       } else {
-        axios.post("http://localhost:3030/products", action.payload.product);
+        axios.post(`${process.env.REACT_APP_BASE_URL}/products`, action.payload.product);
         state.products.push(action.payload.product);
       }
     },
@@ -39,12 +39,12 @@ const cartSlice = createSlice({
       state.products = newCart;
       localStorage.setItem('TechBuy.cart', JSON.stringify(state.products));
 
-      axios.delete(`http://localhost:3030/products/${action.payload.product.id}`);
+      axios.delete(`${process.env.REACT_APP_BASE_URL}/products/${action.payload.product.id}`);
     },
     updateProduct(state, action) {
       state.products = action.payload.cart.filter((item) => item.id !== action.payload.product.id);
       state.products.push(action.payload.product);
-      axios.put(`http://localhost:3030/products/${action.payload.product.id}`, 
+      axios.put(`${process.env.REACT_APP_BASE_URL}/products/${action.payload.product.id}`, 
         {...action.payload.product }
       )
     },

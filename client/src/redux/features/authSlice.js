@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const getUser = createAsyncThunk('user/me', async (token) => {
-  const response = await fetch('http://localhost:5000/users/me', {
+  const response = await fetch(`${process.env.REACT_APP_BASE_URL}/users/me`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

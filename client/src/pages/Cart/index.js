@@ -13,7 +13,7 @@ export function Cart() {
 
   useEffect(() => {
     async function getDataFromCartDB() {
-      const cart = (await (axios.get("http://localhost:3030/products"))).data
+      const cart = (await (axios.get(`${process.env.REACT_APP_BASE_URL}/products`))).data
       dispatch(updateCart({cart}));
     }
 

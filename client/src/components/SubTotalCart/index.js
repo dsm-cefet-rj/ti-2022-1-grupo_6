@@ -26,7 +26,7 @@ export function SubTotalCart({ cart, totalPrice }) {
     console.log(body)
     
     try{
-      axios.post("http://localhost:5000/checkout", body);
+      axios.get(`${process.env.REACT_APP_BASE_URL}/order/checkout`);
     } catch(e) {
       console.log(e);
     }
