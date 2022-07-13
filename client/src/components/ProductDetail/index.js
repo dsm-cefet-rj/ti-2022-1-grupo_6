@@ -61,6 +61,9 @@ export const ProductDetail = ({ product }) => {
               <p className="card-text">
                 Quantidade disponível: {product.amount}
               </p>
+              <p className="card-text">
+                Estado: {product.new ? 'novo' : 'usado'}
+              </p>
 
               <div>
                 <button className="btn btn-primary mb-3 d-block">
