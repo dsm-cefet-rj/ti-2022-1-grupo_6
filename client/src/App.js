@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { UpdateProduct } from './pages/UpdateProduct';
 import { RequireAuth } from './components/RequireAuth';
 import { Login } from './pages/Login';
+import NotFound from './pages/404';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/products/:slug" element={<Product />} />
         <Route path="/products/update/:slug" element={<UpdateProduct />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/404" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
