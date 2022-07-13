@@ -18,6 +18,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       productsApi.middleware,
-      userApiSlice.middleware
+      userApiSlice.middleware,
+      wishlistApi.middleware
     ),
 });
