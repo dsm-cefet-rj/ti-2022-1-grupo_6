@@ -7,7 +7,6 @@ const ordersController = require("../controllers/ordersController");
 
 orderRoutes.get(
     '/checkout', 
-    passport.authenticate('jwt', { session: false }),
     ordersController.checkout
 );
 
