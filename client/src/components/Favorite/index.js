@@ -3,14 +3,14 @@ import { AiFillStar } from 'react-icons/ai';
 import { useFetchProductQuery } from '../../redux/features/productsApiSlice';
 import { formatDate } from '../../utils/date';
 
-import { useRemoveFavoriteMutation, useFetchWishlistQuery } from '../../redux/features/wishlistApiSlice';
+import { useRemoveFavoriteMutation } from '../../redux/features/wishlistApiSlice';
 
 import './style.css';
 
 export const Favorite = ({ FavSlug, FavId }) => {
-  const { data: favorite = [] } = useFetchProductQuery(FavSlug);
+  const { data: favorite = [], isFetching } = useFetchProductQuery(FavSlug);
 
-  const { data:wishlist = [], isFetching} = useFetchWishlistQuery(+FavId+1);
+  //const { data:wishlist = [], isFetching} = useFetchWishlistQuery(+FavId+1);
   const [removeFavorite] = useRemoveFavoriteMutation();
 
 
@@ -22,17 +22,14 @@ export const Favorite = ({ FavSlug, FavId }) => {
     );
   }
 
-  const handleClick = async () => {
+  const handleDelete = async () => {
 
-    const newFavorite = {
-      ...wishlist,
-      favorites: wishlist.favorites.filter((item)=> item.slug !== FavSlug)
-      }
-    var newId = +FavId+1;
+    const slug = FavSlug;
 
     if (window.confirm('Você deseja remover este item dos Favoritos?')) {
       try {
-        await removeFavorite({id:newId, data: newFavorite}).unwrap();
+        await removeFavorite({id: FavId, data: {slug}}).unwrap();
+        console.log({id:FavId, data:{slug}})
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +39,7 @@ export const Favorite = ({ FavSlug, FavId }) => {
   return (
     <>
       <Link
-        to={`/product/${favorite.slug}`}
+        to={`/products/${favorite.slug}`}
         style={{ textDecoration: 'none', color: '#000000' }}
       >
         <div className="product-fav">
@@ -65,7 +62,7 @@ export const Favorite = ({ FavSlug, FavId }) => {
         </div>
       </Link>
       <div>
-        <p className="delete-fav fs-6" onClick={handleClick}>
+        <p className="delete-fav fs-6" onClick={handleDelete}>
           {' '}
           Excluir dos Favoritos
         </p>

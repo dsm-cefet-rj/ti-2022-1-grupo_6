@@ -3,10 +3,10 @@ const { v4 } = require("uuid");
 const { CartModel } = require("../models/Cart");
 const { Product } = require("../models/Product")
 
-const userId = "123456";
-
 module.exports = {
     async getCart(req, res) {
+        const userId = req.user.profile._id;
+
         try {
             const cartExists = await CartModel.findOne({ userId })
 
@@ -21,6 +21,8 @@ module.exports = {
     },
 
     async addProduct(req, res) {
+        const userId = req.user.profile._id;
+
         try {
             let {
                 productId,
@@ -73,6 +75,8 @@ module.exports = {
     },
 
     async updateProduct(req, res) {
+        const userId = req.user.profile._id;
+
         try {
             const {productId} = req.params;
             const {quantity} = req.body;
@@ -111,6 +115,8 @@ module.exports = {
     },
 
     async deleteProduct(req, res) {
+        const userId = req.user.profile._id;
+
         try {
             const {productId} = req.params;
 
@@ -141,6 +147,8 @@ module.exports = {
     },
 
     async deleteAll(req, res) {
+        const userId = req.user.profile._id;
+        
         try {
             const cartExists = await CartModel.findOne({ userId });
 

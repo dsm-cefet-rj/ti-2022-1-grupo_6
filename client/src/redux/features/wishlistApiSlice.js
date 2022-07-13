@@ -1,10 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const wishlistApi = createApi({
   reducerPath: "wishlistApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3333",
+    baseUrl: "http://localhost:5000",
   }),
 
   tagTypes: ["Wishlist"],
@@ -16,42 +15,72 @@ export const wishlistApi = createApi({
     }),
 
 
-    fetchAllWishlists: builder.query({
+    /*fetchAllWishlists: builder.query({
       query: () => `/wishlist`,
+  
+    }),*/
+
+    fetchAllWishlists: builder.query({
+      query: () => {
+        const token = localStorage.getItem('TechBuy.token');
+
+        return {
+          url: `/wishlist`,
+          method: "GET",
+          headers: {Authorization: `Bearer ${token}`}
+        }
+
+      }
   
     }),
 
     createWishlist: builder.mutation({
-      query: (data) => ({
+      query: (data) => {
+        const token = localStorage.getItem('TechBuy.token');
+
+        return {
         url: "/wishlist",
         method: "POST",
         body: data,
-      })
+        headers: {Authorization: `Bearer ${token}`}
+        }
+      }
     }),
 
     createFavorite: builder.mutation({
-      query: ({id, data}) => ({
+      query: ({id, data}) => {
+        const token = localStorage.getItem('TechBuy.token');
+
+        return {
         url: `/wishlist/${id}`,
         method: "PUT",
         body: data,
-      })
+        headers: {Authorization: `Bearer ${token}`}
+        }
+      }
     }),
 
     deleteWishlist: builder.mutation({
       query: (id) => {
+        const token = localStorage.getItem('TechBuy.token');
+
         return {
           url: `/wishlist/${id}`,
           method: "DELETE",
+          headers: {Authorization: `Bearer ${token}`}
         };
       }
     }),
 
     RemoveFavorite: builder.mutation({
       query: ({id, data}) => {
+        const token = localStorage.getItem('TechBuy.token');
+
         return {
-          url: `/wishlist/${id}`,
+          url: `/wishlist/del/${id}`,
           method: "PUT",
-          body: data
+          body: data,
+          headers: {Authorization: `Bearer ${token}`}
         };
 
       }
