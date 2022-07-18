@@ -35,7 +35,7 @@ module.exports = {
                     description: 'Esse ta baratin',
                     quantity: 1,
                     currency_id: 'BRL',
-                    unit_price: parseFloat('550.50')
+                    unit_price: parseFloat('0.50')
                 }
             ],
             payer: {
@@ -52,7 +52,9 @@ module.exports = {
 
         try {
             const preference = await MercadoPago.preferences.create(purchaseOrder)
-            return res.redirect(`${preference.body.init_point}`)
+            return res.send({
+                "url": preference.body.init_point
+            })
         } catch (err) {
             return res.send(err.message)
         }

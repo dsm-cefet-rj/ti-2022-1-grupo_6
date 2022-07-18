@@ -7,7 +7,7 @@ export function SubTotalCart({ cart, totalPrice }) {
     currency: 'BRL',
   });
 
-  const submitFunction = () => {
+  const submitFunction = async () => {
     const body = {
       "items": [],
       "payer": {
@@ -19,15 +19,22 @@ export function SubTotalCart({ cart, totalPrice }) {
         title: product.title,
         quantity: product.quantity,
         currency_id: 'BRL',
-        unit_price: parseFloat(product.price/100)
+        unit_price: parseFloat(product.price / 100)
       })
     })
 
     console.log(body)
-    
-    try{
-      axios.get(`${process.env.REACT_APP_BASE_URL}/order/checkout`);
-    } catch(e) {
+    const token = localStorage.getItem('TechBuy.token');
+
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/order/checkout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      const url = response.data.url
+      window.location.href = url
+    } catch (e) {
       console.log(e);
     }
     console.log('purchase');
