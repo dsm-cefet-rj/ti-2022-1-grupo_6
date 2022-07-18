@@ -21,7 +21,7 @@ module.exports = {
 
     async checkout(req, res) {
         MercadoPago.configure({
-            sandbox: true,
+            sandbox: false,
             access_token: process.env.MP_ACCESS_TOKEN
         })
 
