@@ -43,7 +43,7 @@ export function SubTotalCart({ cart, totalPrice }) {
 
         <button onClick={() => {
           submitFunction()
-        }} className={`btn buy-button ${totalPrice ? '' : 'disabled'}`}>
+        }} className={`btn buy-button ${totalPrice ? '' : ''}`}>
           Ir para o pagamento
         </button>
       </section>
