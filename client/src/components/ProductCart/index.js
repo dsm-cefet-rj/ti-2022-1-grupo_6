@@ -13,7 +13,7 @@ export function ProductCart({ product }) {
   const cart = useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
 
-  function handleRemoveCart(e, id) {
+  function handleRemoveCart() {
     dispatch(removeProduct({cart, product}));
   }
 
@@ -63,7 +63,7 @@ export function ProductCart({ product }) {
       <div className="remove-button-session">
         <button
           className="btn p-0"
-          onClick={(e) => handleRemoveCart(e, product.id)}
+          onClick={() => handleRemoveCart()}
         >
           <img
             src="remove.svg"

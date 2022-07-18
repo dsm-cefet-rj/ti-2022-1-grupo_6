@@ -1,16 +1,53 @@
 import { useEffect, useState } from 'react';
 import { Favorite } from '../../components/Favorite';
-import { AiOutlineStar, AiOutlinePlusSquare } from 'react-icons/ai';
+import { AiOutlineStar, AiOutlinePlusSquare, AiOutlineUser } from 'react-icons/ai';
 import { useFetchAllWishlistsQuery, useCreateWishlistMutation, useDeleteWishlistMutation } from '../../redux/features/wishlistApiSlice';
+import { selectAuth } from '../../redux/features/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsSignInModalOpen } from '../../redux/features/signInModalSlice';
+import { SignInModal } from '../../components/SignInModal';
 
 export const Wishlist = () => {
   const [favList, setFavList] = useState(0);
   const [inputList, setInputList] = useState(false);
   const [newFav, setNewFav] = useState('')
 
-  const { data: wishlist = [], isFetching } = useFetchAllWishlistsQuery();
+  const auth = useSelector(selectAuth);
+  const dispatch = useDispatch();
+  
+  const { data: wishlist = [], isFetching, refetch } = useFetchAllWishlistsQuery();
   const [createWishlist, { isLoading, isSuccess, isUninitialized }] = useCreateWishlistMutation();
   const [deleteWishlist] =useDeleteWishlistMutation();
+
+  useEffect(() =>{
+    setTimeout(() => {
+      if(auth.isAuthenticated){
+      refetch()
+      }
+    }, 2000)
+  }, [auth.isAuthenticated])
+
+  const handleLogIn = () => {
+    dispatch(setIsSignInModalOpen(true))
+  }
+
+  if (!auth.isAuthenticated) {
+    return (
+      <>
+        <div className="container mb-3 p-2">
+        <h1 className="mb-3 p-2 mr" style={{ marginLeft: 25 }}>
+          <AiOutlineStar style={{ color: 'limegreen' }} /> Favoritos
+        </h1>
+        <div className="fs-2 p-3 text-center">
+          Você precisa de uma conta para acessar seus Favoritos
+          <div>
+            <button onClick={handleLogIn} className="btn btn-primary btn-lg m-3 fs-3"> <AiOutlineUser className="fs-2"/> Entrar </button>
+          </div>
+        </div>
+        </div>
+      </>
+    );
+  }
 
   const handleChange = (event) => {
     setFavList(event.target.value);
@@ -24,7 +61,6 @@ export const Wishlist = () => {
       console.log(error);
     }
   }
-
 
   const handleDelete = async () =>{
     var wishlistId = wishlist[favList]._id;
@@ -41,33 +77,17 @@ export const Wishlist = () => {
 
   const changeOnClick = () => setInputList(!inputList);
 
-  if (!wishlist) {
-    return (
-      <>
-        <div className="container mb-3 p-2">
-          <h1>
-            Favoritos{' '}
-            <div
-              className="spinner-border text-secondary"
-              style={{ borderWidth: '0.2rem' }}
-              role="status"
-            ></div>
-          </h1>
-        </div>
-      </>
-    );
-  }
   return (
     <>
       <div className="container">
         <h1 className="mb-3 p-2 mr" style={{ marginLeft: 25 }}>
           <AiOutlineStar style={{ color: 'limegreen' }} /> Favoritos
         </h1>
-
-        
         <div className="container" style={{position:"relative"}}>
-        {!isFetching ?(<div>
-          <div>
+        {!isFetching ?(
+        <div>
+          {wishlist.length !== 0 ? (<>
+            <div>
             <select
               className="form-select fs-5"
               onChange={handleChange}
@@ -79,7 +99,7 @@ export const Wishlist = () => {
               }}
             >
               {wishlist.map((lista, index) => (
-                <option key={lista.id} value={index}>
+                <option key={lista._id} value={index}>
                   {lista.listName}
                 </option>
               ))}
@@ -92,6 +112,16 @@ export const Wishlist = () => {
               </li>  
             ))}
           </ul>
+          </>) : (
+          <>
+            <div className="container mb-3 p-2">
+            <div 
+            className="fs-2 p-3 text-center">
+              Você não possui nenhuma lista!
+            </div>
+          </div>
+        </>) }
+          
           </div>
           ):(<div>
           </div>)}
@@ -138,11 +168,13 @@ export const Wishlist = () => {
               
             ) }
             </div>
-            <div>
+            
+            {wishlist.length !== 0 ? (<div>
               <button className='btn btn-outline-danger ms-2' style={{position:"absolute", right:"10px"}} onClick={handleDelete}>
                 Excluir Lista
               </button>
-            </div>
+            </div>) : (<></>)
+            }
 
               
         </div>
