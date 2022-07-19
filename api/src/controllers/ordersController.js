@@ -14,26 +14,46 @@ const getFullUrl = (req) => {
 }
 
 module.exports = {
+    async getOrdersItems(req,res) {
+        const {buyer} = req.body;
+        const orders = await OrderItems.find({
+            buyer
+        }).populate('order').populate('product')
+
+        return res.send({
+            "orders": orders
+        })
+    },
+
     async createOrder(req, res) {
         const {totalPrice, buyer, discount, productsList} = req.body
+
         const createOrderResponse = await Order.create({
             totalPrice: totalPrice.toString(),
-            buyer: buyer.toString()
+            buyer: buyer._id.toString()
         })
+
         const orderId = createOrderResponse._id
-        for(let i=0; i<=productsList.length; i++) {
-            console.log(productsList[i])
+
+        for(let i=0; i<productsList.length; i++) {
             await OrderItems.create({
                 "order": orderId.toString(),
-                "product": productsList[i].id.toString(),
+                "product": productsList[i].id,
                 "quantity": productsList[i].quantity,
-                "unit_price": productsList[i].unit_price
+                "unit_price": productsList[i].unit_price,
+                "title": productsList[i].title,
+                "description": productsList[i].description,
+                "buyer": buyer._id.toString()
             })
         }
-        return res.send('criado com sucesso');
+        await this.checkout(req);
+        //return res.send('criado com sucesso');
     },
 
     async checkout(req, res) {
+        console.log('cheguei no checkout')
+        const { buyer, productsList} = req.body
+
         MercadoPago.configure({
             sandbox: true,
             access_token: process.env.MP_ACCESS_TOKEN
@@ -42,18 +62,9 @@ module.exports = {
         const id = v4()
 
         const purchaseOrder = {
-            items: [
-                {
-                    id,
-                    title: 'Ryzen 3200g',
-                    description: 'Esse ta baratin',
-                    quantity: 1,
-                    currency_id: 'BRL',
-                    unit_price: parseFloat('0.50')
-                }
-            ],
+            items: productsList,
             payer: {
-                email: 'example@gmail.com'
+                email: buyer.email
             },
             auto_return: 'all',
             external_reference: id,
@@ -75,6 +86,6 @@ module.exports = {
     },
 
     async success(req, res) {
-        return res.redirect('https://techbuy-client.herokuapp.com/')
+        return res.redirect('https://techbuy-client.herokuapp.com/order')
     }
 }

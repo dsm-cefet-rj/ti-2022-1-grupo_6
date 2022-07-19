@@ -13,13 +13,22 @@ const orderItemsSchema = new Schema({
         ref: 'Product',
         required: true,
     },
-    unit_price: {
-        type: Number,
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
         required: true
     },
     quantity: {
         type: Number,
         required: true
+    },
+    buyer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users',
+        required: true,
     },
 })
 

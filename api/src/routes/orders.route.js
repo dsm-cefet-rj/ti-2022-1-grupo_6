@@ -6,6 +6,12 @@ const orderRoutes = Router();
 const ordersController = require("../controllers/ordersController");
 
 orderRoutes.get(
+    '/',
+    passport.authenticate('jwt', { session: false }),
+    ordersController.getOrdersItems
+);
+
+orderRoutes.get(
     '/checkout',
     passport.authenticate('jwt', { session: false }),
     ordersController.checkout
@@ -13,7 +19,7 @@ orderRoutes.get(
 
 orderRoutes.post(
     '/', 
-    //passport.authenticate('jwt', { session: false }),
+    passport.authenticate('jwt', { session: false }),
     ordersController.createOrder
 );
 
