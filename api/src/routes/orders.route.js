@@ -6,15 +6,20 @@ const orderRoutes = Router();
 const ordersController = require("../controllers/ordersController");
 
 orderRoutes.get(
-    '/checkout', 
+    '/checkout',
     passport.authenticate('jwt', { session: false }),
     ordersController.checkout
 );
 
 orderRoutes.post(
     '/', 
-    passport.authenticate('jwt', { session: false }),
+    //passport.authenticate('jwt', { session: false }),
     ordersController.createOrder
 );
+
+orderRoutes.get(
+    '/success',
+    ordersController.success
+)
 
 exports.orderRoutes = orderRoutes;
