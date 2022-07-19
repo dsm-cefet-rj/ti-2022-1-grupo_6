@@ -108,6 +108,18 @@ export const Header = () => {
                   </NavLink>
                 </li>
               )}
+              {auth.isAuthenticated && (
+                <li className="nav-item">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? 'nav-link active' : 'nav-link'
+                    }
+                    to="/order"
+                  >
+                    Pedidos
+                  </NavLink>
+                </li>
+              )}
               <li className="nav-item">
                 {auth.isAuthenticated ? (
                   <button className="btn nav-link" onClick={handleLogout}>

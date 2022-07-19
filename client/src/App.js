@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { UpdateProduct } from './pages/UpdateProduct';
 import { RequireAuth } from './components/RequireAuth';
 import { Login } from './pages/Login';
+import { Order } from './pages/Orders'
 import NotFound from './pages/404';
 
 function App() {
@@ -23,6 +24,14 @@ function App() {
           element={
             <RequireAuth>
               <AddProduct />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <RequireAuth>
+              <Order />
             </RequireAuth>
           }
         />

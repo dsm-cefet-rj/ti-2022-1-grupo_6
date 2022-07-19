@@ -1,33 +1,45 @@
 import './style.css';
 import axios from "axios";
+import { selectAuth } from '../../redux/features/authSlice';
+import { useSelector } from 'react-redux';
 
 export function SubTotalCart({ cart, totalPrice }) {
+  const auth = useSelector(selectAuth); 
+
   const formatterBRL = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   });
 
   const submitFunction = async () => {
+    const token = localStorage.getItem('TechBuy.token');
+     
+    const user = auth.user
+
+    console.log(cart)
+
     const body = {
-      "items": [],
-      "payer": {
-        "email": "example@gmail.com" //quando login estiver implementado, teremos mais informações do usuário
-      }
+      //totalPrice,
+      totalPrice: totalPrice,
+      buyer: user,
+      productsList: [],
     }
+
     cart.forEach((product) => {
-      body.items.push({
-        title: product.title,
+      body.productsList.push({
+        id: product._id,
         quantity: product.quantity,
         currency_id: 'BRL',
-        unit_price: parseFloat(product.price / 100)
+        unit_price: parseFloat(product.price),
+        title: product.title,
+        description: 'teste'
       })
     })
 
-    console.log(body)
-    const token = localStorage.getItem('TechBuy.token');
-
     try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/order/checkout`, {
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/order`, 
+      body,
+      {
         headers: {
           Authorization: `Bearer ${token}`,
         }
