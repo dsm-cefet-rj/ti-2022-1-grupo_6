@@ -5,6 +5,7 @@ const { v4 } = require("uuid");
 const orders = [];
 
 const Order = require('../models/OrderSchema');
+const OrderItems = require('../models/OrderItems')
 
 const getFullUrl = (req) => {
     const url = req.protocol + '://' + req.get('host')
@@ -14,14 +15,27 @@ const getFullUrl = (req) => {
 
 module.exports = {
     async createOrder(req, res) {
-        await Order.create(req.body)
-
-        return res.send('Pedido criado com sucesso!');
+        const {totalPrice, buyer, discount, productsList} = req.body
+        const createOrderResponse = await Order.create({
+            totalPrice: totalPrice.toString(),
+            buyer: buyer.toString()
+        })
+        const orderId = createOrderResponse._id
+        for(let i=0; i<=productsList.length; i++) {
+            console.log(productsList[i])
+            await OrderItems.create({
+                "order": orderId.toString(),
+                "product": productsList[i].id.toString(),
+                "quantity": productsList[i].quantity,
+                "unit_price": productsList[i].unit_price
+            })
+        }
+        return res.send('criado com sucesso');
     },
 
     async checkout(req, res) {
         MercadoPago.configure({
-            sandbox: false,
+            sandbox: true,
             access_token: process.env.MP_ACCESS_TOKEN
         })
 
@@ -35,7 +49,7 @@ module.exports = {
                     description: 'Esse ta baratin',
                     quantity: 1,
                     currency_id: 'BRL',
-                    unit_price: parseFloat('550.50')
+                    unit_price: parseFloat('0.50')
                 }
             ],
             payer: {
@@ -44,7 +58,7 @@ module.exports = {
             auto_return: 'all',
             external_reference: id,
             back_urls: {
-                success: getFullUrl(req) + '/payments/success',
+                success: getFullUrl(req) + '/order/success',
                 pending: getFullUrl(req) + '/payments/pending',
                 failure: getFullUrl(req) + '/payments/failure',
             }
@@ -52,9 +66,15 @@ module.exports = {
 
         try {
             const preference = await MercadoPago.preferences.create(purchaseOrder)
-            return res.redirect(`${preference.body.init_point}`)
+            return res.send({
+                "url": preference.body.init_point
+            })
         } catch (err) {
             return res.send(err.message)
         }
     },
+
+    async success(req, res) {
+        return res.redirect('https://techbuy-client.herokuapp.com/')
+    }
 }
