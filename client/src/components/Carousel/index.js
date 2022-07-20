@@ -31,9 +31,9 @@ export const Carousel = () => {
             alt="..."
           />
           <div className="carousel-caption h-100">
-            <h2 className="text-light">First slide label</h2>
+            <h2 className="text-light"> Compre os melhores produtos de forma fácil</h2>
             <p className="text-light">
-              Some representative placeholder content for the first slide.
+              produtos novos e usados sempre com as melhores ofertas!
             </p>
           </div>
         </div>
@@ -44,9 +44,9 @@ export const Carousel = () => {
             alt="..."
           />
           <div className="carousel-caption h-100">
-            <h2 className="text-light">Second slide label</h2>
+            <h2 className="text-light">TechBuy</h2>
             <p className="text-light">
-              Some representative placeholder content for the second slide.
+              O market place com as melhores ofertas de eletrônicos para você comprar
             </p>
           </div>
         </div>
