@@ -10,30 +10,6 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addProduct(state, action) {
-      const hasItem = action.payload.cart.find((item) => item.id === action.payload.product.id);
-      
-      if (hasItem) {
-        const newCart = action.payload.cart.map((item) => {
-          if (item.id === action.payload.product.id) {
-            return {
-              ...item,
-              quantity: item.quantity + 1,
-            };
-          }
-          return item;
-        });
-
-        axios.put(`${process.env.REACT_APP_BASE_URL}/products/${action.payload.product.id}`, 
-          {...action.payload.product,
-            quantity: action.payload.product.quantity + 1
-          }
-        )
-        state.products = newCart;
-      } else {
-        axios.post(`${process.env.REACT_APP_BASE_URL}/products`, action.payload.product);
-        state.products.push(action.payload.product);
-      }
-
       const token = localStorage.getItem('TechBuy.token');
 
       axios.post(
