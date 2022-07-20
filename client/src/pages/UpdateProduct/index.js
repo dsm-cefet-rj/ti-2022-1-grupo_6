@@ -191,18 +191,18 @@ export function UpdateProduct() {
             </div>
 
             <div className="form-group my-4">
-              <label htmlFor="novo">Estado do produto</label>
+              <label htmlFor="new">Estado do produto</label>
               <div className="form-check">
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="used"
-                  id="novo"
-                  value="novo"
+                  name="new"
+                  id="new"
+                  value="true"
                   onChange={handleChange}
-                  checked={formData.used === 'novo'}
+                  checked={String(formData.new) === 'true'}
                 />
-                <label className="form-check-label" htmlFor="novo">
+                <label className="form-check-label" htmlFor="new">
                   Novo
                 </label>
               </div>
@@ -210,13 +210,13 @@ export function UpdateProduct() {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="used"
-                  id="usado"
-                  value="usado"
+                  name="new"
+                  id="used"
+                  value="false"
                   onChange={handleChange}
-                  checked={formData.used === 'usado'}
+                  checked={String(formData.new) === 'false'}
                 />
-                <label className="form-check-label" htmlFor="usado">
+                <label className="form-check-label" htmlFor="used">
                   Usado
                 </label>
               </div>

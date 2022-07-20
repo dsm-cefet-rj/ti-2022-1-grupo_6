@@ -168,7 +168,7 @@ export function AddProduct() {
                   id="new"
                   value="true"
                   onChange={handleChange}
-                  checked={formData.new === 'true'}
+                  checked={String(formData.new) === 'true'}
                 />
                 <label className="form-check-label" htmlFor="new">
                   Novo
@@ -182,7 +182,7 @@ export function AddProduct() {
                   id="used"
                   value="false"
                   onChange={handleChange}
-                  checked={formData.new === 'false'}
+                  checked={String(formData.new) === 'false'}
                 />
                 <label className="form-check-label" htmlFor="used">
                   Usado
