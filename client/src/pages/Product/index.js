@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { ProductDetail } from '../../components/ProductDetail';
 import { ProductDetailSkeleton } from '../../components/ProductDetailSkeleton';
+import { PostQuestion } from '../../components/PostQuestion';
 import { DeleteProductModal } from '../../components/DeleteProductModal';
 import { Question } from '../../components/Question';
 import {
@@ -16,17 +17,19 @@ import { selectAuth } from '../../redux/features/authSlice';
 
 export const Product = () => {
   const { slug } = useParams();
-  const { data: product, isFetching } = useFetchProductQuery(slug);
+  const { data: product, isLoading } = useFetchProductQuery(slug);
   const navigate = useNavigate();
 
   const auth = useSelector(selectAuth);
 
-  const [deleteProduct, { isLoading, isUninitialized }] =
-    useDeleteProductMutation();
+  const [
+    deleteProduct,
+    { isLoading: isLoadingDeleteProduct, isUninitialized },
+  ] = useDeleteProductMutation();
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  if (isFetching) return <ProductDetailSkeleton />;
+  if (isLoading) return <ProductDetailSkeleton />;
 
   const handleDeleteProduct = async (productId) => {
     try {
@@ -43,7 +46,7 @@ export const Product = () => {
       <div className="container p-5">
         <ProductDetail product={product} />
 
-        {auth.user && product.user === auth.user._id && (
+        {auth.isAuthenticated && product.user === auth.user._id && (
           <>
             <Link className="btn btn-dark my-4" to={`/products/update/${slug}`}>
               Editar
@@ -83,6 +86,14 @@ export const Product = () => {
               </li>
             ))}
           </ul>
+
+          <div className="d-flex justify-content-center align-items-center mb-4">
+            <div className="dropdown-divider w-75"></div>
+          </div>
+
+          {auth.isAuthenticated && product.user !== auth.user._id && (
+            <PostQuestion productId={product._id} />
+          )}
         </div>
       </div>
 
@@ -90,7 +101,7 @@ export const Product = () => {
         handleDeleteProduct={handleDeleteProduct}
         isDeleteModalOpen={isDeleteModalOpen}
         setIsDeleteModalOpen={setIsDeleteModalOpen}
-        isLoading={isLoading}
+        isLoading={isLoadingDeleteProduct}
         isUninitialized={isUninitialized}
         product={product}
       />

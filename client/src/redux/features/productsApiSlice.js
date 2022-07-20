@@ -93,6 +93,22 @@ export const productsApi = createApi({
         return [{ type: 'Products' }];
       },
     }),
+
+    postQuestion: builder.mutation({
+      query: ({ id, data }) => {
+        return {
+          url: `/products/${id}/questions`,
+          method: 'POST',
+          body: data,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('TechBuy.token')}`,
+          },
+        };
+      },
+      invalidatesTags: (result, error, data) => {
+        return [{ type: 'Products' }];
+      },
+    }),
   }),
 });
 
@@ -104,4 +120,5 @@ export const {
   useUploadProductImageMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  usePostQuestionMutation,
 } = productsApi;

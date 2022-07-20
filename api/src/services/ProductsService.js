@@ -50,9 +50,17 @@ class ProductsService {
 
     if (!product) throw new RequestError('Product does not exists', 404);
 
-    const questionData = { ...data, user };
+    const questionData = {
+      user: {
+        name: user.name,
+        address: user.address,
+        email: user.email,
+      },
+      question: data.question,
+      answer: '',
+    };
 
-    return await this.productsRepository.createQuestion(product, questionData);
+    await this.productsRepository.createQuestion(product, questionData);
   }
 
   async update({ productId, data, user }) {

@@ -4,9 +4,11 @@ export const Question = ({ user, question, owner, answer }) => {
       <p>
         {user.username} - <span className="fw-bold">{question}</span>
       </p>
-      <p>
-        {owner} - {answer}
-      </p>
+      {answer && (
+        <p>
+          {owner} - {answer}
+        </p>
+      )}
     </div>
   );
 };
