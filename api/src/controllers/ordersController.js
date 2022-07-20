@@ -49,7 +49,7 @@ const checkout = async (req) => {
 
 module.exports = {
     async getOrdersItems(req, res) {
-        const { clientId} = req.params.clientId;
+        const { clientId} = req.params;
         const orders = await OrderItems.find({
             buyer: clientId
         }).populate('order').populate('product')
@@ -62,7 +62,7 @@ module.exports = {
     async createOrder(req, res) {
         const { totalPrice, buyer, discount, productsList } = req.body
         const createOrderResponse = await Order.create({
-            totalPrice: totalPrice.toString(),
+            totalPrice: totalPrice * 100,
             buyer: buyer._id.toString()
         })
         const orderId = createOrderResponse._id

@@ -19,8 +19,7 @@ export function SubTotalCart({ cart, totalPrice }) {
     console.log(cart)
 
     const body = {
-      //totalPrice,
-      totalPrice: totalPrice,
+      totalPrice: totalPrice / 100,
       buyer: user,
       productsList: [],
     }
@@ -30,7 +29,7 @@ export function SubTotalCart({ cart, totalPrice }) {
         id: product._id,
         quantity: product.quantity,
         currency_id: 'BRL',
-        unit_price: parseFloat(product.price),
+        unit_price: parseFloat(product.price) / 100,
         title: product.title,
         description: 'teste'
       })
