@@ -18,8 +18,8 @@ orderRoutes.post(
 );
 
 orderRoutes.get(
-    '/success',
-    ordersController.success
+    '/redirect',
+    ordersController.redirect
 )
 
 exports.orderRoutes = orderRoutes;
