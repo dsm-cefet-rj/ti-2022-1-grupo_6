@@ -23,7 +23,7 @@ export const DeleteProductModal = ({
         </Button>
         <Button
           variant="danger"
-          onClick={() => handleDeleteProduct(product.id)}
+          onClick={() => handleDeleteProduct(product._id)}
         >
           {isUninitialized && 'Deletar'}
           {isLoading && (
