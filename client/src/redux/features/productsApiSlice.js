@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BASE_URL
+    baseUrl: process.env.REACT_APP_BASE_URL,
   }),
   tagTypes: ['Products'],
   endpoints: (builder) => ({
@@ -66,6 +66,9 @@ export const productsApi = createApi({
       query: ({ id, data }) => ({
         url: `/products/${id}`,
         method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('TechBuy.token')}`,
+        },
         body: data,
       }),
       invalidatesTags: (result, error, data) => {
@@ -81,9 +84,12 @@ export const productsApi = createApi({
         return {
           url: `/products/${id}`,
           method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('TechBuy.token')}`,
+          },
         };
       },
-      invalidatesTags: (result, error, { data }) => {
+      invalidatesTags: (result, error, data) => {
         return [{ type: 'Products' }];
       },
     }),

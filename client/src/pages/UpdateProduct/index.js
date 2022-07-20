@@ -64,7 +64,7 @@ export function UpdateProduct() {
     };
 
     try {
-      await updateProduct({ id: formData.id, data: product }).unwrap();
+      await updateProduct({ id: formData._id, data: product }).unwrap();
     } catch (error) {
       console.log(error);
     }
