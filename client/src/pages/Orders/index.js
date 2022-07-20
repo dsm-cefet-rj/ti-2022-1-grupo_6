@@ -35,7 +35,10 @@ export function Order() {
 
   return (
     <div className="container">
-      {ordersList.map((order) => (
+      
+      {
+      ordersList.length == 0 ? <h3 className="mt-5">Você ainda não possui pedidos</h3> :
+      ordersList.map((order) => (
         <OrderCard product={order.product} />
       ))}
     </div>

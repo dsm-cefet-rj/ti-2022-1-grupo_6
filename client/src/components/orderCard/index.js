@@ -23,26 +23,15 @@ export function OrderCard({ product }) {
           {formatDate(product.createdAt)}, {product.state}
         </p>
 
-        <div className="quant">
-          <p>Quant:</p>
-
-          <select 
-            className="form-select bg-transparent" 
-            id="quant" 
-            onChange={(e) => {}}
-            defaultValue={product.quantity}
-            required
-          >
-            {Array.from({ length: 4 }, (el, i) => i + 1).map((element, idx) => (
-              <option
-                key={idx}
-              >
-                {element}
-              </option>
-            ))}
-          </select>
-        </div>
+        
       </div>
+      <button className='btn-success button' onClick={() => {
+          window.location.href = "https://api.whatsapp.com/send?phone=5521995706383&text=Ol%C3%A1%2C%20vi%20seu%20an%C3%BAncio%20na%20TechBuy%2C%20gostaria%20de%20oferecer%20uma%20proposta!"
+      }}
+      >
+          <img width={40} src="https://img.icons8.com/color/48/000000/whatsapp--v1.png"/>
+        <p style={{color: 'white'}}>Contatar vendedor</p>
+      </button>
     </div>
   );
 }
