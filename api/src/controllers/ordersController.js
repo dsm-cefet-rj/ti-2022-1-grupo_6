@@ -9,16 +9,14 @@ const OrderItems = require('../models/OrderItems')
 
 const getFullUrl = (req) => {
     const url = req.protocol + '://' + req.get('host')
-    console.log(url)
     return url
 }
 
 const checkout = async (req) => {
-    console.log('#4')
-    const { buyer, productsList} = req.body
+    const { buyer, productsList } = req.body
 
     MercadoPago.configure({
-        sandbox: true,
+        sandbox: false,
         access_token: process.env.MP_ACCESS_TOKEN
     })
 
@@ -37,7 +35,6 @@ const checkout = async (req) => {
             failure: getFullUrl(req) + '/payments/failure',
         }
     }
-    console.log('#5')
     try {
         const preference = await MercadoPago.preferences.create(purchaseOrder)
         return {
@@ -51,10 +48,10 @@ const checkout = async (req) => {
 }
 
 module.exports = {
-    async getOrdersItems(req,res) {
-        const {buyer} = req.body;
+    async getOrdersItems(req, res) {
+        const { clientId} = req.params.clientId;
         const orders = await OrderItems.find({
-            buyer
+            buyer: clientId
         }).populate('order').populate('product')
 
         return res.send({
@@ -63,21 +60,13 @@ module.exports = {
     },
 
     async createOrder(req, res) {
-        const {totalPrice, buyer, discount, productsList} = req.body
-        console.log('#0')
-        console.log(buyer)
-        try{
-            const createOrderResponse = await Order.create({
-                totalPrice: totalPrice.toString(),
-                buyer: buyer._id.toString()
-            })
-        } catch(e) {
-            console.log(e)
-        }
-        console.log('#1')
+        const { totalPrice, buyer, discount, productsList } = req.body
+        const createOrderResponse = await Order.create({
+            totalPrice: totalPrice.toString(),
+            buyer: buyer._id.toString()
+        })
         const orderId = createOrderResponse._id
-        for(let i=0; i<productsList.length; i++) {
-            console.log('#2')
+        for (let i = 0; i < productsList.length; i++) {
             await OrderItems.create({
                 "order": orderId.toString(),
                 "product": productsList[i].id,
@@ -88,11 +77,9 @@ module.exports = {
                 "buyer": buyer._id.toString()
             })
         }
-        console.log('#3')
         const response = await checkout(req);
-        console.log('#6')
-        if(response.url == null) return res.send({"error": "não foi possível obter a url"})
-        return res.send(url);
+        if (response.url == null) return res.send({ "error": "não foi possível obter a url" })
+        return res.send(response);
     },
 
     async success(req, res) {
