@@ -11,11 +11,15 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import './style.module.css';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/features/authSlice';
 
 export const Product = () => {
   const { slug } = useParams();
   const { data: product, isFetching } = useFetchProductQuery(slug);
   const navigate = useNavigate();
+
+  const auth = useSelector(selectAuth);
 
   const [deleteProduct, { isLoading, isUninitialized }] =
     useDeleteProductMutation();
@@ -39,17 +43,21 @@ export const Product = () => {
       <div className="container p-5">
         <ProductDetail product={product} />
 
-        <Link className="btn btn-dark my-4" to={`/products/update/${slug}`}>
-          Editar
-        </Link>
+        {auth.user && product.user === auth.user._id && (
+          <>
+            <Link className="btn btn-dark my-4" to={`/products/update/${slug}`}>
+              Editar
+            </Link>
 
-        <button
-          type="button"
-          className="btn btn-outline-danger ms-3"
-          onClick={() => setIsDeleteModalOpen(true)}
-        >
-          Deletar
-        </button>
+            <button
+              type="button"
+              className="btn btn-outline-danger ms-3"
+              onClick={() => setIsDeleteModalOpen(true)}
+            >
+              Deletar
+            </button>
+          </>
+        )}
 
         <div className="d-flex justify-content-center align-items-center mb-4">
           <div className="dropdown-divider w-75"></div>

@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { AddFavorite } from '../AddFavorite';
-import { useCreateProductMutation } from '../../redux/features/productsApiSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addProduct } from '../../redux/features/cartSlice';
 
 export const ProductDetail = ({ product }) => {
   const [itemCardAdded, setItemCardAdded] = useState(false);
-  const [createProduct] = useCreateProductMutation();
   const dispatch = useDispatch();
 
   async function handleAddCart(e) {

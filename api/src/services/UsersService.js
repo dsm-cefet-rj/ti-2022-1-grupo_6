@@ -31,7 +31,7 @@ class UsersService {
 
     return {
       profile: {
-        id: user.id,
+        _id: user.id,
         username: user.username,
         name: user.name,
         email,
