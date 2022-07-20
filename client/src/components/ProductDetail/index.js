@@ -3,9 +3,12 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { AddFavorite } from '../AddFavorite';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../redux/features/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const ProductDetail = ({ product }) => {
   const [itemCardAdded, setItemCardAdded] = useState(false);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   async function handleAddCart(e) {
@@ -18,6 +21,19 @@ export const ProductDetail = ({ product }) => {
 
     dispatch(addProduct({ product: data }));
     setItemCardAdded(true);
+  }
+
+  const handleBuy = (e) => {
+    e.preventDefault();
+
+    const data = {
+      productId: product._id,
+      quantity: 1,
+    };
+
+    dispatch(addProduct({ product: data }));
+    setItemCardAdded(true);
+    navigate('/cart');
   }
 
   useEffect(() => {
@@ -58,7 +74,7 @@ export const ProductDetail = ({ product }) => {
               </p>
 
               <div>
-                <button className="btn btn-primary mb-3 d-block">
+                <button onClick={handleBuy} className="btn btn-primary mb-3 d-block">
                   Comprar
                 </button>
                 <button
