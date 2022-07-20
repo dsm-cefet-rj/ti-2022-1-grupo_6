@@ -31,10 +31,13 @@ class UsersService {
 
     return {
       profile: {
+        id: user.id,
         username: user.username,
         name: user.name,
         email,
         address: user.address,
+        createdAt: user.createdAt,
+        updatedAt: user.createdAt,
       },
       token,
     };
