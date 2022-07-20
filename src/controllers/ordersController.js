@@ -9,72 +9,81 @@ const OrderItems = require('../models/OrderItems')
 
 const getFullUrl = (req) => {
     const url = req.protocol + '://' + req.get('host')
-    console.log(url)
     return url
 }
 
-module.exports = {
-    async createOrder(req, res) {
-        const {totalPrice, buyer, discount, productsList} = req.body
-        const createOrderResponse = await Order.create({
-            totalPrice: totalPrice.toString(),
-            buyer: buyer.toString()
-        })
-        const orderId = createOrderResponse._id
-        for(let i=0; i<=productsList.length; i++) {
-            console.log(productsList[i])
-            await OrderItems.create({
-                "order": orderId.toString(),
-                "product": productsList[i].id.toString(),
-                "quantity": productsList[i].quantity,
-                "unit_price": productsList[i].unit_price
-            })
+const checkout = async (req) => {
+    const { buyer, productsList } = req.body
+
+    MercadoPago.configure({
+        sandbox: false,
+        access_token: process.env.MP_ACCESS_TOKEN
+    })
+
+    const id = v4()
+
+    const purchaseOrder = {
+        items: productsList,
+        payer: {
+            email: buyer.email
+        },
+        auto_return: 'all',
+        external_reference: id,
+        back_urls: {
+            success: getFullUrl(req) + '/order/success',
+            pending: getFullUrl(req) + '/payments/pending',
+            failure: getFullUrl(req) + '/payments/failure',
         }
-        return res.send('criado com sucesso');
+    }
+    try {
+        const preference = await MercadoPago.preferences.create(purchaseOrder)
+        return {
+            "url": preference.body.init_point
+        }
+    } catch (err) {
+        return {
+            "url": null
+        }
+    }
+}
+
+module.exports = {
+    async getOrdersItems(req, res) {
+        const { clientId} = req.params;
+        console.log()
+        const orders = await OrderItems.find({
+            buyer: clientId
+        }).populate('order').populate('product')
+
+        return res.send({
+            "orders": orders
+        })
     },
 
-    async checkout(req, res) {
-        MercadoPago.configure({
-            sandbox: true,
-            access_token: process.env.MP_ACCESS_TOKEN
+    async createOrder(req, res) {
+        const { totalPrice, buyer, discount, productsList } = req.body
+        const createOrderResponse = await Order.create({
+            totalPrice: totalPrice * 100,
+            buyer: buyer._id.toString()
         })
-
-        const id = v4()
-
-        const purchaseOrder = {
-            items: [
-                {
-                    id,
-                    title: 'Ryzen 3200g',
-                    description: 'Esse ta baratin',
-                    quantity: 1,
-                    currency_id: 'BRL',
-                    unit_price: parseFloat('0.50')
-                }
-            ],
-            payer: {
-                email: 'example@gmail.com'
-            },
-            auto_return: 'all',
-            external_reference: id,
-            back_urls: {
-                success: getFullUrl(req) + '/order/success',
-                pending: getFullUrl(req) + '/payments/pending',
-                failure: getFullUrl(req) + '/payments/failure',
-            }
-        }
-
-        try {
-            const preference = await MercadoPago.preferences.create(purchaseOrder)
-            return res.send({
-                "url": preference.body.init_point
+        const orderId = createOrderResponse._id
+        for (let i = 0; i < productsList.length; i++) {
+            await OrderItems.create({
+                "order": orderId.toString(),
+                "product": productsList[i].id,
+                "quantity": productsList[i].quantity,
+                "unit_price": productsList[i].unit_price,
+                "title": productsList[i].title,
+                "description": productsList[i].description,
+                "buyer": buyer._id.toString()
             })
-        } catch (err) {
-            return res.send(err.message)
         }
+        const response = await checkout(req);
+        if (response.url == null) return res.send({ "error": "não foi possível obter a url" })
+        return res.send(response);
     },
 
     async success(req, res) {
-        return res.redirect('https://techbuy-client.herokuapp.com/')
+        return res.redirect('https://techbuy-client.herokuapp.com/order')
     }
 }
