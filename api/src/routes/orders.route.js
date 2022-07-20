@@ -11,12 +11,6 @@ orderRoutes.get(
     ordersController.getOrdersItems
 );
 
-orderRoutes.get(
-    '/checkout',
-    passport.authenticate('jwt', { session: false }),
-    ordersController.checkout
-);
-
 orderRoutes.post(
     '/', 
     passport.authenticate('jwt', { session: false }),
