@@ -40,6 +40,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/404" element={<NotFound />} />
       </Routes>
+      {/* <Footer/> */}
     </BrowserRouter>
   );
 }
