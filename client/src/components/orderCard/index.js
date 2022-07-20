@@ -1,28 +1,12 @@
 import './style.css';
 import { formatDate } from '../../utils/date';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeProduct, updateProduct } from '../../redux/features/cartSlice';
 
-export function ProductCart({ product }) {
+export function OrderCard({ product }) {
 
-  const formatterBRL = new Intl.NumberFormat('pt-BR', {
+    const formatterBRL = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   });
-
-  const cart = useSelector((state) => state.cart.products);
-  const dispatch = useDispatch();
-
-  function handleRemoveCart() {
-    dispatch(removeProduct({cart, product}));
-  }
-
-  function handleChangeQuant(e) {
-    let newProduct = JSON.parse(JSON.stringify(product));
-    newProduct.quantity = Number(e.target.value);
-
-    dispatch(updateProduct({cart, product: newProduct}));
-  }
 
   return (
     <div className="product line">
@@ -45,7 +29,7 @@ export function ProductCart({ product }) {
           <select 
             className="form-select bg-transparent" 
             id="quant" 
-            onChange={(e) => handleChangeQuant(e)}
+            onChange={(e) => {}}
             defaultValue={product.quantity}
             required
           >
@@ -58,19 +42,6 @@ export function ProductCart({ product }) {
             ))}
           </select>
         </div>
-      </div>
-
-      <div className="remove-button-session">
-        <button
-          className="btn p-0"
-          onClick={() => handleRemoveCart()}
-        >
-          <img
-            src="remove.svg"
-            alt="remover produto"
-            className="remove-button"
-          />
-        </button>
       </div>
     </div>
   );

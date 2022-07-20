@@ -3,17 +3,18 @@ const { Schema } = mongoose;
 //const normalize = require('normalize-mongoose');
 
 const orderSchema = new Schema({
-    unitPrice: {
+    totalPrice: {
         type: Number,
         required: true
     },
-    quantity: {
-        type: Number,
-        required: true
+    buyer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users',
+        required: true,
     },
     discount: {
         type: Number,
-        required: true,
+        required: false,
     }
 })
 

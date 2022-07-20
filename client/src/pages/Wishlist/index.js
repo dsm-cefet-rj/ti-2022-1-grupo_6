@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Favorite } from '../../components/Favorite';
-import { AiOutlineStar, AiOutlinePlusSquare } from 'react-icons/ai';
+import { AiOutlineStar, AiOutlinePlusSquare, AiOutlineUser } from 'react-icons/ai';
 import { useFetchAllWishlistsQuery, useCreateWishlistMutation, useDeleteWishlistMutation } from '../../redux/features/wishlistApiSlice';
 import { selectAuth } from '../../redux/features/authSlice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setIsSignInModalOpen } from '../../redux/features/signInModalSlice';
 import { SignInModal } from '../../components/SignInModal';
 
 export const Wishlist = () => {
   const [favList, setFavList] = useState(0);
   const [inputList, setInputList] = useState(false);
   const [newFav, setNewFav] = useState('')
-  const [signIn, setSignIn] = useState(true);
 
   const auth = useSelector(selectAuth);
+  const dispatch = useDispatch();
   
   const { data: wishlist = [], isFetching, refetch } = useFetchAllWishlistsQuery();
   const [createWishlist, { isLoading, isSuccess, isUninitialized }] = useCreateWishlistMutation();
@@ -26,27 +27,27 @@ export const Wishlist = () => {
     }, 2000)
   }, [auth.isAuthenticated])
 
+  const handleLogIn = () => {
+    dispatch(setIsSignInModalOpen(true))
+  }
+
   if (!auth.isAuthenticated) {
     return (
       <>
         <div className="container mb-3 p-2">
-          <h1>
-            Favoritos{' '}
-            <div
-              className="spinner-border text-secondary"
-              style={{ borderWidth: '0.2rem' }}
-              role="status"
-            ></div>
-            <SignInModal
-            isSignInModalOpen={signIn}
-            setIsSignInModalOpen={setSignIn}/>
-          </h1>
+        <h1 className="mb-3 p-2 mr" style={{ marginLeft: 25 }}>
+          <AiOutlineStar style={{ color: 'limegreen' }} /> Favoritos
+        </h1>
+        <div className="fs-2 p-3 text-center">
+          Você precisa de uma conta para acessar seus Favoritos
+          <div>
+            <button onClick={handleLogIn} className="btn btn-primary btn-lg m-3 fs-3"> <AiOutlineUser className="fs-2"/> Entrar </button>
+          </div>
+        </div>
         </div>
       </>
     );
   }
-
-
 
   const handleChange = (event) => {
     setFavList(event.target.value);

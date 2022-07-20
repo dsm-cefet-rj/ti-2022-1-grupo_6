@@ -6,9 +6,9 @@ const orderRoutes = Router();
 const ordersController = require("../controllers/ordersController");
 
 orderRoutes.get(
-    '/checkout', 
+    '/client-orders/:clientId',
     passport.authenticate('jwt', { session: false }),
-    ordersController.checkout
+    ordersController.getOrdersItems
 );
 
 orderRoutes.post(
@@ -16,5 +16,10 @@ orderRoutes.post(
     passport.authenticate('jwt', { session: false }),
     ordersController.createOrder
 );
+
+orderRoutes.get(
+    '/success',
+    ordersController.success
+)
 
 exports.orderRoutes = orderRoutes;
