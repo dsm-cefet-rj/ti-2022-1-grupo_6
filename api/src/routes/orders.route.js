@@ -6,7 +6,7 @@ const orderRoutes = Router();
 const ordersController = require("../controllers/ordersController");
 
 orderRoutes.get(
-    '/',
+    '/client-orders/:clientId',
     passport.authenticate('jwt', { session: false }),
     ordersController.getOrdersItems
 );
