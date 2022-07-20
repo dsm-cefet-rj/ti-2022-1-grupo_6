@@ -1,0 +1,30 @@
+#loginForm {
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginForm form {
+  background-color: #f4f4f4;
+  padding: 2rem;
+}
+
+#loginForm form label {
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+}
+
+#loginForm div {
+  text-align: center;
+}
+
+#loginForm div input {
+  margin: auto;
+}
+
+#loginForm button {
+  display: inline-block;
+  margin: auto;
+}

@@ -9,7 +9,7 @@ import {
 } from '../../redux/features/productsApiSlice';
 import { Link, useNavigate } from 'react-router-dom';
 
-import './style.css';
+import './style.module.css';
 import { useState } from 'react';
 
 export const Product = () => {

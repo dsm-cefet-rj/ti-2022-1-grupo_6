@@ -193,7 +193,7 @@ p {
 
 .quant {
 	display: flex;
-	justify-content: start;
+	justify-content: flex-start;
 	align-items: center;
 	background: #DDDDDD;
 	border-radius: 4px;

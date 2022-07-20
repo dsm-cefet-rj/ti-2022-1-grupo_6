@@ -29,7 +29,6 @@ export const Favorite = ({ FavSlug, FavId }) => {
     if (window.confirm('Você deseja remover este item dos Favoritos?')) {
       try {
         await removeFavorite({id: FavId, data: {slug}}).unwrap();
-        console.log({id:FavId, data:{slug}})
       } catch (error) {
         console.log(error);
       }

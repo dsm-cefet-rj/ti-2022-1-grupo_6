@@ -16,7 +16,7 @@ const formInitialState = {
   amount: '',
   state: '',
   imageUrl: '',
-  new: true,
+  new: 'true',
   overview: '',
   description: '',
 };
@@ -164,11 +164,11 @@ export function AddProduct() {
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="used"
+                  name="new"
                   id="new"
-                  value="new"
+                  value="true"
                   onChange={handleChange}
-                  checked={formData.new === true}
+                  checked={formData.new === 'true'}
                 />
                 <label className="form-check-label" htmlFor="new">
                   Novo
@@ -180,9 +180,9 @@ export function AddProduct() {
                   type="radio"
                   name="new"
                   id="used"
-                  value="used"
+                  value="false"
                   onChange={handleChange}
-                  checked={formData.new === false}
+                  checked={formData.new === 'false'}
                 />
                 <label className="form-check-label" htmlFor="used">
                   Usado

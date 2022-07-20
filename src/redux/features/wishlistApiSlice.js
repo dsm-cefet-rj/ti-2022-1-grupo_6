@@ -11,13 +11,9 @@ export const wishlistApi = createApi({
     
     fetchWishlist: builder.query({
       query: (id) => `/wishlist/${id}`,
+      providesTags: ["Wishlist"]
     }),
 
-
-    /*fetchAllWishlists: builder.query({
-      query: () => `/wishlist`,
-  
-    }),*/
 
     fetchAllWishlists: builder.query({
       query: () => {
@@ -29,7 +25,8 @@ export const wishlistApi = createApi({
           headers: {Authorization: `Bearer ${token}`}
         }
 
-      }
+      },
+      providesTags: ["Wishlist"]
   
     }),
 
@@ -43,7 +40,8 @@ export const wishlistApi = createApi({
         body: data,
         headers: {Authorization: `Bearer ${token}`}
         }
-      }
+      },
+      invalidatesTags: ['Wishlist']
     }),
 
     createFavorite: builder.mutation({
@@ -56,7 +54,8 @@ export const wishlistApi = createApi({
         body: data,
         headers: {Authorization: `Bearer ${token}`}
         }
-      }
+      },
+      invalidatesTags: ['Wishlist']
     }),
 
     deleteWishlist: builder.mutation({
@@ -68,7 +67,8 @@ export const wishlistApi = createApi({
           method: "DELETE",
           headers: {Authorization: `Bearer ${token}`}
         };
-      }
+      },
+      invalidatesTags: ['Wishlist']
     }),
 
     RemoveFavorite: builder.mutation({
@@ -82,7 +82,8 @@ export const wishlistApi = createApi({
           headers: {Authorization: `Bearer ${token}`}
         };
 
-      }
+      },
+      invalidatesTags: ['Wishlist']
     })
 
   }),

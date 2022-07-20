@@ -1,15 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
 import { SignInModal } from '../SignInModal';
-import { getUser, selectAuth, signOut } from '../../redux/features/authSlice';
+import {
+  getUser,
+  selectAuth,
+  setIsUninitializedToFalse,
+  signOut,
+} from '../../redux/features/authSlice';
+import { setIsSignInModalOpen } from '../../redux/features/signInModalSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './style.css';
 
 export const Header = () => {
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-
   const auth = useSelector(selectAuth);
 
   const dispatch = useDispatch();
@@ -17,6 +21,7 @@ export const Header = () => {
   useEffect(() => {
     const token = localStorage.getItem('TechBuy.token');
     if (token) dispatch(getUser(token));
+    else dispatch(setIsUninitializedToFalse());
   }, []);
 
   const handleLogout = (event) => {
@@ -91,16 +96,30 @@ export const Header = () => {
                   Carrinho <FaShoppingCart />
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? 'nav-link active' : 'nav-link'
-                  }
-                  to="/addproduct"
-                >
-                  Anunciar
-                </NavLink>
-              </li>
+              {auth.isAuthenticated && (
+                <li className="nav-item">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? 'nav-link active' : 'nav-link'
+                    }
+                    to="/addproduct"
+                  >
+                    Anunciar
+                  </NavLink>
+                </li>
+              )}
+              {auth.isAuthenticated && (
+                <li className="nav-item">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? 'nav-link active' : 'nav-link'
+                    }
+                    to="/order"
+                  >
+                    Pedidos
+                  </NavLink>
+                </li>
+              )}
               <li className="nav-item">
                 {auth.isAuthenticated ? (
                   <button className="btn nav-link" onClick={handleLogout}>
@@ -109,7 +128,7 @@ export const Header = () => {
                 ) : (
                   <button
                     className="btn nav-link"
-                    onClick={() => setIsSignInModalOpen(true)}
+                    onClick={() => dispatch(setIsSignInModalOpen(true))}
                   >
                     Login
                   </button>
@@ -120,10 +139,7 @@ export const Header = () => {
         </div>
       </nav>
 
-      <SignInModal
-        isSignInModalOpen={isSignInModalOpen}
-        setIsSignInModalOpen={setIsSignInModalOpen}
-      />
+      <SignInModal />
     </header>
   );
 };
