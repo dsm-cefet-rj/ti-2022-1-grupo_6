@@ -41,6 +41,12 @@ class ProductsRepository {
     const products = await this.Product.find();
     return products;
   }
+
+  async createQuestionAnswer(product, question, data) {
+    question.answer = data;
+
+    await product.save();
+  }
 }
 
 exports.productsRepository = new ProductsRepository();

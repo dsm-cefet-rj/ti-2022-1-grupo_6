@@ -78,10 +78,11 @@ export const Product = () => {
             {product.questions.map((question) => (
               <li key={question.id} className="list-group-item question">
                 <Question
-                  user={question.user}
-                  question={question.question}
+                  question={question}
                   owner={product.owner}
-                  answer={question.answer}
+                  productUser={product.user}
+                  productId={product._id}
+                  authUser={auth.user}
                 />
               </li>
             ))}

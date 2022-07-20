@@ -77,6 +77,19 @@ class ProductsController {
       throw err;
     }
   }
+
+  async createQuestionAnswer(request, response) {
+    const { productId, questionId } = request.params;
+    const { body: data } = request;
+
+    await this.productsService.createQuestionAnswer(
+      productId,
+      questionId,
+      data
+    );
+
+    return response.status(201).json();
+  }
 }
 
 exports.productsController = new ProductsController(productsService);

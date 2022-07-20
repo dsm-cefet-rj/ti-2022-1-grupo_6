@@ -54,4 +54,12 @@ productsRoutes.delete(
   }
 );
 
+productsRoutes.post(
+  '/:productId/questions/:questionId',
+  passport.authenticate('jwt', { session: false }),
+  async (request, response) => {
+    return productsController.createQuestionAnswer(request, response);
+  }
+);
+
 exports.productsRoutes = productsRoutes;

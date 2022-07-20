@@ -83,6 +83,20 @@ class ProductsService {
 
     return imageUrl;
   }
+
+  async createQuestionAnswer(productId, questionId, data) {
+    const product = await this.productsRepository.findById(productId);
+
+    if (!product) throw new RequestError('Product does not exists', 404);
+
+    const question = product.questions.id(questionId);
+
+    await this.productsRepository.createQuestionAnswer(
+      product,
+      question,
+      data.answer
+    );
+  }
 }
 
 exports.productsService = new ProductsService(productsRepository, s3Repository);
