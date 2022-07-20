@@ -8,37 +8,36 @@ import { updateCart } from '../../redux/features/cartSlice';
 import axios from 'axios';
 
 export function Order() {
-  const auth = useSelector(selectAuth); 
+  const auth = useSelector(selectAuth);
   const dispatch = useDispatch();
   const [ordersList, setOrdersList] = useState([]);
 
   useEffect(() => {
-    getOrdersList()
-  }, [])
+    getOrdersList();
+  }, []);
 
   async function getOrdersList() {
     const token = localStorage.getItem('TechBuy.token');
 
-    const user = auth.user
+    const user = auth.user;
 
     const userId = user._id;
 
-    const clientOrders = (await (axios.get(
-      `${process.env.REACT_APP_BASE_URL}/order/client-orders/${userId}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    ))).data  
+    const clientOrders = (
+      await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/order/client-orders/${userId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+    ).data;
 
     setOrdersList(clientOrders.orders);
-  } 
+  }
 
   return (
-    (
-      <div className="container">
-        {ordersList.map((order) => <OrderCard product={order.product} />)}
-        
-      </div>
-    )
-  )
-
-
+    <div className="container OrderContainer">
+      {ordersList.map((order) => (
+        <OrderCard product={order.product} />
+      ))}
+    </div>
+  );
 }
