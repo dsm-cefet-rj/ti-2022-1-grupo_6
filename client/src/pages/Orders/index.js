@@ -1,4 +1,4 @@
-import './style.css';
+import './style.module.css';
 import { OrderCard } from '../../components/orderCard';
 import { useEffect, useState } from 'react';
 import { SubTotalCart } from '../../components/SubTotalCart';
@@ -34,7 +34,7 @@ export function Order() {
   }
 
   return (
-    <div className="container OrderContainer">
+    <div className="container">
       {ordersList.map((order) => (
         <OrderCard product={order.product} />
       ))}
