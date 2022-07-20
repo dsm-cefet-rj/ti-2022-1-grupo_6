@@ -47,6 +47,13 @@ class ProductsRepository {
 
     await product.save();
   }
+
+  async listByQuery(productName) {
+    const query = new RegExp(productName, 'i');
+    const products = await this.Product.find({ title: query });
+
+    return products;
+  }
 }
 
 exports.productsRepository = new ProductsRepository();

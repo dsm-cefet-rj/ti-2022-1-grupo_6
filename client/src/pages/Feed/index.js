@@ -1,9 +1,14 @@
+import { useSelector } from 'react-redux';
 import { Carousel } from '../../components/Carousel';
 import { ProductCard } from '../../components/ProductCard';
+import { selectProductName } from '../../redux/features/productNameSlice';
 import { useFetchProductsQuery } from '../../redux/features/productsApiSlice';
 
 export const Feed = () => {
-  const { data: products = [], isFetching } = useFetchProductsQuery();
+  const { productName } = useSelector(selectProductName);
+
+  const { data: products = [], isFetching } =
+    useFetchProductsQuery(productName);
 
   return (
     <>

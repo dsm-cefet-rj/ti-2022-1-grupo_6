@@ -12,6 +12,7 @@ import { setIsSignInModalOpen } from '../../redux/features/signInModalSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import './style.css';
+import { NavSearch } from '../NavSearch';
 
 export const Header = () => {
   const auth = useSelector(selectAuth);
@@ -49,20 +50,7 @@ export const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <form className="d-flex align-items-center my-2 my-lg-0">
-              <input
-                className="form-control search-input"
-                type="search"
-                placeholder="Busque aqui"
-                aria-label="Search"
-              />
-              <button
-                className="btn btn-outline-primary my-2 my-sm-0"
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
+            <NavSearch />
 
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">

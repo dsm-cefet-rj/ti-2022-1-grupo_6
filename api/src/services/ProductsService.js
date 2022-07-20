@@ -97,6 +97,12 @@ class ProductsService {
       data.answer
     );
   }
+
+  async listByQuery(productName) {
+    const products = await this.productsRepository.listByQuery(productName);
+
+    return products;
+  }
 }
 
 exports.productsService = new ProductsService(productsRepository, s3Repository);

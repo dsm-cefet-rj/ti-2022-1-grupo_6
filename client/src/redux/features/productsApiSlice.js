@@ -8,7 +8,11 @@ export const productsApi = createApi({
   tagTypes: ['Products'],
   endpoints: (builder) => ({
     fetchProducts: builder.query({
-      query: () => `/products`,
+      query: (query = undefined) => {
+        if (!query) return `/products`;
+
+        return `/products?productName=${query}`;
+      },
       // Caching tags
       providesTags: (result) => {
         return result

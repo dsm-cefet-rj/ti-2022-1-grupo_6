@@ -14,7 +14,9 @@ class ProductsController {
   }
 
   async list(request, response) {
-    const products = await this.productsService.list();
+    const { productName } = request.query;
+
+    const products = await this.productsService.listByQuery(productName);
 
     return response.json(products);
   }
