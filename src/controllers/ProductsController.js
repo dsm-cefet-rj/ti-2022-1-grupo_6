@@ -14,7 +14,9 @@ class ProductsController {
   }
 
   async list(request, response) {
-    const products = await this.productsService.list();
+    const { productName } = request.query;
+
+    const products = await this.productsService.listByQuery(productName);
 
     return response.json(products);
   }
@@ -76,6 +78,19 @@ class ProductsController {
     } catch (err) {
       throw err;
     }
+  }
+
+  async createQuestionAnswer(request, response) {
+    const { productId, questionId } = request.params;
+    const { body: data } = request;
+
+    await this.productsService.createQuestionAnswer(
+      productId,
+      questionId,
+      data
+    );
+
+    return response.status(201).json();
   }
 }
 

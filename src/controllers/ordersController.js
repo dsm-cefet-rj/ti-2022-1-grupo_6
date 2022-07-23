@@ -30,9 +30,9 @@ const checkout = async (req) => {
         auto_return: 'all',
         external_reference: id,
         back_urls: {
-            success: getFullUrl(req) + '/order/success',
-            pending: getFullUrl(req) + '/payments/pending',
-            failure: getFullUrl(req) + '/payments/failure',
+            success: getFullUrl(req) + '/order/redirect',
+            pending: getFullUrl(req) + '/order/redirect',
+            failure: getFullUrl(req) + '/order/redirect',
         }
     }
     try {
@@ -50,7 +50,6 @@ const checkout = async (req) => {
 module.exports = {
     async getOrdersItems(req, res) {
         const { clientId} = req.params;
-        console.log()
         const orders = await OrderItems.find({
             buyer: clientId
         }).populate('order').populate('product')
@@ -83,7 +82,7 @@ module.exports = {
         return res.send(response);
     },
 
-    async success(req, res) {
-        return res.redirect('https://techbuy-client.herokuapp.com/order')
+    async redirect(req, res) {
+        return res.redirect('http://localhost:3000/order')
     }
 }

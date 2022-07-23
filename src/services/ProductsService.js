@@ -50,9 +50,17 @@ class ProductsService {
 
     if (!product) throw new RequestError('Product does not exists', 404);
 
-    const questionData = { ...data, user };
+    const questionData = {
+      user: {
+        name: user.name,
+        address: user.address,
+        email: user.email,
+      },
+      question: data.question,
+      answer: '',
+    };
 
-    return await this.productsRepository.createQuestion(product, questionData);
+    await this.productsRepository.createQuestion(product, questionData);
   }
 
   async update({ productId, data, user }) {
@@ -74,6 +82,26 @@ class ProductsService {
     const imageUrl = await this.s3Repository.uploadProductImage(filename);
 
     return imageUrl;
+  }
+
+  async createQuestionAnswer(productId, questionId, data) {
+    const product = await this.productsRepository.findById(productId);
+
+    if (!product) throw new RequestError('Product does not exists', 404);
+
+    const question = product.questions.id(questionId);
+
+    await this.productsRepository.createQuestionAnswer(
+      product,
+      question,
+      data.answer
+    );
+  }
+
+  async listByQuery(productName) {
+    const products = await this.productsRepository.listByQuery(productName);
+
+    return products;
   }
 }
 
